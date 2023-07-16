@@ -1,27 +1,33 @@
 import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import AuthPage from '../pages/AuthPage/AuthPage';
-import NewOrderPage from '../pages/NewOrderPage/NewOrderPage';
-import OrderHistoryPage from '../pages/OrderHistoryPage/OrderHistoryPage';
-import Navbar from '../components/Navbar/Navbar';
+// Import the following components
+import AuthPage from '../../src/pages/AuthPage/AuthPage';
+import NewOrderPage from '../../src/pages/NewOrderPage/NewOrderPage';
+import OrderHistoryPage from '../../src/pages/OrderHistoryPage/OrderHistoryPage';
+import NavBar from '../../src/components/Navbar/Navbar';
+import { getUser } from '../../src/utilities/users-service';
+
 import './App.css';
 
 export default function App() {
-  const [user, setUser] = useState(null);
+
+  const [user, setUser] = useState(getUser());
+
   return (
     <main className="App">
       { user ?
         <>
-          <Navbar />
+          <NavBar element = {user} />
           <Routes>
             <Route path="/orders/new" element={<NewOrderPage />} />
             <Route path="/orders" element={<OrderHistoryPage />} />
           </Routes>
         </>
         :
-        <AuthPage />
+        <AuthPage setUser = {setUser} />
       }
     </main>
   );
+
 }

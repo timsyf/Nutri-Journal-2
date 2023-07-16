@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
+const jwt = require('jsonwebtoken');
 
 // Always require and configure near the top 
 require('dotenv').config();
@@ -18,8 +19,37 @@ app.use(express.json());
 // to serve from the production 'build' folder
 app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'build')));
+
+// Middleware to verify token and assign user object of payload to req.user.
+// Be sure to mount before routes
+app.use(require('./config/checkToken'));
+
+// Check for token in Authorization header or query string
+const checkToken = (req, res, next) => {
+  const token = req.headers['authorization'] || req.query.token;
+  if (!token) {
+    return res.status(401).json({
+      error: 'Unauthorized'
+    });
+  }
+
+  // Verify token
+  try {
+    const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+    req.user = decoded;
+  } catch (err) {
+    return res.status(401).json({
+      error: 'Invalid token'
+    });
+  }
+
+  next();
+};
+
 // Put API routes here, before the "catch all" route
 app.use('/api/users', require('./routes/api/users'));
+app.use(checkToken);
+
 // The following "catch all" route (note the *) is necessary
 // to return the index.html on all non-AJAX requests
 app.get('/*', function(req, res) {
