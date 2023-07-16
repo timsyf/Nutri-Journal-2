@@ -13,5 +13,6 @@ router.get('/check-token', usersCtrl.checkToken);
 
 // POST /api/users
 router.post('/', usersCtrl.create);
+router.post("/login", usersCtrl.login);
 
 module.exports = router;

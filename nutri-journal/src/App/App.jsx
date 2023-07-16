@@ -18,14 +18,14 @@ export default function App() {
     <main className="App">
       { user ?
         <>
-          <NavBar element = {user} />
+          <NavBar element = {user} setUser={setUser} />
           <Routes>
             <Route path="/orders/new" element={<NewOrderPage />} />
             <Route path="/orders" element={<OrderHistoryPage />} />
           </Routes>
         </>
         :
-        <AuthPage setUser = {setUser} />
+        <AuthPage setUser = {setUser} user={user} />
       }
     </main>
   );

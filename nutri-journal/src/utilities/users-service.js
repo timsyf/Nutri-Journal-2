@@ -44,3 +44,13 @@ export async function signUp(userData) {
   export function logOut() {
     localStorage.removeItem("token");
   }
+
+  export async function login(userData) {
+    // Delegate the network request code to the users-api.js API module
+    // which will ultimately return a JSON Web Token (JWT)
+    const token = await usersAPI.login(userData);
+    // Baby step by returning whatever is sent back by the server
+    // Persist the "token"
+    localStorage.setItem("token", token);
+    return getUser();
+  }
