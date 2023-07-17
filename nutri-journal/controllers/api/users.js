@@ -18,26 +18,6 @@ async function create(req, res) {
   }
 }
 
-/*async function setDesc(req, res) {
-  try {
-    // DB Insert operation
-    const query = 'INSERT INTO desc_table ("description") VALUES (test) RETURNING *';
-    //const values = [userId, userName, hashedPassword, userPfp, userEmail, userPhone, userBlk, userStreet, userUnit, userPostal, userBuildingName, userStatus];
-    const result = await pool.query(query);
-
-    const insertedUser = result.rows[0];
-
-    res.status(201).json({
-      message: 'User created successfully',
-      user: insertedUser
-    });
-  } catch (error) {
-    // Handle any errors that occur during the INSERT operation
-    console.error('Error creating user:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-}*/
-
 function createJWT(user) {
   return jwt.sign(
     // data payload
@@ -70,5 +50,4 @@ module.exports = {
   checkToken,
   createJWT,
   login,
-  //setDesc
 };
