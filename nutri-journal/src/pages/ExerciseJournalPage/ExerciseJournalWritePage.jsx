@@ -6,6 +6,9 @@ export default function ExerciseJournalWritePage() {
     const [removeByID, setremoveByID] = useState({});
     const [loading, setLoading] = useState(false);
 
+    const [updateID, setUpdateID] = useState(false);
+    const [updateData, setUpdateData] = useState(false);
+
     const insert = async () => {
         try {
           setLoading(true);
@@ -50,12 +53,42 @@ export default function ExerciseJournalWritePage() {
         }
     };
 
+    const update = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`/exercise/${updateID}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ name: updateData })
+        });
+        if (response.ok) {
+          console.log('Data updated in the database');
+        } else {
+          console.error('Failed to update data in the database:', response.status);
+        }
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
+    };
+
     function handleChange(evt) {
         setExercise({ ...exercise, [evt.target.name]: evt.target.value });
     }
 
     function handleChange2(evt) {
         setremoveByID(evt.target.value);
+    }
+
+    function handleChange3(evt) {
+        setUpdateID(evt.target.value);
+    }
+
+    function handleChange4(evt) {
+        setUpdateData(evt.target.value);
     }
 
     async function handleInsert(evt) {
@@ -69,6 +102,11 @@ export default function ExerciseJournalWritePage() {
         console.log(removeByID);
         remove();
     }
+    
+    async function handleUpdate(evt) {
+      evt.preventDefault();
+      update();
+  }
 
     return (
     <>
@@ -89,6 +127,18 @@ export default function ExerciseJournalWritePage() {
             <form autoComplete="off" onSubmit={handleDelete}>
             <label>ID</label>
             <input type="text" name="id" onChange={handleChange2} required />
+            <button type="submit">Submit</button>
+            </form>
+            {loading ? ( <div>Loading...</div> ) : (<></>)}
+        </div>
+
+        <h1>Update</h1>
+        <div>
+            <form autoComplete="off" onSubmit={handleUpdate}>
+            <label>ID</label>
+            <input type="text" name="id" onChange={handleChange3} required />
+            <label>Name</label>
+            <input type="text" name="name" onChange={handleChange4} required />
             <button type="submit">Submit</button>
             </form>
             {loading ? ( <div>Loading...</div> ) : (<></>)}

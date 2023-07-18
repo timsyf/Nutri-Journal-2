@@ -38,7 +38,7 @@ const listOne = async (req, res) => {
 const deleteOne = async (req, res) => {
   const { id } = req.params;
   try {
-    const exercise = await Exercise.findByIdAndDelete(id);
+    const exercise = await Exercise.findOneAndDelete({ id: id });
     if (!exercise) {
       return res.status(404).json({ message: "User not found." });
     }
@@ -48,9 +48,26 @@ const deleteOne = async (req, res) => {
   }
 };
 
+const updateOne = async (req, res) => {
+  const { id } = req.params;
+  const updatedData = req.body;
+  try {
+    const exercise = await Exercise.findOneAndUpdate({ id: id }, updatedData, {
+      new: true,
+    });
+    if (!exercise) {
+      return res.status(404).json({ message: "User not found." });
+    }
+    res.status(200).json({ message: "User updated successfully." });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 module.exports = {
   create,
   listAll,
   listOne,
-  deleteOne
+  deleteOne,
+  updateOne
 };
