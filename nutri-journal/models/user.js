@@ -15,9 +15,9 @@ const userSchema = new Schema({
     password: {
         type: String,
         trim: true,
-        minLength: 3,
+        minLength: 2,
         required: true
-      }
+    },
     }, {
         timestamps: true,
         // Even though it's hashed - don't serialize the password

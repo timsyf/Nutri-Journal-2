@@ -15,9 +15,26 @@ export default function NavBar(user, setUser) {
   return (
     <>
       <nav>
-        <Link to="/orders">Order History</Link>
-        &nbsp; | &nbsp;
-        <Link to="/orders/new">New Order</Link>
+        <ul>
+          <li>
+            <Link to="/">My Home</Link>
+          </li>
+          {/* FOOD JOURNAL */}
+          <li>
+            <li><Link to="/food">Food Journal</Link></li>
+            <ul>
+              <li><Link to="/food/write">Write</Link></li>
+            </ul>
+          </li>
+
+          {/* EXERCISE JOURNAL */}
+          <li>
+            <li><Link to="/exercise">Exercise Journal</Link></li>
+            <ul>
+              <li><Link to="/exercise/write">Write</Link></li>
+            </ul>
+          </li>
+        </ul>
       </nav>
       <p>Welcome, {user.element.name}!</p>
       <Link to="" onClick={handleLogOut}>Log Out</Link>

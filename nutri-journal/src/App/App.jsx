@@ -3,12 +3,15 @@ import { Routes, Route } from 'react-router-dom';
 
 // Import the following components
 import AuthPage from '../../src/pages/AuthPage/AuthPage';
-import NewOrderPage from '../../src/pages/NewOrderPage/NewOrderPage';
-import OrderHistoryPage from '../../src/pages/OrderHistoryPage/OrderHistoryPage';
+import HomePage from '../../src/pages/HomePage/HomePage';
 import NavBar from '../../src/components/Navbar/Navbar';
 import { getUser } from '../../src/utilities/users-service';
 
 import './App.css';
+import FoodJournalPage from '../pages/FoodJournalPage/FoodJournalPage';
+import ExerciseJournalPage from '../pages/ExerciseJournalPage/ExerciseJournalPage';
+import ExerciseJournalWritePage from '../pages/ExerciseJournalPage/ExerciseJournalWritePage';
+import FoodJournalWritePage from '../pages/FoodJournalPage/FoodJournalWritePage';
 
 export default function App() {
 
@@ -20,8 +23,13 @@ export default function App() {
         <>
           <NavBar element = {user} setUser={setUser} />
           <Routes>
-            <Route path="/orders/new" element={<NewOrderPage />} />
-            <Route path="/orders" element={<OrderHistoryPage />} />
+            <Route path="/" element={<HomePage />} />
+
+            <Route path="/food" element={<FoodJournalPage />} />
+            <Route path="/food/write" element={<FoodJournalWritePage />} />
+
+            <Route path="/exercise" element={<ExerciseJournalPage />} />
+            <Route path="/exercise/write" element={<ExerciseJournalWritePage />} />
           </Routes>
         </>
         :

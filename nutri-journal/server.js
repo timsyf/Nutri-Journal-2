@@ -10,6 +10,10 @@ require('dotenv').config();
 // Connect to the database
 require('./config/database');
 
+var exercisesRouter = require('./routes/api/exercise');
+var foodsRouter = require('./routes/api/food');
+var mealsRouter = require('./routes/api/meal');
+
 const app = express();
 
 app.use(logger('dev'));
@@ -20,12 +24,8 @@ app.use(express.json());
 app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'build')));
 
-// Middleware to verify token and assign user object of payload to req.user.
-// Be sure to mount before routes
-app.use(require('./config/checkToken'));
-
 // Check for token in Authorization header or query string
-const checkToken = (req, res, next) => {
+/*const checkToken = (req, res, next) => {
   const token = req.headers['authorization'] || req.query.token;
   if (!token) {
     return res.status(401).json({
@@ -42,19 +42,26 @@ const checkToken = (req, res, next) => {
       error: 'Invalid token'
     });
   }
-
   next();
-};
-
-// Put API routes here, before the "catch all" route
-app.use('/api/users', require('./routes/api/users'));
-app.use(checkToken);
+};*/
 
 // The following "catch all" route (note the *) is necessary
 // to return the index.html on all non-AJAX requests
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+//app.get('/*', function(req, res) {
+//  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+//});
+
+// Middleware to verify token and assign user object of payload to req.user.
+// Be sure to mount before routes
+app.use(require('./config/checkToken'));
+
+// Put API routes here, before the "catch all" route
+app.use('/api/users', require('./routes/api/users'));
+//app.use(checkToken);
+
+app.use('/exercise', exercisesRouter);
+app.use('/food', foodsRouter);
+app.use('/meal', mealsRouter);
 
 // Configure to use port 3001 instead of 3000 during
 // development to avoid collision with React's dev server
