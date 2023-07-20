@@ -7,11 +7,12 @@ import HomePage from '../../src/pages/HomePage/HomePage';
 import NavBar from '../../src/components/Navbar/Navbar';
 import { getUser } from '../../src/utilities/users-service';
 
-import './App.css';
 import FoodJournalPage from '../pages/FoodJournalPage/FoodJournalPage';
 import ExerciseJournalPage from '../pages/ExerciseJournalPage/ExerciseJournalPage';
 import ExerciseJournalWritePage from '../pages/ExerciseJournalPage/ExerciseJournalWritePage';
 import FoodJournalWritePage from '../pages/FoodJournalPage/FoodJournalWritePage';
+
+import './App.css';
 
 export default function App() {
 

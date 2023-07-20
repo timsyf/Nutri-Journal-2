@@ -12,8 +12,6 @@ export default function AuthPage({setUser}) {
 
   return (
     <main>
-      <h1>Welcome!</h1>
-      <p>Login or Sign Up to continue</p>
       {showLoginForm ? (
         <>
           <LoginForm setUser={setUser} />
