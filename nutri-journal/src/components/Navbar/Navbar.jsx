@@ -17,26 +17,17 @@ export default function NavBar(user, setUser) {
       <nav>
         <ul>
           <li>
-            <Link to="/">My Home</Link>
+            <Link to="/">Nutri Journal</Link>
           </li>
           {/* FOOD JOURNAL */}
-          <li>
-            <li><Link to="/food">Food Journal</Link></li>
-            <ul>
-              <li><Link to="/food/write">Write</Link></li>
-            </ul>
-          </li>
+            <li><Link to="/food">Food</Link></li>
+            <li><Link to="/food/write">Food Write</Link></li>
 
           {/* EXERCISE JOURNAL */}
-          <li>
-            <li><Link to="/exercise">Exercise Journal</Link></li>
-            <ul>
-              <li><Link to="/exercise/write">Write</Link></li>
-            </ul>
-          </li>
+            <li><Link to="/exercise">Exercise</Link></li>
+            <li><Link to="/exercise/write">Exercise Write</Link></li>
         </ul>
       </nav>
-      <p>Welcome, {user.element.name}!</p>
       <Link to="" onClick={handleLogOut}>Log Out</Link>
     </>
   );

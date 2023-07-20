@@ -4,6 +4,8 @@ const foodsCtrl = require('../../controllers/api/foods')
 
 router.post("/", foodsCtrl.create);
 router.get('/', foodsCtrl.listAll);
-router.get('/:id', foodsCtrl.listOne);
+router.get('/:_id', foodsCtrl.listSearch);
+router.delete('/:_id', foodsCtrl.deleteOne);
+router.put('/:_id', foodsCtrl.updateOne);
 
 module.exports = router;

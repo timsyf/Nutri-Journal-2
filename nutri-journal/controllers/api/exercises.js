@@ -1,16 +1,18 @@
 const Exercise = require("../../models/exercise");
+const uuid = require('uuid');
 
 const create = async (req, res) => {
-  if (req.body === undefined) {
-    res
-      .status(400)
-      .json({ message: "No exercise details has been detected." });
-  } else {
-    try {
-      const exercise = await Exercise.create(req.body);
-      res.status(200).json(exercise);
-    } catch (err) {
-      res.status(500).json({ err });
+  try {
+    const foodData = req.body;
+    const food = await Food.create(foodData);
+    res.status(201).json(food);
+  } catch (error) {
+    if (error.name === 'ValidationError') {
+      res.status(400).json({ error: error.message });
+    } else if (error.code === 11000 && error.keyPattern && error.keyPattern.name === 1) {
+      res.status(409).json({ error: 'Food with the same name already exists.' });
+    } else {
+      res.status(500).json({ error: 'Something went wrong.' });
     }
   }
 };
@@ -28,7 +30,7 @@ const listAll = async (req, res) => {
 const listOne = async (req, res) => {
   const { id } = req.params;
   try {
-    const exercise = await Exercise.findById(id);
+    const exercise = await Exercise.findById( id );
     res.status(200).json(exercise);
   } catch (err) {
     res.status(500).json({ err });
@@ -38,11 +40,11 @@ const listOne = async (req, res) => {
 const deleteOne = async (req, res) => {
   const { id } = req.params;
   try {
-    const exercise = await Exercise.findOneAndDelete({ id: id });
+    const exercise = await Exercise.findOneAndDelete({ id });
     if (!exercise) {
-      return res.status(404).json({ message: "User not found." });
+      return res.status(404).json({ message: "Exercise not found." });
     }
-    res.status(200).json({ message: "User deleted successfully." });
+    res.status(200).json({ message: "Exercise deleted successfully." });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -52,13 +54,13 @@ const updateOne = async (req, res) => {
   const { id } = req.params;
   const updatedData = req.body;
   try {
-    const exercise = await Exercise.findOneAndUpdate({ id: id }, updatedData, {
+    const exercise = await Exercise.findOneAndUpdate({ id }, updatedData, {
       new: true,
     });
     if (!exercise) {
-      return res.status(404).json({ message: "User not found." });
+      return res.status(404).json({ message: "Exercise not found." });
     }
-    res.status(200).json({ message: "User updated successfully." });
+    res.status(200).json({ message: "Exercise updated successfully." });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

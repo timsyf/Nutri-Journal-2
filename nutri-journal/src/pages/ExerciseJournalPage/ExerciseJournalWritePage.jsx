@@ -108,7 +108,7 @@ export default function ExerciseJournalWritePage() {
       update();
   }
 
-    return (
+  return (
     <>
         <h1>Exercise Journal Write Page</h1>
         <div>
