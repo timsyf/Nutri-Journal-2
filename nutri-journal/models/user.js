@@ -22,10 +22,6 @@ const userSchema = new Schema({
       type: Boolean,
       default: false,
     },
-    isAdmin: {
-      type: Boolean,
-      default: false,
-    },
     }, {
         timestamps: true,
         // Even though it's hashed - don't serialize the password

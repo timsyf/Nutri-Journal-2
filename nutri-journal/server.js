@@ -12,7 +12,7 @@ require('./config/database');
 
 var exercisesRouter = require('./routes/api/exercise');
 var foodsRouter = require('./routes/api/food');
-var mealsRouter = require('./routes/api/meal');
+var mealsRouter = require('./routes/api/mealRegimen');
 
 const app = express();
 

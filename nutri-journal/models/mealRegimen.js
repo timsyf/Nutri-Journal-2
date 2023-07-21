@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const userWeightLogsSchema = new Schema({
+const mealRegimenSchema = new Schema({
     userId: { type: Schema.Types.ObjectId, ref:"User" },
-    weight: { type: String, required: true, min: 0 },
+    foodId: { type: Schema.Types.ObjectId, ref:"Food" },
+    type: { type: String, required: true },
     date: { type: Date, required: true, default: getCurrentTime() },
 }, {
     timestamps: true,
@@ -16,4 +17,4 @@ function getCurrentTime() {
     return `${hours}:${minutes}`;
 }
 
-module.exports = mongoose.model('UserWeightLogs', userWeightLogsSchema);
+module.exports = mongoose.model('MealRegimen', mealRegimenSchema);

@@ -1,4 +1,4 @@
-const Meal = require("../../models/meal");
+const mealRegimen = require("../../models/mealRegimen");
 
 const create = async (req, res) => {
   if (req.body === undefined) {
@@ -7,7 +7,7 @@ const create = async (req, res) => {
       .json({ message: "No meal details has been detected." });
   } else {
     try {
-      const meal = await Meal.create(req.body);
+      const meal = await mealRegimen.create(req.body);
       res.status(200).json(meal);
     } catch (err) {
       res.status(500).json({ err });
@@ -17,7 +17,7 @@ const create = async (req, res) => {
 
 const listAll = async (req, res) => {
   try {
-    const meals = await Meal.find();
+    const meals = await mealRegimen.find();
     res.json(meals);
   } catch (error) {
     console.error(error);
@@ -28,7 +28,7 @@ const listAll = async (req, res) => {
 const listOne = async (req, res) => {
   const { id } = req.params;
   try {
-    const meal = await Meal.findById(id);
+    const meal = await mealRegimen.findById(id);
     res.status(200).json(meal);
   } catch (err) {
     res.status(500).json({ err });

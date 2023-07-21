@@ -20,18 +20,25 @@ const listAll = async (req, res) => {
   }
 };
 
-const listSearch = async (req, res) => {
+const listSome = async (req, res) => {
   const { _id, name } = req.query;
-  const query = {
-    ...( _id && { _id } ),
-    ...( name && { name: { $regex: new RegExp(name, 'i') } }),
-  };
 
   try {
-    const foods = await Food.find(query);
-    res.status(200).json(foods);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    let filter = {};
+
+    if (name) {
+      filter.name = name;
+    }
+
+    if (_id) {
+      filter._id = _id;
+    }
+
+    const foods = await Food.find(filter);
+    res.json(foods);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
@@ -67,7 +74,7 @@ const updateOne = async (req, res) => {
 module.exports = {
   create,
   listAll,
-  listSearch,
+  listSome,
   deleteOne,
   updateOne
 };
