@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import FoodJournalWritePage from './FoodJournalWritePage';
+import FoodJournalAdminPanel from './FoodJournalAdminPanel';
 
 export default function FoodJournalPage() {
 
@@ -67,6 +67,10 @@ export default function FoodJournalPage() {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleSearchedEntries = (evt) => {
+    evt.preventDefault();
+  }
+
   const handleCopy = (evt) => {
     navigator.clipboard.writeText(evt.target.name);
   };
@@ -105,9 +109,9 @@ export default function FoodJournalPage() {
           {food.map((food) => (
             <tr key={food._id}>
               <td>
-                <div class="tooltip">
-                <button name={food._id} onClick={handleCopy} onmouseout="outFunc()">
-                  <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+                <div className="tooltip">
+                <button name={food._id} onClick={handleCopy}>
+                  <span className="tooltiptext" id="myTooltip">Copy to clipboard</span>
                   Copy
                   </button>
                 </div>
@@ -139,10 +143,12 @@ export default function FoodJournalPage() {
 
   return (
     <div>
-      <FoodJournalWritePage fetchAllEntries={fetchAllEntries} />
+      <FoodJournalAdminPanel fetchAllEntries={fetchAllEntries} />
       <h1>Food Database</h1>
-      <input type="text" placeholder="Name" name="name" value={formData.name} onChange={handleSearchChange} />
-      <button type='submit' onClick={fetchSearchedEntries}>Submit</button>
+      <form autoComplete="off" onSubmit={handleSearchedEntries}>
+        <input type="text" placeholder="Name" name="name" value={formData.name} onChange={handleSearchChange} />
+        <button type='submit' onClick={fetchSearchedEntries}>Submit</button>
+      </form>
       {loading ? <div>Loading...</div> : renderTable()}
     </div>
   );

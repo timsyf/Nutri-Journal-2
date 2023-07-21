@@ -21,7 +21,6 @@ export default function NavBar(user, setUser) {
           </li>
           {/* FOOD JOURNAL */}
             <li><Link to="/food">Food</Link></li>
-            <li><Link to="/food/write">Food Write</Link></li>
 
           {/* EXERCISE JOURNAL */}
             <li><Link to="/exercise">Exercise</Link></li>

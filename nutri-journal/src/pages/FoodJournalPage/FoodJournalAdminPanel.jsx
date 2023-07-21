@@ -5,7 +5,7 @@ export default function FoodJournalWritePage(props) {
   
     const { fetchAllEntries } = props;
     const [loading, setLoading] = useState(false);
-    const [formState, setFormState] = useState({
+    const [formStateInsert, setFormStateInsert] = useState({
       name: '',
       carbohydrate: 0,
       protein: 0,
@@ -25,9 +25,28 @@ export default function FoodJournalWritePage(props) {
       iron: 0,
     });
 
-    const [removeID, setRemoveID] = useState({});
-    const [updateID, setUpdateID] = useState(false);
-    const [updateData, setUpdateName] = useState(false);
+    const [formStateUpdate, setFormStateUpdate] = useState({
+      name: '',
+      carbohydrate: 0,
+      protein: 0,
+      fat: 0,
+      trans_Fat: 0,
+      saturated_Fat: 0,
+      polyunsaturated_Fat: 0,
+      monounsaturated_Fat: 0,
+      cholesterol: 0,
+      sodium: 0,
+      potassium: 0,
+      fiber: 0,
+      sugar: 0,
+      vitamin_A: 0,
+      vitamin_C: 0,
+      calcium: 0,
+      iron: 0,
+    });
+
+    const [removeID, setRemoveID] = useState([]);
+    const [updateID, setUpdateID] = useState([]);
 
     const insert = async () => {
         try {
@@ -37,7 +56,7 @@ export default function FoodJournalWritePage(props) {
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify(formState)
+            body: JSON.stringify(formStateInsert)
           });
           if (response.ok) {
             const data = await response.json();
@@ -79,20 +98,28 @@ export default function FoodJournalWritePage(props) {
     const update = async () => {
       try {
         setLoading(true);
+    
+        // Filter out empty fields from the formStateUpdate
+        const filteredUpdate = Object.fromEntries(
+          Object.entries(formStateUpdate).filter(([key, value]) => value !== '')
+        );
+    
         const response = await fetch(`/food/${updateID}`, {
           method: 'PUT',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ name: updateData })
+          body: JSON.stringify(filteredUpdate), // Use the filtered update object
         });
+    
         if (response.ok) {
           console.log('Data updated in the database');
         } else {
           console.error('Failed to update data in the database:', response.status);
         }
+    
         setLoading(false);
-        fetchAllEntries();
+        fetchAllEntries(); // Assuming you have the fetchAllEntries function to fetch all entries again after the update
       } catch (error) {
         console.error(error);
         setLoading(false);
@@ -102,13 +129,13 @@ export default function FoodJournalWritePage(props) {
     // INSERT
     async function handleInsert(evt) {
         evt.preventDefault();
-        console.log(formState);
+        console.log(formStateInsert);
         insert();
     }
     
     const handleInsertChange = (evt) => {
       const { name, value } = evt.target;
-      setFormState((prevState) => ({
+      setFormStateInsert((prevState) => ({
         ...prevState,
         [name]: value,
       }));
@@ -135,8 +162,13 @@ export default function FoodJournalWritePage(props) {
       setUpdateID(evt.target.value);
   }
 
-  function handleUpdateChangeName(evt) {
-      setUpdateName(evt.target.value);
+  function handleUpdateChangeData(evt) {
+    const { name, value } = evt.target;
+    setFormStateUpdate((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+    console.log(formStateUpdate);
   }
 
   function capitalizeFirstLetter(str) {
@@ -145,37 +177,44 @@ export default function FoodJournalWritePage(props) {
 
   return (
     <>
+        {loading ? ( <div>Loading...</div> ) : (<></>)}
         <h1>Admin Create</h1>
         <div>
             <form autoComplete="off" onSubmit={handleInsert}>
             <input type="text" name="name" placeholder='Name' onChange={handleInsertChange} required />
             {allNutrients.map((nutrient) => (
-              <>
-                <input type='text' placeholder={capitalizeFirstLetter(nutrient)} name={nutrient} onChange={handleInsertChange}></input>
-              </>
+              <input type='text' placeholder={capitalizeFirstLetter(nutrient)} name={nutrient} onChange={handleInsertChange}></input>
             ))}
+            <br></br>
+            <br></br>
             <button type="submit">Submit</button>
             </form>
-            {loading ? ( <div>Loading...</div> ) : (<></>)}
         </div>
 
         <h1>Admin Delete</h1>
         <div>
             <form autoComplete="off" onSubmit={handleDelete}>
             <input type="text" name="id" placeholder='ID' onChange={handleDeleteChange} required />
+            <br></br>
+            <br></br>
             <button type="submit">Submit</button>
             </form>
-            {loading ? ( <div>Loading...</div> ) : (<></>)}
         </div>
 
         <h1>Admin Update</h1>
         <div>
             <form autoComplete="off" onSubmit={handleUpdate}>
             <input type="text" name="id" placeholder='ID' onChange={handleUpdateChangeID} required />
-            <input type="text" name="name" placeholder='Name' onChange={handleUpdateChangeName} required />
+            <br></br>
+            <br></br>
+            <input type="text" name="name" placeholder='Name' onChange={handleUpdateChangeData} required />
+            {allNutrients.map((nutrient) => (
+              <input type='text' placeholder={capitalizeFirstLetter(nutrient)} name={nutrient} onChange={handleUpdateChangeData}></input>
+            ))}
+            <br></br>
+            <br></br>
             <button type="submit">Submit</button>
             </form>
-            {loading ? ( <div>Loading...</div> ) : (<></>)}
         </div>
     </>
   );

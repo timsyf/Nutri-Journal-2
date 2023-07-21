@@ -10,7 +10,7 @@ import { getUser } from '../../src/utilities/users-service';
 import FoodJournalPage from '../pages/FoodJournalPage/FoodJournalPage';
 import ExerciseJournalPage from '../pages/ExerciseJournalPage/ExerciseJournalPage';
 import ExerciseJournalWritePage from '../pages/ExerciseJournalPage/ExerciseJournalWritePage';
-import FoodJournalWritePage from '../pages/FoodJournalPage/FoodJournalWritePage';
+import FoodJournalWritePage from '../pages/FoodJournalPage/FoodJournalAdminPanel';
 
 import './App.css';
 
