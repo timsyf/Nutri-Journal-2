@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import FoodJournalWritePage from './FoodJournalWritePage';
 
 export default function FoodJournalPage() {
 
-  const [formData, setFormData] = useState({ id: '', name: '' });
+  const [formData, setFormData] = useState({ name: '' });
   const [food, setFood] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const _id = searchParams.get('_id');
   const name = searchParams.get('name');
 
 
@@ -31,11 +31,24 @@ export default function FoodJournalPage() {
     fetchAllEntries();
   }, []);
 
+  const fetchAllEntries = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/food');
+      const data = await response.json();
+      setFood(data);
+      setLoading(false);
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setLoading(false);
+    }
+  };
+
   const fetchSearchedEntries = async () => {
     try {
       setLoading(true);
       const query = new URLSearchParams({
-        _id: formData.id,
         name: formData.name,
       });
       const response = await fetch('/food/search?' + query.toString());
@@ -43,7 +56,6 @@ export default function FoodJournalPage() {
       setFood(data);
       console.log(data);
       setLoading(false);
-      navigate('/food?' + query.toString());
     } catch (error) {
       console.error('Error fetching data:', error);
       setLoading(false);
@@ -53,6 +65,10 @@ export default function FoodJournalPage() {
   const handleSearchChange = (evt) => {
     const { name, value } = evt.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleCopy = (evt) => {
+    navigator.clipboard.writeText(evt.target.name);
   };
 
   const renderTable = () => {
@@ -65,6 +81,7 @@ export default function FoodJournalPage() {
       <table>
         <thead>
           <tr>
+            <th>ID</th>
             <th>Name</th>
             <th>Carbohydrate</th>
             <th>Protein</th>
@@ -87,21 +104,29 @@ export default function FoodJournalPage() {
         <tbody>
           {food.map((food) => (
             <tr key={food._id}>
+              <td>
+                <div class="tooltip">
+                <button name={food._id} onClick={handleCopy} onmouseout="outFunc()">
+                  <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+                  Copy
+                  </button>
+                </div>
+              </td>
               <td>{food.name}</td>
               <td>{food.carbohydrate} g</td>
               <td>{food.protein} g</td>
               <td>{food.fat} g</td>
-              <td>{food.transFat} g</td>
-              <td>{food.saturatedFat} g</td>
-              <td>{food.polyunsaturatedFat} g</td>
-              <td>{food.monounsaturatedFat} g</td>
+              <td>{food.trans_Fat} g</td>
+              <td>{food.saturated_Fat} g</td>
+              <td>{food.polyunsaturated_Fat} g</td>
+              <td>{food.monounsaturated_Fat} g</td>
               <td>{food.cholesterol} mg</td>
               <td>{food.sodium} mg</td>
               <td>{food.potassium} mg</td>
               <td>{food.fiber} g</td>
               <td>{food.sugar} g</td>
-              <td>{food.vitaminA} IU</td>
-              <td>{food.vitaminC} mg</td>
+              <td>{food.vitamin_A} IU</td>
+              <td>{food.vitamin_C} mg</td>
               <td>{food.calcium} mg</td>
               <td>{food.iron} mg</td>
             </tr>
@@ -114,8 +139,8 @@ export default function FoodJournalPage() {
 
   return (
     <div>
+      <FoodJournalWritePage fetchAllEntries={fetchAllEntries} />
       <h1>Food Database</h1>
-      <input type="text" placeholder="ID" name="id" value={formData.id} onChange={handleSearchChange} />
       <input type="text" placeholder="Name" name="name" value={formData.name} onChange={handleSearchChange} />
       <button type='submit' onClick={fetchSearchedEntries}>Submit</button>
       {loading ? <div>Loading...</div> : renderTable()}

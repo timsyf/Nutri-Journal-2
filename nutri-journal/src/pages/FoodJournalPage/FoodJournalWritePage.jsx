@@ -1,32 +1,31 @@
 import { useState } from 'react';
 import { allNutrients } from '../../components/Data/Data';
 
-export default function FoodJournalWritePage() {
-
+export default function FoodJournalWritePage(props) {
+  
+    const { fetchAllEntries } = props;
     const [loading, setLoading] = useState(false);
-
     const [formState, setFormState] = useState({
       name: '',
-        carbohydrate: 0,
-        protein: 0,
-        fat: 0,
-        transFat: 0,
-        saturatedFat: 0,
-        polyunsaturatedFat: 0,
-        monounsaturatedFat: 0,
-        cholesterol: 0,
-        sodium: 0,
-        potassium: 0,
-        fiber: 0,
-        sugar: 0,
-        vitaminA: 0,
-        vitaminC: 0,
-        calcium: 0,
-        iron: 0,
+      carbohydrate: 0,
+      protein: 0,
+      fat: 0,
+      trans_Fat: 0,
+      saturated_Fat: 0,
+      polyunsaturated_Fat: 0,
+      monounsaturated_Fat: 0,
+      cholesterol: 0,
+      sodium: 0,
+      potassium: 0,
+      fiber: 0,
+      sugar: 0,
+      vitamin_A: 0,
+      vitamin_C: 0,
+      calcium: 0,
+      iron: 0,
     });
 
     const [removeID, setRemoveID] = useState({});
-
     const [updateID, setUpdateID] = useState(false);
     const [updateData, setUpdateName] = useState(false);
 
@@ -47,6 +46,7 @@ export default function FoodJournalWritePage() {
             console.error('Failed to store data in the database:', response.status);
           }
           setLoading(false);
+          fetchAllEntries();
         } catch (error) {
           console.error(error);
           setLoading(false);
@@ -68,6 +68,8 @@ export default function FoodJournalWritePage() {
             console.error('Failed to delete data from the database:', response.status);
           }
           setLoading(false);
+          console.log(removeID);
+          fetchAllEntries();
         } catch (error) {
           console.error(error);
           setLoading(false);
@@ -90,6 +92,7 @@ export default function FoodJournalWritePage() {
           console.error('Failed to update data in the database:', response.status);
         }
         setLoading(false);
+        fetchAllEntries();
       } catch (error) {
         console.error(error);
         setLoading(false);
@@ -136,17 +139,19 @@ export default function FoodJournalWritePage() {
       setUpdateName(evt.target.value);
   }
 
+  function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
   return (
     <>
-        <h1>Food Journal Write Page</h1>
+        <h1>Admin Create</h1>
         <div>
             <form autoComplete="off" onSubmit={handleInsert}>
             <input type="text" name="name" placeholder='Name' onChange={handleInsertChange} required />
-            <br></br>
             {allNutrients.map((nutrient) => (
               <>
-                <input type='text' placeholder={nutrient} name={nutrient} onChange={handleInsertChange}></input>
-                <br></br>
+                <input type='text' placeholder={capitalizeFirstLetter(nutrient)} name={nutrient} onChange={handleInsertChange}></input>
               </>
             ))}
             <button type="submit">Submit</button>
@@ -154,7 +159,7 @@ export default function FoodJournalWritePage() {
             {loading ? ( <div>Loading...</div> ) : (<></>)}
         </div>
 
-        <h1>Delete</h1>
+        <h1>Admin Delete</h1>
         <div>
             <form autoComplete="off" onSubmit={handleDelete}>
             <input type="text" name="id" placeholder='ID' onChange={handleDeleteChange} required />
@@ -163,7 +168,7 @@ export default function FoodJournalWritePage() {
             {loading ? ( <div>Loading...</div> ) : (<></>)}
         </div>
 
-        <h1>Update</h1>
+        <h1>Admin Update</h1>
         <div>
             <form autoComplete="off" onSubmit={handleUpdate}>
             <input type="text" name="id" placeholder='ID' onChange={handleUpdateChangeID} required />

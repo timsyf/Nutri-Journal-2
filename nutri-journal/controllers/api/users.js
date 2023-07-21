@@ -4,23 +4,16 @@ const bcrypt = require('bcrypt');
 
 async function create(req, res) {
   try {
-    // Add the user to the database
     const user = await User.create(req.body);
-    // token will be a string
     const token = createJWT(user);
-    // Yes, we can use res.json to send back just a string
-    // The client code needs to take this into consideration
     res.json(token);
   } catch (err) {
-    // Client will check for non-2xx status code 
-    // 400 = Bad Request
     res.status(400).json(err);
   }
 }
 
 function createJWT(user) {
   return jwt.sign(
-    // data payload
     { user },
     process.env.SECRET,
     { expiresIn: '24h' }
@@ -28,7 +21,6 @@ function createJWT(user) {
 }
 
 function checkToken(req, res) {
-  // req.user will always be there for you when a token is sent
   console.log('req.user', req.user);
   res.json(req.exp);
 }
@@ -45,9 +37,20 @@ async function login(req, res) {
   }
 }
 
+const listOne = async (req, res) => {
+  try {
+    const foods = await Food.find();
+    res.json(foods);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   create,
   checkToken,
   createJWT,
   login,
+  listOne,
 };

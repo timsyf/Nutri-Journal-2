@@ -11,10 +11,16 @@ export default function CaloriesCheckIn() {
     });
 
     const [removeID, setRemoveID] = useState({});
-
     const [updateID, setUpdateID] = useState(false);
     const [updateData, setUpdateName] = useState(false);
 
+
+
+
+
+
+
+    
     const insert = async () => {
         try {
           setLoading(true);

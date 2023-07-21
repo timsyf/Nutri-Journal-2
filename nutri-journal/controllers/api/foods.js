@@ -27,11 +27,7 @@ const listSome = async (req, res) => {
     let filter = {};
 
     if (name) {
-      filter.name = name;
-    }
-
-    if (_id) {
-      filter._id = _id;
+      filter.name = new RegExp(name, 'i');
     }
 
     const foods = await Food.find(filter);
@@ -43,9 +39,9 @@ const listSome = async (req, res) => {
 };
 
 const deleteOne = async (req, res) => {
-  const { id } = req.params;
+  const { _id } = req.params;
   try {
-    const food = await Food.findOneAndDelete({ id });
+    const food = await Food.findOneAndDelete({ _id });
     if (!food) {
       return res.status(404).json({ message: "Food not found." });
     }
