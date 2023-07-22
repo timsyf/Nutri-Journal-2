@@ -1,5 +1,7 @@
-export default function HomePage() {
+import UserCalorieChecker from "../../components/UserCalorieChecker/UserCalorieChecker";
+
+export default function HomePage(props) {
     return (
-      <h1>Home Page</h1>
+      <UserCalorieChecker elements = {props} />
     );
   }
