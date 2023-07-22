@@ -73,5 +73,5 @@ module.exports = {
   listAll,
   listSome,
   deleteOne,
-  updateOne
+  updateOne,
 };

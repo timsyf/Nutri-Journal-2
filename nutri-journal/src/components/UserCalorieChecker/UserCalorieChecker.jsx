@@ -3,47 +3,134 @@ import { useState, useEffect } from 'react';
 export default function UserCalorieChecker(props) {
 
     const { user } = props.elements;
-    const [formData, setFormData] = useState({ userId: '' });
-    const [meal, setMeal] = useState([]);
+    const [userMeal, setUserMeal] = useState([]);
     const [loading, setLoading] = useState(false);
+    
+    const [selectedDate, setSelectedDate] = useState('');
 
     useEffect(() => {
         const fetchSearch = async () => {
             try {
-              setLoading(true);
-              const query = new URLSearchParams({
-                userId: user._id,
-              });
-              const response = await fetch('/meal/search?' + query.toString());
-              const data = await response.json();
-              setMeal(data);
-              setLoading(false);
-              console.log(data);
+                setLoading(true);
+                const query = new URLSearchParams({
+                    userId: user._id,
+                });
+        
+                const response = await fetch('/meal/search?' + query.toString());
+                const data = await response.json();
+                setUserMeal(data);
+                const foodIds = data.map((item) => item.foodId);
+                setLoading(false);
+        
+                console.log(data);
+                console.log(foodIds);
+        
             } catch (error) {
-              console.error('Error fetching data:', error);
-              setLoading(false);
+                console.error('Error fetching data:', error);
+                setLoading(false);
             }
-          };
-          fetchSearch();
+        };
+        fetchSearch();
       }, []);
 
-    const fetchSearch = async () => {
+      const fetchSearch = async () => {
+        try {
+            setLoading(true);
+            const query = new URLSearchParams({
+                userId: user._id,
+            });
+    
+            const response = await fetch('/meal/search?' + query.toString());
+            const data = await response.json();
+            setUserMeal(data);
+            const foodIds = data.map((item) => item.foodId);
+            setLoading(false);
+    
+            console.log(data);
+            console.log(foodIds);
+    
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setLoading(false);
+        }
+    };
+
+      const fetchSearchDates = async () => {
         try {
           setLoading(true);
           const query = new URLSearchParams({
-            name: formData.name,
+            userId: user._id,
+            date: selectedDate,
           });
-          const response = await fetch('/meal/search?' + query.toString());
+          const response = await fetch('/meal/search/dates?' + query.toString());
           const data = await response.json();
-          setMeal(data);
+          console.log(data);
+          setUserMeal(data);
+          const foodIds = data.map((item) => item.foodId);
           setLoading(false);
+    
+          console.log(data);
+          console.log(foodIds);
+    
         } catch (error) {
           console.error('Error fetching data:', error);
           setLoading(false);
         }
       };
 
-    return (
-      <h1>UserCalorieChecker</h1>
-    );
+      const handleSearchSubmit = (evt) => {
+        evt.preventDefault();
+        fetchSearchDates();
+      }
+
+      const handleReset = (evt) => {
+        fetchSearch();
+      }
+
+      const handlesetSelectedDateChange = (evt) => {
+        setSelectedDate(new Date(evt.target.value).toISOString());
+        console.log(selectedDate);
+      }
+
+      const renderTable = () => {
+        if (userMeal.length === 0) {
+          return <p>No food items found.</p>;
+        }
+    
+        return (
+          <>
+          <table>
+            <thead>
+              <tr>
+                <th>Food ID</th>
+                <th>Type</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+    
+            <tbody>
+              {userMeal.map((um) => (
+                <tr key={um._id}>
+                  <td>{um.foodId}</td>
+                  <td>{um.type}</td>
+                  <td>{um.date.slice(0, 10)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          </>
+        );
+      };
+    
+      return (
+        <div>
+          <h1>Summary</h1>
+          <form autoComplete="off" onSubmit={handleSearchSubmit}>
+            <input type="date" value={selectedDate.slice(0, 10)} onChange={handlesetSelectedDateChange} />
+            <button type='submit'>Submit</button>
+            <button type='button' onClick={handleReset}>Reset</button>
+          </form>
+          {loading ? <div>Loading...</div> : renderTable()}
+        </div>
+      );
 }

@@ -24,9 +24,43 @@ const listSome = async (req, res) => {
   const { userId } = req.query;
 
   try {
-    const filter = { userId }; // Assuming your Meal model has a 'userId' field
+    const filter = { userId };
     const meals = await Meal.find(filter);
     res.json(meals);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+const listSomeWithDates = async (req, res) => {
+  const { userId, date } = req.query;
+
+  try {
+    const filter = {
+      userId,
+      date,
+    };
+    const meals = await Meal.find(filter);
+    res.json(meals);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+const listBasedOnArray = async (req, res) => {
+  const { foodIds } = req.query;
+
+  try {
+    let filter = {};
+
+    if (foodIds) {
+      filter._id = { $in: foodIds };
+    }
+
+    const foods = await Food.find(filter);
+    res.json(foods);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
@@ -68,5 +102,7 @@ module.exports = {
   listAll,
   listSome,
   deleteOne,
-  updateOne
+  updateOne,
+  listBasedOnArray,
+  listSomeWithDates,
 };
