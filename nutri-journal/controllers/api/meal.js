@@ -37,10 +37,14 @@ const listSomeWithDates = async (req, res) => {
   const { userId, date } = req.query;
 
   try {
-    const filter = {
+    let filter = {
       userId,
-      date,
     };
+
+    if (date && date !== '') {
+      filter.date = date;
+    }
+
     const meals = await Meal.find(filter);
     res.json(meals);
   } catch (error) {

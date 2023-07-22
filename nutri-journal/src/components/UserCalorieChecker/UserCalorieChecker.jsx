@@ -33,45 +33,30 @@ export default function UserCalorieChecker(props) {
         fetchSearch();
       }, []);
 
-      const fetchSearch = async () => {
-        try {
-            setLoading(true);
-            const query = new URLSearchParams({
-                userId: user._id,
-            });
-    
-            const response = await fetch('/meal/search?' + query.toString());
-            const data = await response.json();
-            setUserMeal(data);
-            const foodIds = data.map((item) => item.foodId);
-            setLoading(false);
-    
-            console.log(data);
-            console.log(foodIds);
-    
-        } catch (error) {
-            console.error('Error fetching data:', error);
-            setLoading(false);
-        }
-    };
-
-      const fetchSearchDates = async () => {
+    const fetchSearchDates = async () => {
         try {
           setLoading(true);
-          const query = new URLSearchParams({
-            userId: user._id,
-            date: selectedDate,
-          });
+          let query;
+          if (selectedDate === '') {
+            query = new URLSearchParams({
+              userId: user._id,
+            });
+          } else {
+            query = new URLSearchParams({
+              userId: user._id,
+              date: selectedDate,
+            });
+          }
+      
           const response = await fetch('/meal/search/dates?' + query.toString());
           const data = await response.json();
           console.log(data);
           setUserMeal(data);
           const foodIds = data.map((item) => item.foodId);
           setLoading(false);
-    
+      
           console.log(data);
           console.log(foodIds);
-    
         } catch (error) {
           console.error('Error fetching data:', error);
           setLoading(false);
@@ -83,12 +68,13 @@ export default function UserCalorieChecker(props) {
         fetchSearchDates();
       }
 
-      const handleReset = (evt) => {
-        fetchSearch();
-      }
-
       const handlesetSelectedDateChange = (evt) => {
-        setSelectedDate(new Date(evt.target.value).toISOString());
+        if (evt.target.value) {
+            setSelectedDate(new Date(evt.target.value).toISOString());
+        } else {
+            setSelectedDate('');
+        }
+
         console.log(selectedDate);
       }
 
@@ -128,7 +114,6 @@ export default function UserCalorieChecker(props) {
           <form autoComplete="off" onSubmit={handleSearchSubmit}>
             <input type="date" value={selectedDate.slice(0, 10)} onChange={handlesetSelectedDateChange} />
             <button type='submit'>Submit</button>
-            <button type='button' onClick={handleReset}>Reset</button>
           </form>
           {loading ? <div>Loading...</div> : renderTable()}
         </div>
