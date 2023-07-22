@@ -1,4 +1,4 @@
-const Food = require("../../models/food");
+const Food = require("../../models/admin");
 
 const create = async (req, res) => {
   try {
@@ -52,13 +52,13 @@ const deleteOne = async (req, res) => {
 };
 
 const updateOne = async (req, res) => {
-  const { _id } = req.params;
+  const { id } = req.params;
   const updatedData = req.body;
+  console.log(updatedData);
   try {
-    const food = await Food.findOneAndUpdate({ _id }, updatedData, {
+    const food = await Food.findOneAndUpdate({ id: id }, updatedData, {
       new: true,
     });
-    console.log(updatedData);
     if (!food) {
       return res.status(404).json({ message: "Food not found." });
     }

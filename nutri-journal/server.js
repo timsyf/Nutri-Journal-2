@@ -10,9 +10,9 @@ require('dotenv').config();
 // Connect to the database
 require('./config/database');
 
-var exercisesRouter = require('./routes/api/exercise');
+var adminsRouter = require('./routes/api/admin');
 var foodsRouter = require('./routes/api/food');
-var mealsRouter = require('./routes/api/mealRegimen');
+var mealsRouter = require('./routes/api/meal');
 
 const app = express();
 
@@ -59,7 +59,7 @@ app.use(require('./config/checkToken'));
 app.use('/api/users', require('./routes/api/users'));
 //app.use(checkToken);
 
-app.use('/exercise', exercisesRouter);
+app.use('/admin', adminsRouter);
 app.use('/food', foodsRouter);
 app.use('/meal', mealsRouter);
 

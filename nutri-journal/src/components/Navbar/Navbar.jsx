@@ -16,15 +16,10 @@ export default function NavBar(user, setUser) {
     <>
       <nav>
         <ul>
-          <li>
-            <Link to="/">Nutri Journal</Link>
-          </li>
-          {/* FOOD JOURNAL */}
-            <li><Link to="/food">Food</Link></li>
-
-          {/* EXERCISE JOURNAL */}
-            <li><Link to="/exercise">Exercise</Link></li>
-            <li><Link to="/exercise/write">Exercise Write</Link></li>
+          <li><Link to="/">Nutri Journal</Link></li>
+          <li><Link to="/meal">Meal</Link></li>
+          <li><Link to="/food">Food</Link></li>
+          <li><Link to="/admin">Admin</Link></li>
         </ul>
       </nav>
       <Link to="" onClick={handleLogOut}>Log Out</Link>

@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-const mealsCtrl = require('../../controllers/api/mealRegimen')
+const mealsCtrl = require('../../controllers/api/meal')
 
 router.post("/", mealsCtrl.create);
 router.get('/', mealsCtrl.listAll);

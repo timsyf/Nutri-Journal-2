@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const workoutSchema = new Schema({
+const mealSchema = new Schema({
     userId: { type: Schema.Types.ObjectId, ref:"User" },
-    exerciseId: { type: Schema.Types.ObjectId, ref:"Food" },
-    type: { type: String, required: true },
-    date: { type: Date, required: true, default: getCurrentTime() },
+    foodId: { type: Schema.Types.ObjectId, ref:"Food" },
+    type: { type: String },
+    date: { type: Date, default: getCurrentTime() },
 }, {
     timestamps: true,
 });
@@ -17,4 +17,4 @@ function getCurrentTime() {
     return `${hours}:${minutes}`;
 }
 
-module.exports = mongoose.model('MealRegimen', workoutSchema);
+module.exports = mongoose.model('MealSchema', mealSchema);
