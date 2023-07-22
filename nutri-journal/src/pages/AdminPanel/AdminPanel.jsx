@@ -10,7 +10,7 @@ export default function AdminPanel() {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-      const fetchAllEntries = async () => {
+      const fetchAll = async () => {
         try {
           setLoading(true);
           const response = await fetch('/food');
@@ -22,10 +22,10 @@ export default function AdminPanel() {
           setLoading(false);
         }
       };
-      fetchAllEntries();
+      fetchAll();
     }, []);
 
-    const fetchSearchedEntries = async () => {
+    const fetchSearch = async () => {
       try {
         setLoading(true);
         const query = new URLSearchParams({
@@ -50,9 +50,9 @@ export default function AdminPanel() {
     navigator.clipboard.writeText(evt.target.name);
   };
 
-  const handleSearchedEntries = (evt) => {
+  const handleSearchSubmit = (evt) => {
     evt.preventDefault();
-    fetchSearchedEntries();
+    fetchSearch();
   }
 
   const renderTable = () => {
@@ -123,12 +123,12 @@ export default function AdminPanel() {
 
   return (
     <>
-      <AdminFoodCreate callFetch={fetchSearchedEntries} />
-      <AdminFoodDelete callFetch={fetchSearchedEntries} />
-      <AdminFoodUpdate callFetch={fetchSearchedEntries} />
+      <AdminFoodCreate callFetch={fetchSearch} />
+      <AdminFoodDelete callFetch={fetchSearch} />
+      <AdminFoodUpdate callFetch={fetchSearch} />
       <div>
         <h1>Food Database</h1>
-        <form autoComplete="off" onSubmit={handleSearchedEntries}>
+        <form autoComplete="off" onSubmit={handleSearchSubmit}>
           <input type="text" placeholder="Name" name="name" value={formData.name} onChange={handleSearchChange} />
           <button type='submit'>Submit</button>
         </form>
