@@ -7,28 +7,13 @@ export default function UserCalorieCheckIn(props) {
     const [food, setFood] = useState([]);
     const [loading, setLoading] = useState(false);
     const [foodId, setFoodId] = useState('');
+    const [formDataChanged, setFormDataChanged] = useState(false);
     const [formState, setFormState] = useState({
         userId: user,
         foodId: '',
         type: '',
         date: '',
     });
-
-    useEffect(() => {
-    const fetchAll = async () => {
-        try {
-        setLoading(true);
-        const response = await fetch('/food');
-        const data = await response.json();
-        setFood(data);
-        setLoading(false);
-        } catch (error) {
-        console.error('Error fetching data:', error);
-        setLoading(false);
-        }
-    };
-    fetchAll();
-    }, []);
 
     const insert = async () => {
         try {
@@ -70,6 +55,22 @@ export default function UserCalorieCheckIn(props) {
         }
       };
 
+    useEffect(() => {
+        fetchSearch();
+    }, []);
+
+    useEffect(() => {
+        if (formDataChanged) {
+          const debounceTimer = setTimeout(() => {
+            fetchSearch();
+          }, 500);
+    
+          return () => {
+            clearTimeout(debounceTimer);
+          };
+        }
+      }, [formData]);
+
     const handleCopy = (evt) => {
         setFoodId(evt.target.name);
 
@@ -95,6 +96,7 @@ export default function UserCalorieCheckIn(props) {
     const handleSearchChange = (evt) => {
         const { name, value } = evt.target;
         setFormData({ ...formData, [name]: value });
+        setFormDataChanged(true);
       };
 
     const handleCheckInChange = (evt) => {
@@ -199,7 +201,6 @@ export default function UserCalorieCheckIn(props) {
             <h1>Food Database</h1>
             <form autoComplete="off" onSubmit={handleSearchSubmit}>
                 <input type="text" placeholder="Name" name="name" value={formData.name} onChange={handleSearchChange} />
-            <button type='submit'>Submit</button>
             </form>
             {loading ? <div>Loading...</div> : renderTable()}
         </>

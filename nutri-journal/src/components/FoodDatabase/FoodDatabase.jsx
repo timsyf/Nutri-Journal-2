@@ -4,22 +4,7 @@ export default function FoodDatabase() {
     const [formData, setFormData] = useState({ name: '' });
     const [food, setFood] = useState([]);
     const [loading, setLoading] = useState(false);
-  
-    useEffect(() => {
-      const fetchAll = async () => {
-        try {
-          setLoading(true);
-          const response = await fetch('/food');
-          const data = await response.json();
-          setFood(data);
-          setLoading(false);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-          setLoading(false);
-        }
-      };
-      fetchAll();
-    }, []);
+    const [formDataChanged, setFormDataChanged] = useState(false);
   
     const fetchSearch = async () => {
       try {
@@ -36,16 +21,33 @@ export default function FoodDatabase() {
         setLoading(false);
       }
     };
+    
+    useEffect(() => {
+        fetchSearch();
+    }, []);
+
+    useEffect(() => {
+        if (formDataChanged) {
+          const debounceTimer = setTimeout(() => {
+            fetchSearch();
+          }, 500);
+    
+          return () => {
+            clearTimeout(debounceTimer);
+          };
+        }
+      }, [formData]);
   
     const handleSearchChange = (evt) => {
       const { name, value } = evt.target;
       setFormData({ ...formData, [name]: value });
+      setFormDataChanged(true);
     };
   
     const handleSearchSubmit = (evt) => {
       evt.preventDefault();
     }
-  
+
     const renderTable = () => {
       if (food.length === 0) {
         return <p>No food items found.</p>;
@@ -109,7 +111,6 @@ export default function FoodDatabase() {
         <h1>Food Database</h1>
         <form autoComplete="off" onSubmit={handleSearchSubmit}>
           <input type="text" placeholder="Name" name="name" value={formData.name} onChange={handleSearchChange} />
-          <button type='submit' onClick={fetchSearch}>Submit</button>
         </form>
         {loading ? <div>Loading...</div> : renderTable()}
       </div>
