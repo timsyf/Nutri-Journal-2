@@ -13,6 +13,7 @@ require('./config/database');
 var adminsRouter = require('./routes/api/admin');
 var foodsRouter = require('./routes/api/food');
 var mealsRouter = require('./routes/api/meal');
+var goalsRouter = require('./routes/api/goal');
 
 const app = express();
 
@@ -62,6 +63,7 @@ app.use('/api/users', require('./routes/api/users'));
 app.use('/admin', adminsRouter);
 app.use('/food', foodsRouter);
 app.use('/meal', mealsRouter);
+app.use('/goal', goalsRouter);
 
 // Configure to use port 3001 instead of 3000 during
 // development to avoid collision with React's dev server

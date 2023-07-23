@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function UserCalorieChecker(props) {
 
@@ -103,11 +104,11 @@ export default function UserCalorieChecker(props) {
 
             <tbody>
                 {userMeal.map((um, index) => (
-                    <tr key={um._id}>
-                        <td>{userFood[index].name}</td>
-                        <td>{um.type}</td>
-                        <td>{um.date.slice(0, 10)}</td>
-                    </tr>
+                        <tr key={um._id}>
+                            <td><Link to={"/food/detail/"+userFood[index]._id}>{userFood[index].name}</Link></td>
+                            <td>{um.type}</td>
+                            <td>{um.date.slice(0, 10)}</td>
+                        </tr>
                 ))
             }
             </tbody>

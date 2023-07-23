@@ -9,6 +9,8 @@ import AdminPanel from '../pages/AdminPanel/AdminPanel';
 import HomePage from '../../src/pages/HomePage/HomePage';
 import FoodJournalPage from '../pages/FoodJournalPage/FoodJournalPage';
 import MealJournalPage from '../pages/MealJournalPage/MealJournalPage';
+import FoodDetailPage from '../pages/FoodDetailPage/FoodDetailPage';
+import GoalPage from '../pages/GoalPage/GoalPage';
 
 import './App.css';
 
@@ -25,7 +27,8 @@ export default function App() {
             <Route path="/" element={<HomePage user={user} />} />
             <Route path="/food" element={<FoodJournalPage />} />
             <Route path="/meal" element={<MealJournalPage user={user} />} />
-            
+            <Route path="/goal" element={<GoalPage />} />
+            <Route path="/food/detail/:id" element={<FoodDetailPage />} />
             {user.isAdmin ? 
               <Route path="/admin" element={<AdminPanel />} />
               :
