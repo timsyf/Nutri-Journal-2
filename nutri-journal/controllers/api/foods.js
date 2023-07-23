@@ -20,6 +20,29 @@ const listAll = async (req, res) => {
   }
 };
 
+const userFood = async (req, res) => {
+  const { _ids } = req.query;
+  try {
+    if (!_ids) {
+      return res.status(400).json({ message: "No user IDs provided" });
+    }
+    const userIds = _ids.split(',');
+    let foods = [];
+
+    for (const userId of userIds) {
+      const food = await Food.findOne({ _id: userId });
+      if (food) {
+        foods.push(food);
+      }
+    }
+
+    res.json(foods);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 const listSome = async (req, res) => {
   const { _id, name } = req.query;
 
@@ -74,4 +97,5 @@ module.exports = {
   listSome,
   deleteOne,
   updateOne,
+  userFood,
 };
