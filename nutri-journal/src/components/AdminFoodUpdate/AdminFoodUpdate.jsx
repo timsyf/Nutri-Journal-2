@@ -11,7 +11,6 @@ const update = async () => {
     try {
         setLoading(true);
 
-        // Check if formState contains at least one non-null value
         const hasNonEmptyValue = Object.values(formState).some((value) => value !== null);
 
         if (!hasNonEmptyValue) {
