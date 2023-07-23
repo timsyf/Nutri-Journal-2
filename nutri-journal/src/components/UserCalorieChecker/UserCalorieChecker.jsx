@@ -53,18 +53,22 @@ export default function UserCalorieChecker(props) {
 
     const fetchUserFood = async (userfood) => {
         try {
-        setLoading(true);
-        const userIdsString = userfood.map((user) => user.foodId).join(",");
-        const response = await fetch(`/food/userfood?_ids=${userIdsString}`);
-        const data = await response.json();
-        setLoading(false);
-        setUserFood(data);
-        console.log(data);
+          if (userfood.length === 0) {
+            setUserFood([]);
+            return;
+          }
+      
+          setLoading(true);
+          const userIdsString = userfood.map((user) => user.foodId).join(",");
+          const response = await fetch(`/food/userfood?_ids=${userIdsString}`);
+          const data = await response.json();
+          setLoading(false);
+          setUserFood(data);
         } catch (error) {
-        console.error('Error fetching data:', error);
-        setLoading(false);
+          console.error('Error fetching data:', error);
+          setLoading(false);
         }
-    };
+      };
 
     const handleSearchSubmit = (evt) => {
     evt.preventDefault();
@@ -76,6 +80,7 @@ export default function UserCalorieChecker(props) {
     } else {
         setSelectedDate('');
     }
+
     setFormDataChanged(true);
     console.log(selectedDate);
     }
@@ -113,7 +118,7 @@ export default function UserCalorieChecker(props) {
     
     return (
     <div>
-        <h1>Summary</h1>                                                                                 
+        <h1>Summary</h1>
         <form autoComplete="off" onSubmit={handleSearchSubmit}>
         <input type="date" value={selectedDate.slice(0, 10)} onChange={handlesetSelectedDateChange} />
         </form>

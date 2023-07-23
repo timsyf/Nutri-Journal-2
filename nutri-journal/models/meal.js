@@ -16,6 +16,6 @@ function getCurrentTime() {
     const month = (currentTime.getMonth() + 1).toString().padStart(2, '0');
     const day = currentTime.getDate().toString().padStart(2, '0');
     return `${day}-${month}-${year}`;
-  }
+}
 
 module.exports = mongoose.model('Meal', mealSchema);
