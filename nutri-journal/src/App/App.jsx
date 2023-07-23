@@ -24,8 +24,13 @@ export default function App() {
           <Routes>
             <Route path="/" element={<HomePage user={user} />} />
             <Route path="/food" element={<FoodJournalPage />} />
-            <Route path="/admin" element={<AdminPanel />} />
             <Route path="/meal" element={<MealJournalPage user={user} />} />
+            
+            {user.isAdmin ? 
+              <Route path="/admin" element={<AdminPanel />} />
+              :
+              <></>
+            }
           </Routes>
         </>
         :

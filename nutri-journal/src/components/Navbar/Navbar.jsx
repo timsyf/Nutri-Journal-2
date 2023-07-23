@@ -19,7 +19,11 @@ export default function NavBar(user, setUser) {
           <li><Link to="/">Nutri Journal</Link></li>
           <li><Link to="/meal">Meal</Link></li>
           <li><Link to="/food">Food</Link></li>
+          {user.element.isAdmin ? 
           <li><Link to="/admin">Admin</Link></li>
+          :
+          <></>
+          }
         </ul>
       </nav>
       <Link to="" onClick={handleLogOut}>Log Out</Link>

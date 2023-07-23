@@ -76,7 +76,7 @@ const update = async () => {
                 <input type="text" name="id" placeholder='ID' onChange={handleUpdateChangeID} required />
                 <br></br>
                 <br></br>
-                <input type="text" name="name" placeholder='Name' onChange={handleUpdateChangeData} required />
+                <input type="text" name="name" placeholder='Name' onChange={handleUpdateChangeData} />
                 {allNutrients.map((nutrient) => (
                 <input type='text' placeholder={capitalizeFirstLetter(nutrient)} name={nutrient} onChange={handleUpdateChangeData}></input>
                 ))}
