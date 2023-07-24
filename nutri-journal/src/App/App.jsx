@@ -29,7 +29,7 @@ export default function App() {
             <Route path="/" element={<HomePage user={user} />} />
             <Route path="/food" element={<FoodJournalPage />} />
             <Route path="/meal" element={<MealJournalPage user={user} />} />
-            <Route path="/user/setup" element={<UserDetail />} />
+            <Route path="/user/setup" element={<UserDetail user={user} />} />
             <Route path="/food/detail/:id" element={<FoodDetailPage />} />
             {user.isAdmin ? 
               <Route path="/admin" element={<AdminPanel />} />

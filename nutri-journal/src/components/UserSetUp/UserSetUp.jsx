@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { UserNutrient, UserPhysique } from '../../components/Data/Data';
 
-export default function UserSetup() {
+export default function UserSetup(props) {
   
+  const [loading, setLoading] = useState(false);
   const [formToggle, setformToggle] = useState(false);
-
-  const [NutrientFormState, setNutrientFormState] = useState({
+  const [formState, setFormState] = useState({
+    userId: props.elements.user._id,
     carbohydrate: 0,
     protein: 0,
     fat: 0,
@@ -22,31 +23,49 @@ export default function UserSetup() {
     vitamin_C: 0,
     calcium: 0,
     iron: 0,
+    age: 0,
+    gender: 0,
+    height: 0,
+    weight: 0,
   });
 
-  const [PhysiqueFormState, setPhysiqueFormState] = useState({
-    carbohydrate: 0,
-    protein: 0,
-    fat: 0,
-    trans_Fat: 0,
-    saturated_Fat: 0,
-    polyunsaturated_Fat: 0,
-    monounsaturated_Fat: 0,
-    cholesterol: 0,
-    sodium: 0,
-    potassium: 0,
-    fiber: 0,
-    sugar: 0,
-    vitamin_A: 0,
-    vitamin_C: 0,
-    calcium: 0,
-    iron: 0,
-  });
+  const create = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/user/setup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formState)
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Data stored in the database:', data);
+      } else {
+        console.error('Failed to store data in the database:', response.status);
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
+};
 
   const handlePhysiqueSubmit = (evt) => {
     evt.preventDefault();
     setformToggle(true);
   }
+
+  const handleCreateChange = (evt) => {
+    const { name, value } = evt.target;
+    setFormState((prevState) => ({
+        ...prevState,
+        [name]: value,
+    }));
+    console.log(formState);
+  };
 
   const handleBack = (evt) => {
     evt.preventDefault();
@@ -55,6 +74,7 @@ export default function UserSetup() {
 
   const handleNutrientSubmit = (evt) => {
     evt.preventDefault();
+    create();
   }
 
   function capitalizeFirstLetter(str) {
@@ -70,14 +90,14 @@ export default function UserSetup() {
             {UserPhysique.map((data) => (
 
               data == "gender" ?
-              <select name="gender" required>
+              <select name="gender" onChange={handleCreateChange} required>
                 <option value="">Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
               :
               <>
-                <input type='text' placeholder={capitalizeFirstLetter(data)} name={data} required></input>
+                <input type='text' placeholder={capitalizeFirstLetter(data)} name={data} onChange={handleCreateChange} required></input>
               </>
             ))}
             <br></br>
@@ -90,7 +110,10 @@ export default function UserSetup() {
           <button type="button" onClick={handleBack}>Back</button>
           <form autoComplete="off" onSubmit={handleNutrientSubmit}>
             {UserNutrient.map((data) => (
-              <input type='text' placeholder={capitalizeFirstLetter(data)} name={data}></input>
+              (data == "carbohydrate" || data == "protein") ?
+              <input type='text' placeholder={capitalizeFirstLetter(data)} name={data} onChange={handleCreateChange}></input>
+              :
+              <></>
             ))}
             <br></br>
             <button type="submit">Submit</button>
