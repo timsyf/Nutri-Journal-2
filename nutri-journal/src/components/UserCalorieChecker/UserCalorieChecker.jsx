@@ -9,6 +9,7 @@ export default function UserCalorieChecker(props) {
     const [loading, setLoading] = useState(false);
     const [formDataChanged, setFormDataChanged] = useState(false);
     const [selectedDate, setSelectedDate] = useState('');
+    const [test, setTest] = useState([]);
 
     const fetchSearchDates = async () => {
         try {
@@ -69,10 +70,10 @@ export default function UserCalorieChecker(props) {
           console.error('Error fetching data:', error);
           setLoading(false);
         }
-      };
+    };
 
     const handleSearchSubmit = (evt) => {
-    evt.preventDefault();
+      evt.preventDefault();
     }
 
     const handlesetSelectedDateChange = (evt) => {
@@ -83,14 +84,13 @@ export default function UserCalorieChecker(props) {
     }
 
     setFormDataChanged(true);
-    console.log(selectedDate);
+      console.log(selectedDate);
     }
 
     const renderTable = () => {
         if (userMeal.length === 0) {
             return <p>No food items found.</p>;
         }
-
         return (
             <>
             <table>
@@ -103,14 +103,24 @@ export default function UserCalorieChecker(props) {
             </thead>
 
             <tbody>
-                {userMeal.map((um, index) => (
-                        <tr key={um._id}>
-                            <td><Link to={"/food/detail/"+userFood[index]._id}>{userFood[index].name}</Link></td>
-                            <td>{um.type}</td>
-                            <td>{um.date.slice(0, 10)}</td>
-                        </tr>
-                ))
-            }
+              {userMeal.map((um) => {
+                const matchedFood = userFood.find((food) => food._id === um.foodId);
+                if (matchedFood) {
+                  return (
+                    <tr key={um._id}>
+                      <td>
+                        <Link to={"/food/detail/" + matchedFood._id}>
+                          {matchedFood.name}
+                        </Link>
+                      </td>
+                      <td>{um.type}</td>
+                      <td>{um.date.slice(0, 10)}</td>
+                    </tr>
+                  );
+                } else {
+                  return null;
+                }
+              })}
             </tbody>
             </table>
             </>
@@ -121,7 +131,7 @@ export default function UserCalorieChecker(props) {
     <div>
         <h1>Summary</h1>
         <form autoComplete="off" onSubmit={handleSearchSubmit}>
-        <input type="date" value={selectedDate.slice(0, 10)} onChange={handlesetSelectedDateChange} />
+          <input type="date" value={selectedDate.slice(0, 10)} onChange={handlesetSelectedDateChange} />
         </form>
         {loading ? <div>Loading...</div> : renderTable()}
     </div>
