@@ -59,6 +59,7 @@ export default function FoodDatabase() {
           <thead>
             <tr>
               <th>Name</th>
+              <th>Calories</th>
               <th>Carbohydrate</th>
               <th>Protein</th>
               <th>Fat</th>
@@ -82,6 +83,7 @@ export default function FoodDatabase() {
             {food.map((food) => (
               <tr key={food._id}>
                 <td>{food.name}</td>
+                <td>{food.calorie} kcal</td>
                 <td>{food.carbohydrate} g</td>
                 <td>{food.protein} g</td>
                 <td>{food.fat} g</td>

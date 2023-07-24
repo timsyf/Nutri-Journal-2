@@ -6,6 +6,7 @@ export default function AdminFoodCreate({ callFetch }) {
     const [loading, setLoading] = useState(false);
     const [formState, setFormState] = useState({
         name: '',
+        calorie: 0,
         carbohydrate: 0,
         protein: 0,
         fat: 0,

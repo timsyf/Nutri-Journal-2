@@ -1,70 +1,29 @@
-# Getting Started with Create React App
+### LEFT OVER IMPLEMENTATION ###
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Adjust login flow to be Login/SignUp -> User Set Up -> Main Menu
 
-## Available Scripts
+- Summary to show total calorie intake during the day selected (e.g) (calorie intake) / (calorie goal) - (calorie remaining)
 
-In the project directory, you can run:
+- Summary to show total macro nutrient intake during the day selected (e.g) (protein intake) / (protein goal) - (protein remaining)
 
-### `npm start`
+- Summary to sort by type (breakfast, lunch, dinner, supper)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Summary to show weight log with an option to choose between daily, weekly and monthly view
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Meal to show total calorie intake during the day selected (e.g) (calorie intake) / (calorie goal) - (calorie remaining)
 
-### `npm test`
+- Food to show list view with an option to change into card view
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Change Meal to be named Journal
 
-### `npm run build`
+- Change Food to be named Food Archives
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- My profile page to show name, date of birth, gender, height, nutrient goals
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- My profile to allow user to edit name, date of birth, gender, height, nutrient goals
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- change user age field to date of birth
 
-### `npm run eject`
+- If Food is deleted, also delete all from meals table
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### COMPLETED IMPLEMENTATION ###

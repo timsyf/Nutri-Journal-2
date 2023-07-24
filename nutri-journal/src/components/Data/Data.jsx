@@ -1,4 +1,5 @@
 const allNutrients = [
+    "calorie",
     "carbohydrate",
     "protein",
     "fat",

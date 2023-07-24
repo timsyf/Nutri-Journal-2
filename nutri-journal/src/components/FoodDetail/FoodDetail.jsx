@@ -32,6 +32,7 @@ export default function FoodDetail() {
         <table>
           <thead>
             <tr>
+              <th>Calorie</th>
               <th>Carbohydrate</th>
               <th>Protein</th>
               <th>Fat</th>
@@ -53,6 +54,7 @@ export default function FoodDetail() {
   
           <tbody>
               <tr key={food._id}>
+                <td>{food.calorie} kcal</td>
                 <td>{food.carbohydrate} g</td>
                 <td>{food.protein} g</td>
                 <td>{food.fat} g</td>

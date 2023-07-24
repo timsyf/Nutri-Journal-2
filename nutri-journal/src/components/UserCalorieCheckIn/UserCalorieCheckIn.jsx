@@ -128,6 +128,7 @@ export default function UserCalorieCheckIn(props) {
               <tr>
                 <th>ID</th>
                 <th>Name</th>
+                <th>Calories</th>
                 <th>Carbohydrate</th>
                 <th>Protein</th>
                 <th>Fat</th>
@@ -155,6 +156,7 @@ export default function UserCalorieCheckIn(props) {
                     </div>
                   </td>
                   <td>{food.name}</td>
+                  <td>{food.calorie} kcal</td>
                   <td>{food.carbohydrate} g</td>
                   <td>{food.protein} g</td>
                   <td>{food.fat} g</td>
