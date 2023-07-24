@@ -63,7 +63,7 @@ export default function AdminFoodCreate({ callFetch }) {
     };
 
     function capitalizeFirstLetter(str) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
+      return (str.charAt(0).toUpperCase() + str.slice(1)).replace("_", " ");
     }
 
     return (

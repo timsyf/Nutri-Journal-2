@@ -10,7 +10,7 @@ import HomePage from '../../src/pages/HomePage/HomePage';
 import FoodJournalPage from '../pages/FoodJournalPage/FoodJournalPage';
 import MealJournalPage from '../pages/MealJournalPage/MealJournalPage';
 import FoodDetailPage from '../pages/FoodDetailPage/FoodDetailPage';
-import GoalPage from '../pages/GoalPage/GoalPage';
+import UserDetail from '../pages/UserSetUpPage/UserSetUpPage';
 
 import './App.css';
 
@@ -18,7 +18,7 @@ export default function App() {
 
   const [user, setUser] = useState(getUser());
 
-  
+
 
   return (
     <main className="App">
@@ -29,7 +29,7 @@ export default function App() {
             <Route path="/" element={<HomePage user={user} />} />
             <Route path="/food" element={<FoodJournalPage />} />
             <Route path="/meal" element={<MealJournalPage user={user} />} />
-            <Route path="/goal" element={<GoalPage />} />
+            <Route path="/user/setup" element={<UserDetail />} />
             <Route path="/food/detail/:id" element={<FoodDetailPage />} />
             {user.isAdmin ? 
               <Route path="/admin" element={<AdminPanel />} />
