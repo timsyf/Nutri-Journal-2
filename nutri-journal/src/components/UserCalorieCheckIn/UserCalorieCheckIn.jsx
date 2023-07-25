@@ -108,14 +108,6 @@ export default function UserCalorieCheckIn(props) {
         console.log(formState);
     };
 
-    function getCurrentTime() {
-        const currentTime = new Date();
-        const year = currentTime.getFullYear().toString();
-        const month = (currentTime.getMonth() + 1).toString().padStart(2, '0');
-        const day = currentTime.getDate().toString().padStart(2, '0');
-        return `${day}-${month}-${year}`;
-    }
-
     const renderTable = () => {
         if (food.length === 0) {
           return <p>No food items found.</p>;

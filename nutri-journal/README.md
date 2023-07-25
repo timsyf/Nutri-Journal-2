@@ -1,3 +1,7 @@
+### PRIORITY ###
+
+
+
 ### LEFT OVER IMPLEMENTATION ###
 
 - Adjust login flow to be Login/SignUp -> User Set Up -> Main Menu
@@ -22,8 +26,12 @@
 
 - My profile to allow user to edit name, date of birth, gender, height, nutrient goals
 
-- change user age field to date of birth
 
 - If Food is deleted, also delete all from meals table
 
+- After pasting the ID into admin updates, fill in all the inboxes with the data
+
 ### COMPLETED IMPLEMENTATION ###
+
+ - whenever meal is being loaded, check if meal's food is in food database, otherwise, delete or do not show
+ - change user age field to date of birth

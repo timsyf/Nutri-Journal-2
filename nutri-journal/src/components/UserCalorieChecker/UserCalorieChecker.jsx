@@ -9,7 +9,6 @@ export default function UserCalorieChecker(props) {
     const [loading, setLoading] = useState(false);
     const [formDataChanged, setFormDataChanged] = useState(false);
     const [selectedDate, setSelectedDate] = useState('');
-    const [test, setTest] = useState([]);
 
     const fetchSearchDates = async () => {
         try {

@@ -22,6 +22,10 @@ const userSchema = new Schema({
       type: Boolean,
       default: false,
     },
+    isConfigured: {
+      type: Boolean,
+      default: false,
+    },
     }, {
         timestamps: true,
         toJSON: {

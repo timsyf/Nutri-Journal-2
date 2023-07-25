@@ -7,5 +7,5 @@ router.get('/', adminCtrl.listAll);
 router.get('/search', adminCtrl.listSome);
 router.delete('/:_id', adminCtrl.deleteOne);
 router.put('/:_id', adminCtrl.updateOne);
- 
+
 module.exports = router;

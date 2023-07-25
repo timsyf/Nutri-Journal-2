@@ -4,9 +4,10 @@ const Schema = mongoose.Schema;
 const userSetUpSchema = new Schema({
     userId: { type: Schema.Types.ObjectId, ref:"User", required: true },
     gender: { type: String, required: true },
-    age: { type: Number, required: true, min: 0, default: 0 },
+    dob: { type: Date, required: true },
     height: { type: Number, required: true, min: 0, default: 0 },
     weight: { type: Number, required: true, min: 0, default: 0 },
+    calorie: { type: Number, required: true, min: 0, default: 0 },
     carbohydrate: { type: Number, required: true, min: 0, default: 0 },
     protein: { type: Number, required: true, min: 0, default: 0 },
     fat: { type: Number, min: 0, default: 0 },

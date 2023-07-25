@@ -11,6 +11,7 @@ import FoodJournalPage from '../pages/FoodJournalPage/FoodJournalPage';
 import MealJournalPage from '../pages/MealJournalPage/MealJournalPage';
 import FoodDetailPage from '../pages/FoodDetailPage/FoodDetailPage';
 import UserDetail from '../pages/UserSetUpPage/UserSetUpPage';
+import WeightLogPage from '../pages/WeightLogPage/WeightLogPage';
 
 import './App.css';
 
@@ -30,6 +31,7 @@ export default function App() {
             <Route path="/food" element={<FoodJournalPage />} />
             <Route path="/meal" element={<MealJournalPage user={user} />} />
             <Route path="/user/setup" element={<UserDetail user={user} />} />
+            <Route path="/weight/log" element={<WeightLogPage user={user} />} />
             <Route path="/food/detail/:id" element={<FoodDetailPage />} />
             {user.isAdmin ? 
               <Route path="/admin" element={<AdminPanel />} />

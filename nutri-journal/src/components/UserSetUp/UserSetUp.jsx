@@ -5,8 +5,10 @@ export default function UserSetup(props) {
   
   const [loading, setLoading] = useState(false);
   const [formToggle, setformToggle] = useState(false);
+  const [selectedDate, setSelectedDate] = useState('');
   const [formState, setFormState] = useState({
     userId: props.elements.user._id,
+    calorie: 0,
     carbohydrate: 0,
     protein: 0,
     fat: 0,
@@ -23,7 +25,7 @@ export default function UserSetup(props) {
     vitamin_C: 0,
     calcium: 0,
     iron: 0,
-    age: 0,
+    dob: 0,
     gender: 0,
     height: 0,
     weight: 0,
@@ -96,9 +98,11 @@ export default function UserSetup(props) {
                 <option value="Female">Female</option>
               </select>
               :
-              <>
-                <input type='text' placeholder={capitalizeFirstLetter(data)} name={data} onChange={handleCreateChange} required></input>
-              </>
+                data == "dob" ? (
+                  <input type="date" name={data} onChange={handleCreateChange} />
+                ) : (
+                  <input type='text' placeholder={capitalizeFirstLetter(data)} name={data} onChange={handleCreateChange} required></input>
+                )
             ))}
             <br></br>
             <button type="submit">Submit</button>
@@ -110,8 +114,8 @@ export default function UserSetup(props) {
           <button type="button" onClick={handleBack}>Back</button>
           <form autoComplete="off" onSubmit={handleNutrientSubmit}>
             {UserNutrient.map((data) => (
-              (data == "carbohydrate" || data == "protein") ?
-              <input type='text' placeholder={capitalizeFirstLetter(data)} name={data} onChange={handleCreateChange}></input>
+              (data == "carbohydrate" || data == "protein" || data == "calorie") ?
+              <input type='text' placeholder={capitalizeFirstLetter(data)} name={data} onChange={handleCreateChange} required></input>
               :
               <></>
             ))}

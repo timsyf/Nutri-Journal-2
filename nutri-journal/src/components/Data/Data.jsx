@@ -19,13 +19,14 @@ const allNutrients = [
   ];
 
   const UserPhysique = [
-    "age",
+    "dob",
     "gender",
     "height",
     "weight",
   ];
 
   const UserNutrient = [
+    "calorie",
     "carbohydrate",
     "protein",
     "fat",
