@@ -12,7 +12,7 @@ export default function UserCalorieCheckIn(props) {
         userId: user,
         foodId: '',
         type: '',
-        date: '',
+        date: getCurrentTime(),
     });
 
     const insert = async () => {
@@ -108,6 +108,14 @@ export default function UserCalorieCheckIn(props) {
         console.log(formState);
     };
 
+    function getCurrentTime() {
+      const currentTime = new Date();
+      const year = currentTime.getFullYear().toString();
+      const month = (currentTime.getMonth() + 1).toString().padStart(2, '0');
+      const day = currentTime.getDate().toString().padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
     const renderTable = () => {
         if (food.length === 0) {
           return <p>No food items found.</p>;
@@ -187,7 +195,7 @@ export default function UserCalorieCheckIn(props) {
                     <option value="Supper">Supper</option>
                 </select>
                 <input type="text" name="foodId" placeholder='Food' value={foodId} readOnly required />
-                <input type="date" name="date" onChange={handleCheckInChange} required />
+                <input type="date" name="date" value={formState.date} onChange={handleCheckInChange} required />
                 <button type="submit">Submit</button>
                 </form>
             </div>

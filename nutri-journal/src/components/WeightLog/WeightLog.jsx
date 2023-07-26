@@ -71,14 +71,14 @@ export default function WeightLog(props) {
       const year = currentTime.getFullYear().toString();
       const month = (currentTime.getMonth() + 1).toString().padStart(2, '0');
       const day = currentTime.getDate().toString().padStart(2, '0');
-      return `${day}-${month}-${year}`;
+      return `${year}-${month}-${day}`;
     }
 
     return (
       <>
         <h1>Weight Log</h1>
         <form autoComplete="off" onSubmit={handleSearchSubmit}>
-          <input type="date" name='date' onChange={handleChange} />
+          <input type="date" name='date' value={formState.date} onChange={handleChange} />
                 <input type="text" placeholder="Weight" name="weight" value={formState.weight} onChange={handleChange} />
           <button type="submit">Submit</button>
         </form>

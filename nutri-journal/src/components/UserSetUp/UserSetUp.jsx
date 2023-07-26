@@ -5,7 +5,7 @@ export default function UserSetup(props) {
   
   const [loading, setLoading] = useState(false);
   const [formToggle, setformToggle] = useState(false);
-  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedDate, setSelectedDate] = useState(getCurrentTime());
   const [formState, setFormState] = useState({
     userId: props.elements.user._id,
     calorie: 0,
@@ -25,7 +25,7 @@ export default function UserSetup(props) {
     vitamin_C: 0,
     calcium: 0,
     iron: 0,
-    dob: 0,
+    dob: selectedDate,
     gender: 0,
     height: 0,
     weight: 0,
@@ -66,6 +66,7 @@ export default function UserSetup(props) {
         ...prevState,
         [name]: value,
     }));
+    setSelectedDate(formState.dob);
     console.log(formState);
   };
 
@@ -81,6 +82,14 @@ export default function UserSetup(props) {
 
   function capitalizeFirstLetter(str) {
     return (str.charAt(0).toUpperCase() + str.slice(1)).replace("_", " ");
+  }
+
+  function getCurrentTime() {
+    const currentTime = new Date();
+    const year = currentTime.getFullYear().toString();
+    const month = (currentTime.getMonth() + 1).toString().padStart(2, '0');
+    const day = currentTime.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 
   return (
@@ -99,7 +108,7 @@ export default function UserSetup(props) {
               </select>
               :
                 data == "dob" ? (
-                  <input type="date" name={data} onChange={handleCreateChange} />
+                  <input type="date" name={data} value={formState.dob} onChange={handleCreateChange} />
                 ) : (
                   <input type='text' placeholder={capitalizeFirstLetter(data)} name={data} onChange={handleCreateChange} required></input>
                 )

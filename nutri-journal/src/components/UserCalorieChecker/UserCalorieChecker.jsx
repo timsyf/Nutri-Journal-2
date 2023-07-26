@@ -8,7 +8,7 @@ export default function UserCalorieChecker(props) {
     const [userMeal, setUserMeal] = useState([]);
     const [loading, setLoading] = useState(false);
     const [formDataChanged, setFormDataChanged] = useState(false);
-    const [selectedDate, setSelectedDate] = useState('');
+    const [selectedDate, setSelectedDate] = useState(getCurrentTime());
 
     const fetchSearchDates = async () => {
         try {
@@ -125,6 +125,14 @@ export default function UserCalorieChecker(props) {
             </>
         );
     };
+
+    function getCurrentTime() {
+      const currentTime = new Date();
+      const year = currentTime.getFullYear().toString();
+      const month = (currentTime.getMonth() + 1).toString().padStart(2, '0');
+      const day = currentTime.getDate().toString().padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
     
     return (
     <div>

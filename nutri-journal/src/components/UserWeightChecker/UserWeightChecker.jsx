@@ -72,8 +72,7 @@ export default function UserWeightChecker(props) {
     }
 
     const renderTable = () => {
-        {console.log(weightData)}
-        if (weightData == 0) {
+        if (weightData === 0) {
           return <p>No weight data found.</p>;
         }
     
@@ -82,16 +81,16 @@ export default function UserWeightChecker(props) {
           <table>
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Calories</th>
+                <th>Weight</th>
+                <th>Date</th>
               </tr>
             </thead>
     
             <tbody>
               {weightData.map((w) => (
                 <tr key={w._id}>
-                  <td>{w.weight}</td>
-                  <td>{w.date}</td>
+                  <td>{w.weight} kg</td>
+                  <td>{w.date.slice(0, 10)}</td>
                 </tr>
               ))}
             </tbody>
