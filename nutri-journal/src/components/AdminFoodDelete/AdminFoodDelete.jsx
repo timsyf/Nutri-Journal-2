@@ -67,13 +67,14 @@ export default function AdminFoodDelete({ callFetch }) {
         <>
           <div class="container">
             <br></br>
-            <h1>Delete</h1>
+            <h1>Delete Food</h1>
             
             {loading ? ( <div>Loading...</div> ) : (<></>)}
 
             <div>
               <form autoComplete="off" onSubmit={handleDelete}>
                 <select class="form-control btn-margin" name="id" onChange={handleDeleteChange} required>
+                  <option>Select a food</option>
                 {food.map((food) => (
                   <option key={food._id} name={food._id}>{food._id} - {food.name}</option>
                 ))}

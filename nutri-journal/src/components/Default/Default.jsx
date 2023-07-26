@@ -12,7 +12,6 @@ export default function Default() {
 
     return (
         <>
-            <h1>Default</h1>
             <Swiper
                 spaceBetween={0}
                 centeredSlides={true}
