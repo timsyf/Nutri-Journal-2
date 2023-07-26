@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 
 // Import the following components
 import { getUser } from '../../src/utilities/users-service';
@@ -12,14 +12,32 @@ import MealJournalPage from '../pages/MealJournalPage/MealJournalPage';
 import FoodDetailPage from '../pages/FoodDetailPage/FoodDetailPage';
 import UserDetail from '../pages/UserSetUpPage/UserSetUpPage';
 import WeightLogPage from '../pages/WeightLogPage/WeightLogPage';
+import DefaultPage from '../pages/DefaultPage/DefaultPage';
+import Logo from '../images/logo.png';
 
 import './App.css';
 
 export default function App() {
 
+  const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+  const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
+
   const [user, setUser] = useState(getUser());
+  const [showLoginSignUpForm, setShowLoginSignUpForm] = useState(true);
+  const [showDefaultForm, setShowDefaultForm] = useState(true);
+
+  const showLoginSignUp = () => {
+    setShowLoginSignUpForm(true);
+    setShowDefaultForm(false);
+  };
+  const showDefault = () => {
+    setShowLoginSignUpForm(false);
+    setShowDefaultForm(true);
+  };
+
+
   return (
-    <div className='container-fluid'>
+    <div className='container'>
       <main className="App">
         { user ?
           <>
@@ -38,10 +56,41 @@ export default function App() {
               }
             </Routes>
           </>
-          :
+          : (
           <>
-            <AuthPage setUser = {setUser} user={user} />
+            <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
+            <Link to="/"><a class="navbar-brand text-info font-weight-bolder">
+                <img src={Logo} alt="Logo" width="150" className="vertical-align-middle" />
+              </a></Link>
+              <button class="custom-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded={!isNavCollapsed ? true : false} aria-label="Toggle navigation" onClick={handleNavCollapse}>
+                <span class="navbar-toggler-icon"></span>
+              </button>
+
+              <div class={`${isNavCollapsed ? 'collapse' : ''} navbar-collapse text-center`} id="navbarsExample09">
+                <nav className="navbar-nav">
+                  <a onClick={showLoginSignUp} class="nav-link text-info">Home</a>
+                  <a onClick={showDefault} class="nav-link text-info">Login / Sign Up</a>
+                </nav>
+              </div>
+            </nav>
+
+            {showLoginSignUpForm ? (
+              <>
+                <DefaultPage />
+              </>
+            ) : (
+              <>
+                <AuthPage setUser = {setUser} user={user} />
+              </>
+            )}
+
+
+            
+
+          
+            
           </>
+          )
         }
       </main>
     </div>

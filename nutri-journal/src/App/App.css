@@ -43,3 +43,8 @@ a {
 body {
   background-color: #DEF2F1;
 }
+
+.btn-margin {
+  margin-bottom: 10px;
+}
+
