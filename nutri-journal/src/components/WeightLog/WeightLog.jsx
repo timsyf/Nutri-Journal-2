@@ -79,7 +79,7 @@ export default function WeightLog(props) {
         <h1>Weight Log</h1>
         <form autoComplete="off" onSubmit={handleSearchSubmit}>
           <input type="date" name='date' value={formState.date} onChange={handleChange} />
-                <input type="text" placeholder="Weight" name="weight" value={formState.weight} onChange={handleChange} />
+                <input type="text" placeholder="Weight" name="weight" onChange={handleChange} />
           <button type="submit">Submit</button>
         </form>
       </>
