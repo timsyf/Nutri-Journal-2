@@ -18,34 +18,33 @@ import './App.css';
 export default function App() {
 
   const [user, setUser] = useState(getUser());
-
-
-
   return (
-    <main className="App">
-      { user ?
-        <>
-          <NavBar element = {user} setUser={setUser} />
-          <Routes>
-            <Route path="/" element={<HomePage user={user} />} />
-            <Route path="/food" element={<FoodJournalPage />} />
-            <Route path="/meal" element={<MealJournalPage user={user} />} />
-            <Route path="/user/setup" element={<UserDetail user={user} />} />
-            <Route path="/weight/log" element={<WeightLogPage user={user} />} />
-            <Route path="/food/detail/:id" element={<FoodDetailPage />} />
-            {user.isAdmin ? 
-              <Route path="/admin" element={<AdminPanel />} />
-              :
-              <></>
-            }
-          </Routes>
-        </>
-        :
-        <>
-          <AuthPage setUser = {setUser} user={user} />
-        </>
-      }
-    </main>
+    <div className='container-fluid'>
+      <main className="App">
+        { user ?
+          <>
+            <NavBar element = {user} setUser={setUser} />
+            <Routes>
+              <Route path="/" element={<HomePage user={user} />} />
+              <Route path="/food" element={<FoodJournalPage />} />
+              <Route path="/meal" element={<MealJournalPage user={user} />} />
+              <Route path="/user/setup" element={<UserDetail user={user} />} />
+              <Route path="/weight/log" element={<WeightLogPage user={user} />} />
+              <Route path="/food/detail/:id" element={<FoodDetailPage />} />
+              {user.isAdmin ? 
+                <Route path="/admin" element={<AdminPanel />} />
+                :
+                <></>
+              }
+            </Routes>
+          </>
+          :
+          <>
+            <AuthPage setUser = {setUser} user={user} />
+          </>
+        }
+      </main>
+    </div>
   );
 
 }

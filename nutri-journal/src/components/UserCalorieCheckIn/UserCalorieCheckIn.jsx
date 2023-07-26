@@ -194,6 +194,24 @@ export default function UserCalorieCheckIn(props) {
                     <option value="Dinner">Dinner</option>
                     <option value="Supper">Supper</option>
                 </select>
+
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Select a type
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item">Breakfast</a>
+                    <a class="dropdown-item">Lunch</a>
+                    <a class="dropdown-item">Dinner</a>
+                    <a class="dropdown-item">Supper</a>
+                  </div>
+                </div>
+
+
+
+
+
+
                 <input type="text" name="foodId" placeholder='Food' value={foodId} readOnly required />
                 <input type="date" name="date" value={formState.date} onChange={handleCheckInChange} required />
                 <button type="submit">Submit</button>

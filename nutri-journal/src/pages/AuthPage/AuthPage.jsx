@@ -15,14 +15,12 @@ export default function AuthPage({setUser}) {
       {showLoginForm ? (
         <>
           <LoginForm setUser={setUser} />
-          <p>Don't have an account?</p>
-          <button onClick={toggleForm}>Sign Up</button>
+          <a onClick={toggleForm} class="dropdown-item">New around here? Sign up now</a>
         </>
       ) : (
         <>
           <SignUpForm setUser={setUser} />
-          <p>Already have an account?</p>
-          <button onClick={toggleForm}>Log In</button>
+          <a onClick={toggleForm} class="dropdown-item">Already have an account? Login now</a>
         </>
       )}
     </main>

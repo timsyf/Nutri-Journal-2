@@ -40,22 +40,44 @@ export default class SignUpForm extends Component {
     render() {
         const disable = this.state.password !== this.state.confirm;
         return (
-          <div>
-            <div className="form-container">
-              <form autoComplete="off" onSubmit={this.handleSubmit}>
-                <label>Name</label>
-                <input type="text" name="name" value={this.state.name} onChange={this.handleChange} required />
-                <label>Email</label>
-                <input type="email" name="email" value={this.state.email} onChange={this.handleChange} required />
-                <label>Password</label>
-                <input type="password" name="password" value={this.state.password} onChange={this.handleChange} required />
-                <label>Confirm</label>
-                <input type="password" name="confirm" value={this.state.confirm} onChange={this.handleChange} required />
-                <button type="submit" disabled={disable}>SIGN UP</button>
-              </form>
-            </div>
-            <p className="error-message">&nbsp;{this.state.error}</p>
+        <div className="form-container">
+        <form class="px-4 py-3" onSubmit={this.handleSubmit}>
+          <div class="form-group">
+            <label for="exampleDropdownFormEmail1">Name</label>
+            <input type="text" class="form-control" id="exampleDropdownFormEmail1" name="name" value={this.state.name} placeholder="John Doe" onChange={this.handleChange} required></input>
+            <small id="emailHelpBlock" class="form-text text-muted">
+              Please enter your name.
+            </small>
           </div>
+          <br></br>
+          <div class="form-group">
+            <label for="exampleDropdownFormPassword1">Email</label>
+            <input type="email" class="form-control" id="exampleDropdownFormPassword1" name="email" value={this.state.email} placeholder="yourname@example.com" onChange={this.handleChange} required></input>
+            <small id="passwordHelpBlock" class="form-text text-muted">
+              Please enter your email address.
+            </small>
+          </div>
+          <br></br>
+          <div class="form-group">
+            <label for="exampleDropdownFormPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleDropdownFormPassword1" name="password" value={this.state.password} placeholder="**********" onChange={this.handleChange} required></input>
+            <small id="passwordHelpBlock" class="form-text text-muted">
+              Your password must be 4 characters long.
+            </small>
+          </div>
+          <br></br>
+          <div class="form-group">
+            <label for="exampleDropdownFormPassword1">Confirm Password</label>
+            <input type="password" class="form-control" id="exampleDropdownFormPassword1" name="confirm" value={this.state.confirm} placeholder="**********" onChange={this.handleChange} required></input>
+            <small id="passwordHelpBlock" class="form-text text-muted">
+              Please key in your password again.
+            </small>
+          </div>
+          <br></br>
+          <button type="submit" disabled={disable} class="btn btn-primary">Sign up</button>
+        </form>
+        <div class="dropdown-divider"></div>
+        </div>
         );
       }
   }
