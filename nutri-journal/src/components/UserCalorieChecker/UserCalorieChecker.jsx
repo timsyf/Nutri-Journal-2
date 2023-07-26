@@ -10,40 +10,55 @@ export default function UserCalorieChecker(props) {
     const [formDataChanged, setFormDataChanged] = useState(false);
     const [selectedDate, setSelectedDate] = useState(getCurrentTime());
 
-    const fetchSearchDates = async () => {
-        try {
-          setLoading(true);
-          let query;
-          if (selectedDate === '') {
-            query = new URLSearchParams({
-              userId: user._id,
-            });
-          } else {
-            query = new URLSearchParams({
-              userId: user._id,
-              date: selectedDate,
-            });
-          }
-      
-          const response = await fetch('/meal/search/dates?' + query.toString());
-          const data = await response.json();
-          setUserMeal(data);
-          setLoading(false);
-          fetchUserFood(data);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-          setLoading(false);
+    const fetchSearchDatesAndUserFood = async () => {
+      try {
+        setLoading(true);
+        let query;
+        if (selectedDate === '') {
+          query = new URLSearchParams({
+            userId: user._id,
+          });
+        } else {
+          query = new URLSearchParams({
+            userId: user._id,
+            date: selectedDate,
+          });
         }
-      };
+    
+        const response = await fetch('/meal/search/dates?' + query.toString());
+        const data = await response.json();
+        setUserMeal(data);
+        setLoading(false);
+        
+        if (data.length === 0) {
+          setUserFood([]);
+          return;
+        }
+    
+        setLoading(true);
+        const userIdsString = data.map((user) => user.foodId).join(",");
+        const foodResponse = await fetch(`/food/userfood?_ids=${userIdsString}`);
+        const foodData = await foodResponse.json();
+        setLoading(false);
+        setUserFood(foodData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      }
+    };
+
+
+
+    
 
     useEffect(() => {
-        fetchSearchDates();
+        fetchSearchDatesAndUserFood();
     }, []);
 
     useEffect(() => {
         if (formDataChanged) {
             const debounceTimer = setTimeout(() => {
-                fetchSearchDates();
+              fetchSearchDatesAndUserFood();
             }, 500);
         
             return () => {
@@ -51,25 +66,6 @@ export default function UserCalorieChecker(props) {
             };
         }
     }, [selectedDate]);
-
-    const fetchUserFood = async (userfood) => {
-        try {
-          if (userfood.length === 0) {
-            setUserFood([]);
-            return;
-          }
-      
-          setLoading(true);
-          const userIdsString = userfood.map((user) => user.foodId).join(",");
-          const response = await fetch(`/food/userfood?_ids=${userIdsString}`);
-          const data = await response.json();
-          setLoading(false);
-          setUserFood(data);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-          setLoading(false);
-        }
-    };
 
     const handleSearchSubmit = (evt) => {
       evt.preventDefault();
