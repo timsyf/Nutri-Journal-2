@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 export default function AuthPage({setUser}) {
   
-  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showLoginForm, setShowLoginForm] = useState(true);
 
   const toggleForm = () => {
     setShowLoginForm(!showLoginForm);

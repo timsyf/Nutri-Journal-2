@@ -96,7 +96,7 @@ export default function AdminFoodUpdate({ callFetch }) {
     return (
         <div class="container">
         <br></br>
-        <h1>Update Food</h1>
+        <h2>Update Food</h2>
 
         {loading ? ( <div>Loading...</div> ) : (<></>)}
 

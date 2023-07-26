@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import AdminFoodCreate from '../../components/AdminFoodCreate/AdminFoodCreate';
 import AdminFoodDelete from '../../components/AdminFoodDelete/AdminFoodDelete';
 import AdminFoodUpdate from '../../components/AdminFoodUpdate/AdminFoodUpdate';
@@ -65,7 +66,7 @@ export default function AdminPanel() {
     return (
   <div class="card">
     <div class="card-header">
-      <h5 class="card-title">Food Information</h5>
+      <h5 class="card-title">Food Database</h5>
     </div>
     <div class="card-body">
       <table class="table table-striped table-bordered">
@@ -86,7 +87,11 @@ export default function AdminPanel() {
                   Copy
                 </button>
               </td>
-              <td>{food.name}</td>
+              <td>
+                <Link to={"/food/detail/" + food._id}>
+                  {food.name}
+                </Link>
+              </td>
               <td>{food.calorie} kcal</td>
               <td>{food.carbohydrate} g</td>
               <td>{food.protein} g</td>
@@ -106,7 +111,6 @@ export default function AdminPanel() {
       <AdminFoodUpdate callFetch={fetchSearch} />
       <div className='container'>
         <br></br>
-        <h1>Food Database</h1>
         <form autoComplete="off" onSubmit={handleSearchSubmit}>
           <input type="text" className='form-control btn-margin' placeholder="Name" name="name" value={formData.name} onChange={handleSearchChange} />
         </form>

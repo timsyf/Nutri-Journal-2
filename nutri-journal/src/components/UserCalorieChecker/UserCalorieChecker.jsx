@@ -1,5 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { Pagination } from 'swiper/modules';
 
 export default function UserCalorieChecker(props) {
 
@@ -82,46 +87,6 @@ export default function UserCalorieChecker(props) {
       console.log(selectedDate);
     }
 
-    const renderTable = () => {
-        if (userMeal.length === 0) {
-            return <p>No food items found.</p>;
-        }
-        return (
-            <>
-            <table>
-            <thead>
-                <tr>
-                <th>Food ID</th>
-                <th>Type</th>
-                <th>Date</th>
-                </tr>
-            </thead>
-
-            <tbody>
-              {userMeal.map((um) => {
-                const matchedFood = userFood.find((food) => food._id === um.foodId);
-                if (matchedFood) {
-                  return (
-                    <tr key={um._id}>
-                      <td>
-                        <Link to={"/food/detail/" + matchedFood._id}>
-                          {matchedFood.name}
-                        </Link>
-                      </td>
-                      <td>{um.type}</td>
-                      <td>{um.date.slice(0, 10)}</td>
-                    </tr>
-                  );
-                } else {
-                  return null;
-                }
-              })}
-            </tbody>
-            </table>
-            </>
-        );
-    };
-
     function getCurrentTime() {
       const currentTime = new Date();
       const year = currentTime.getFullYear().toString();
@@ -129,6 +94,42 @@ export default function UserCalorieChecker(props) {
       const day = currentTime.getDate().toString().padStart(2, '0');
       return `${year}-${month}-${day}`;
     }
+
+    const renderTable = () => {
+      if (userMeal.length === 0) {
+        return <p>No food items found.</p>;
+      }
+    
+      return (
+        <>
+          <div className="row">
+            <Swiper slidesPerView={4} spaceBetween={-20} pagination={{ clickable: true }} className="mySwiper">
+              {userMeal.map((um) => {
+                const matchedFood = userFood.find((food) => food._id === um.foodId);
+                if (matchedFood) {
+                  return (
+                    <SwiperSlide key={um._id}>
+                      <div className="container">
+                        <div className="card">
+                          <div className="card-body">
+                            <h5 className="card-title">{matchedFood.name}</h5>
+                            <p className="card-text">Type: {um.type}</p>
+                            <p className="card-text">Date: {um.date.slice(0, 10)}</p>
+                            <Link to={"/food/detail/" + matchedFood._id} className="btn btn-primary">View Details</Link>
+                          </div>
+                        </div>
+                      </div>
+                    </SwiperSlide>
+                  );
+                } else {
+                  return null;
+                }
+              })}
+            </Swiper>
+          </div>
+        </>
+      );
+    };
     
     return (
     <div>

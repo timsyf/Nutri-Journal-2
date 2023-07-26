@@ -78,35 +78,6 @@ export default function TotalCalories(props) {
       console.log(selectedDate);
     }
 
-    const renderTable = () => {
-        if (userMeal.length === 0) {
-            return <p>No food items found.</p>;
-        }
-        return (
-            <>
-            <table>
-            <thead>
-                <tr>
-                <th>Name</th>
-                <th>Calories</th>
-                </tr>
-            </thead>
-
-            <tbody>
-              {userFood.map((um) => {
-                  return (
-                    <tr key={um._id}>
-                      <td>{um.name}</td>
-                      <td>{um.calorie} kcal</td>
-                    </tr>
-                  );
-              })}
-            </tbody>
-            </table>
-            </>
-        );
-    };
-
     function getCurrentTime() {
       const currentTime = new Date();
       const year = currentTime.getFullYear().toString();
@@ -114,14 +85,65 @@ export default function TotalCalories(props) {
       const day = currentTime.getDate().toString().padStart(2, '0');
       return `${year}-${month}-${day}`;
     }
+
+    const renderTable = () => {
+      if (userMeal.length === 0) {
+        return <p>No food items found.</p>;
+      }
+      return (
+          <div className="card">
+            <div className="card-header">
+              <h5>Food Items</h5>
+            </div>
+            <div className="card-body">
+              <table className="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Calories</th>
+                  </tr>
+                </thead>
+      
+                <tbody>
+                  {userFood.map((um) => {
+                    return (
+                      <tr key={um._id}>
+                        <td>{um.name}</td>
+                        <td>{um.calorie} kcal</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+        </div>
+      );
+    };
     
     return (
-    <div>
-        <h1>Total Calories</h1>
-        <form autoComplete="off" onSubmit={handleSearchSubmit}>
-          <input type="date" value={selectedDate.slice(0, 10)} onChange={handlesetSelectedDateChange} />
-        </form>
-        {loading ? <div>Loading...</div> : renderTable()}
-    </div>
+      <div className="container mt-4">
+        <div className="row">
+          <div className="col">
+            <h1>Total Calories</h1>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <form className="mb-3" autoComplete="off" onSubmit={handleSearchSubmit}>
+              <input
+                type="date"
+                className="form-control"
+                value={selectedDate.slice(0, 10)}
+                onChange={handlesetSelectedDateChange}
+              />
+            </form>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            {loading ? <div>Loading...</div> : renderTable()}
+          </div>
+        </div>
+      </div>
     );
 }

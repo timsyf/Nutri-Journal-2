@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function FoodDatabase() {
     const [formData, setFormData] = useState({ name: '' });
@@ -52,69 +53,70 @@ export default function FoodDatabase() {
       if (food.length === 0) {
         return <p>No food items found.</p>;
       }
-  
-      return (
-        <>
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Calories</th>
-              <th>Carbohydrate</th>
-              <th>Protein</th>
-              <th>Fat</th>
-              <th>Trans Fat</th>
-              <th>Saturated Fat</th>
-              <th>Polyunsaturated Fat</th>
-              <th>Monounsaturated Fat</th>
-              <th>Cholesterol</th>
-              <th>Sodium</th>
-              <th>Potassium</th>
-              <th>Fiber</th>
-              <th>Sugar</th>
-              <th>Vitamin A</th>
-              <th>Vitamin C</th>
-              <th>Calcium</th>
-              <th>Iron</th>
-            </tr>
-          </thead>
-  
-          <tbody>
-            {food.map((food) => (
-              <tr key={food._id}>
-                <td>{food.name}</td>
-                <td>{food.calorie} kcal</td>
-                <td>{food.carbohydrate} g</td>
-                <td>{food.protein} g</td>
-                <td>{food.fat} g</td>
-                <td>{food.trans_Fat} g</td>
-                <td>{food.saturated_Fat} g</td>
-                <td>{food.polyunsaturated_Fat} g</td>
-                <td>{food.monounsaturated_Fat} g</td>
-                <td>{food.cholesterol} mg</td>
-                <td>{food.sodium} mg</td>
-                <td>{food.potassium} mg</td>
-                <td>{food.fiber} g</td>
-                <td>{food.sugar} g</td>
-                <td>{food.vitamin_A} IU</td>
-                <td>{food.vitamin_C} mg</td>
-                <td>{food.calcium} mg</td>
-                <td>{food.iron} mg</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        </>
-      );
-    };
-  
+
     return (
-      <div>
-        <h1>Food Database</h1>
-        <form autoComplete="off" onSubmit={handleSearchSubmit}>
-          <input type="text" placeholder="Name" name="name" value={formData.name} onChange={handleSearchChange} />
-        </form>
-        {loading ? <div>Loading...</div> : renderTable()}
-      </div>
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Food Information</h5>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Calories</th>
+            <th>Carbohydrate</th>
+            <th>Protein</th>
+          </tr>
+        </thead>
+        <tbody>
+          {food.map((food) => (
+            <tr key={food._id}>
+              <td>
+                <Link to={"/food/detail/" + food._id}>
+                  {food.name}
+                </Link>
+              </td>
+              <td>{food.calorie} kcal</td>
+              <td>{food.carbohydrate} g</td>
+              <td>{food.protein} g</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
     );
-  }
+  };
+  
+  return (
+    <div className="container mt-4">
+      <div className="row">
+        <div className="col">
+          <h2>Food Database</h2>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <form className="mb-3" autoComplete="off" onSubmit={handleSearchSubmit}>
+            <div className="input-group">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Name"
+                name="name"
+                value={formData.name}
+                onChange={handleSearchChange}
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          {loading ? <div>Loading...</div> : renderTable()}
+        </div>
+      </div>
+    </div>
+  );
+}

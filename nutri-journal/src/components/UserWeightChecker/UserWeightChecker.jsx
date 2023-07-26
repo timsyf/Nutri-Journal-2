@@ -72,41 +72,72 @@ export default function UserWeightChecker(props) {
     }
 
     const renderTable = () => {
-        if (weightData === 0) {
-          return <p>No weight data found.</p>;
-        }
+      if (weightData === 0) {
+        return <p>No weight data found.</p>;
+      }
     
-        return (
-          <>
-          <table>
-            <thead>
-              <tr>
-                <th>Weight</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-    
-            <tbody>
-              {weightData.map((w) => (
-                <tr key={w._id}>
-                  <td>{w.weight} kg</td>
-                  <td>{w.date.slice(0, 10)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          </>
-        );
-      };
+      return (
+        <div className='container mt-4'>
+          <div className="card">
+            <div className="card-header">
+              <h5>Weight Data</h5>
+            </div>
+            <div className="card-body">
+              <table className="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Weight</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {weightData.map((w) => (
+                    <tr key={w._id}>
+                      <td>{w.weight} kg</td>
+                      <td>{w.date.slice(0, 10)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      );
+    };
 
     return (
-        <>
-        <h1>User Weight Checker</h1>
-        <form autoComplete="off" onSubmit={handleSearchSubmit}>
-            <input type="date" name="startDate" value={formDateState.startDate} onChange={handleDateChange} />
-            <input type="date" name="endDate" value={formDateState.endDate} onChange={handleDateChange} />
+      <div className='container'>
+        <form autoComplete="off" onSubmit={handleSearchSubmit} className="mb-4">
+          <div className="row">
+            <div className="col-md-6">
+              <div className="form-group">
+                <label htmlFor="startDate">Start Date</label>
+                <input
+                  type="date"
+                  className="form-control"
+                  id="startDate"
+                  name="startDate"
+                  value={formDateState.startDate}
+                  onChange={handleDateChange}
+                />
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="form-group btn-margin">
+                <label htmlFor="endDate">End Date</label>
+                <input
+                  type="date"
+                  className="form-control btn-margin"
+                  id="endDate"
+                  name="endDate"
+                  value={formDateState.endDate}
+                  onChange={handleDateChange}
+                />
+              </div>
+            </div>
+            {loading ? <div>Loading...</div> : renderTable()}
+          </div>
         </form>
-        {loading ? <div>Loading...</div> : renderTable()}
-        </>
+      </div>
     );
 }

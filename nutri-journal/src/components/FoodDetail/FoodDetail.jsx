@@ -28,53 +28,59 @@ export default function FoodDetail() {
       }
   
       return (
-        <>
-        <table>
-          <thead>
-            <tr>
-              <th>Calorie</th>
-              <th>Carbohydrate</th>
-              <th>Protein</th>
-              <th>Fat</th>
-              <th>Trans Fat</th>
-              <th>Saturated Fat</th>
-              <th>Polyunsaturated Fat</th>
-              <th>Monounsaturated Fat</th>
-              <th>Cholesterol</th>
-              <th>Sodium</th>
-              <th>Potassium</th>
-              <th>Fiber</th>
-              <th>Sugar</th>
-              <th>Vitamin A</th>
-              <th>Vitamin C</th>
-              <th>Calcium</th>
-              <th>Iron</th>
-            </tr>
-          </thead>
-  
-          <tbody>
-              <tr key={food._id}>
-                <td>{food.calorie} kcal</td>
-                <td>{food.carbohydrate} g</td>
-                <td>{food.protein} g</td>
-                <td>{food.fat} g</td>
-                <td>{food.trans_Fat} g</td>
-                <td>{food.saturated_Fat} g</td>
-                <td>{food.polyunsaturated_Fat} g</td>
-                <td>{food.monounsaturated_Fat} g</td>
-                <td>{food.cholesterol} mg</td>
-                <td>{food.sodium} mg</td>
-                <td>{food.potassium} mg</td>
-                <td>{food.fiber} g</td>
-                <td>{food.sugar} g</td>
-                <td>{food.vitamin_A} IU</td>
-                <td>{food.vitamin_C} mg</td>
-                <td>{food.calcium} mg</td>
-                <td>{food.iron} mg</td>
-              </tr>
-          </tbody>
-        </table>
-        </>
+        <ul className="list-group">
+          <li className="list-group-item">
+            <strong>Calorie:</strong> {food.calorie} kcal
+          </li>
+          <li className="list-group-item">
+            <strong>Carbohydrate:</strong> {food.carbohydrate} g
+          </li>
+          <li className="list-group-item">
+            <strong>Protein:</strong> {food.protein} g
+          </li>
+          <li className="list-group-item">
+            <strong>Fat:</strong> {food.fat} g
+          </li>
+          <li className="list-group-item">
+            <strong>Trans Fat:</strong> {food.trans_Fat} g
+          </li>
+          <li className="list-group-item">
+            <strong>Saturated Fat:</strong> {food.saturated_Fat} g
+          </li>
+          <li className="list-group-item">
+            <strong>Polyunsaturated Fat:</strong> {food.polyunsaturated_Fat} g
+          </li>
+          <li className="list-group-item">
+            <strong>Monounsaturated Fat:</strong> {food.monounsaturated_Fat} g
+          </li>
+          <li className="list-group-item">
+            <strong>Cholesterol:</strong> {food.cholesterol} mg
+          </li>
+          <li className="list-group-item">
+            <strong>Sodium:</strong> {food.sodium} mg
+          </li>
+          <li className="list-group-item">
+            <strong>Potassium:</strong> {food.potassium} mg
+          </li>
+          <li className="list-group-item">
+            <strong>Fiber:</strong> {food.fiber} g
+          </li>
+          <li className="list-group-item">
+            <strong>Sugar:</strong> {food.sugar} g
+          </li>
+          <li className="list-group-item">
+            <strong>Vitamin A:</strong> {food.vitamin_A} IU
+          </li>
+          <li className="list-group-item">
+            <strong>Vitamin C:</strong> {food.vitamin_C} mg
+          </li>
+          <li className="list-group-item">
+            <strong>Calcium:</strong> {food.calcium} mg
+          </li>
+          <li className="list-group-item">
+            <strong>Iron:</strong> {food.iron} mg
+          </li>
+        </ul>
       );
     };
   

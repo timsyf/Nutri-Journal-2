@@ -67,7 +67,7 @@ export default function AdminFoodDelete({ callFetch }) {
         <>
           <div class="container">
             <br></br>
-            <h1>Delete Food</h1>
+            <h2>Delete Food</h2>
             
             {loading ? ( <div>Loading...</div> ) : (<></>)}
 

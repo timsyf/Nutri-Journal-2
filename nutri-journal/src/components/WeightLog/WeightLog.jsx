@@ -75,13 +75,25 @@ export default function WeightLog(props) {
     }
 
     return (
-      <>
-        <h1>Weight Log</h1>
+      <div className="container mt-4">
+        <h2>Check-in</h2>
         <form autoComplete="off" onSubmit={handleSearchSubmit}>
-          <input type="date" name='date' value={formState.date} onChange={handleChange} />
-                <input type="text" placeholder="Weight" name="weight" onChange={handleChange} />
-          <button type="submit">Submit</button>
+          <div className="row mb-3">
+            <div className="col-sm">
+              <input type="date" className="form-control" id="date" name="date" value={formState.date} onChange={handleChange} />
+            </div>
+          </div>
+          <div className="row mb-3">
+            <div className="col-sm">
+              <input type="text" className="form-control" id="weight" placeholder="Weight" name="weight" onChange={handleChange} />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-sm">
+              <button type="submit" class="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Submit</button>
+            </div>
+          </div>
         </form>
-      </>
+      </div>
     );
   }

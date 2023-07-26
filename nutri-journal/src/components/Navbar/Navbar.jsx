@@ -1,4 +1,3 @@
-// Don't forget the import
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import Logo from '../../images/logo.png';
@@ -9,11 +8,8 @@ export default function NavBar(user, setUser) {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
 
-  // Add the following function
   function handleLogOut() {
-    // Delegate to the users-service
     userService.logOut();
-    // Update state will also cause a re-render
     setUser(null);
   }
 
@@ -29,6 +25,7 @@ export default function NavBar(user, setUser) {
 
       <div class={`${isNavCollapsed ? 'collapse' : ''} navbar-collapse text-center`} id="navbarsExample09">
         <nav className="navbar-nav">
+          <Link to="/"><a className="nav-link text-info">Home</a></Link>
           <Link to="/meal"><a className="nav-link text-info">Meal</a></Link>
           <Link to="/food"><a className="nav-link text-info">Food</a></Link>
           <Link to="/weight/log"><a className="nav-link text-info">Weight Log</a></Link>
