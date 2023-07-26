@@ -34,11 +34,11 @@ const getByDate = async (req, res) => {
     const end = new Date(endDate);
 
     const weightLogs = await WeightLog.find({
-      userId: userId,
       date: {
         $gte: start,
         $lte: end,
       },
+      userId: userId,
     });
 
     res.status(200).json(weightLogs);
