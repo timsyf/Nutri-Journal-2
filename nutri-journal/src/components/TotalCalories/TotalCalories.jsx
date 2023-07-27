@@ -142,7 +142,7 @@ export default function TotalCalories(props) {
       <div className="container mt-4">
         <div className="row">
           <div className="col">
-            <h2>Calories Checker</h2>
+            <h2>Calories Journal</h2>
           </div>
         </div>
         <div className="row">

@@ -58,13 +58,14 @@ export default function AdminFoodCreate({ callFetch }) {
           
           if (response.ok) {
             const data = await response.json();
+            swal("Food has been created!");
             console.log('Data stored in the database:', data);
           } else {
+            swal("Something went wrong! the food hasn't been created.");
             console.error('Failed to store data in the database:', response.status);
           }
           setLoading(false);
           callFetch();
-          swal("Food has been created!");
         } catch (error) {
           console.error(error);
           setLoading(false);
@@ -94,8 +95,7 @@ export default function AdminFoodCreate({ callFetch }) {
 
     return (
         <>
-        <div className="container">
-          <br></br>
+        <div className="container mt-4">
           <h2>Create Food</h2>
 
           {loading ? ( <div>Loading...</div> ) : (<></>)}

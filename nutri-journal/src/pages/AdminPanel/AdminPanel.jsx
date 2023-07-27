@@ -75,7 +75,7 @@ export default function AdminPanel() {
               <table className="table table-striped table-bordered">
                 <thead>
                   <tr>
-                    <th>ID</th>
+                    <th></th>
                     <th>Name</th>
                     <th>Calories</th>
                     <th>Carbohydrate</th>

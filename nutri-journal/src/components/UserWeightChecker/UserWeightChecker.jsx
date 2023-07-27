@@ -121,7 +121,7 @@ export default function UserWeightChecker(props) {
 
     return (
       <div className='container mt-4'>
-      <h2>Weight Checker</h2>
+      <h2>Weights Journal</h2>
         <form autoComplete="off" onSubmit={handleSearchSubmit} className="mb-4">
           <div className="row">
             <div className="col-md-6">

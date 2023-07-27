@@ -23,11 +23,11 @@ export default function WeightLog(props) {
           const data = await dateExistsResponse.json(); // Ensure the response has a JSON body
     
           if (data.exists) {
+            swal("Something went wrong! weight with the same date already exists in the database.");
             console.log('Data with the same date already exists in the database. You may choose to update or handle this case.');
             setLoading(false);
             return;
           }
-    
           const response = await fetch('/weight/log', {
             method: 'POST',
             headers: {
@@ -38,17 +38,19 @@ export default function WeightLog(props) {
     
           if (response.ok) {
             const newData = await response.json();
+            swal("Weight has been stored in the database!");
             console.log('Data stored in the database:', newData);
           } else {
+            swal("Something went wrong! the weight hasn't been added.");
             console.error('Failed to store data in the database:', response.status);
           }
         } else {
+          swal("Something went wrong! failed to check if the date exists in the database.");
           console.error('Failed to check if the date exists in the database:', dateExistsResponse.status);
         }
     
         setLoading(false);
         props.callFetch();
-        swal("Weight details have been added!");
       } catch (error) {
         console.error(error);
         setLoading(false);
@@ -79,7 +81,7 @@ export default function WeightLog(props) {
 
     return (
       <>
-        <h2>Check-in</h2>
+        <h2>Add Weight</h2>
         <form autoComplete="off" onSubmit={handleSearchSubmit}>
           <div className="row mb-3">
             <div className="col-sm">
@@ -93,7 +95,7 @@ export default function WeightLog(props) {
           </div>
           <div className="row">
             <div className="col-sm">
-              <button type="submit" className="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Submit</button>
+              <button type="submit" className="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Add</button>
             </div>
           </div>
         </form>

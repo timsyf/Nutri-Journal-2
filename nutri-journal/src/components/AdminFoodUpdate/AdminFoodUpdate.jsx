@@ -55,14 +55,14 @@ export default function AdminFoodUpdate({ callFetch }) {
             });
 
             if (response.ok) {
+              swal("Food has been updated!");
                 console.log('Data updated in the database');
             } else {
+              swal("Something went wrong! the food hasn't been updated.");
                 console.error('Failed to update data in the database:', response.status);
             }
-
             setLoading(false);
             callFetch();
-            swal("Food has been updated!");
         } catch (error) {
             console.error(error);
             setLoading(false);
@@ -95,8 +95,7 @@ export default function AdminFoodUpdate({ callFetch }) {
       }
 
     return (
-        <div className="container">
-        <br></br>
+        <div className="container mt-4">
         <h2>Update Food</h2>
 
         {loading ? ( <div>Loading...</div> ) : (<></>)}
@@ -128,27 +127,9 @@ export default function AdminFoodUpdate({ callFetch }) {
               <input type="text" className="form-control btn-margin" placeholder='Iron' name="iron" value={formState.iron} onChange={handleUpdateChangeData}></input>
             </div>
           </div>
-          <button type="submit" className="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Submit</button>
+          <button type="submit" className="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Update</button>
           <button type="button" className="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }} onClick={handleReset}>Reset</button>
         </form>
       </div>
     );
   }
-
-  {/*{loading ? ( <div>Loading...</div> ) : (<></>)}
-            <h1>Update</h1>
-            <div>
-                <form autoComplete="off" onSubmit={handleUpdate}>
-                <input type="text" name="id" placeholder='ID' onChange={handleUpdateChangeID} required />
-                <br></br>
-                <br></br>
-                <input type="text" name="name" placeholder='Name' onChange={handleUpdateChangeData} />
-                {allNutrients.map((nutrient) => (
-                <input type='text' placeholder={capitalizeFirstLetter(nutrient)} name={nutrient} onChange={handleUpdateChangeData}></input>
-                ))}
-                <br></br>
-                <br></br>
-                <button type="submit">Submit</button>
-                </form>
-            </div>
-                </>*/}

@@ -38,14 +38,15 @@ export default function AdminFoodDelete({ callFetch }) {
             }
           });
           if (response.ok) {
+            swal("Food has been deleted!");
             console.log('Data deleted from the database');
           } else {
+            swal("Something went wrong! the food hasn't been deleted");
             console.error('Failed to delete data from the database:', response.status);
           }
           setLoading(false);
           callFetch();
           fetchSearchDelete();
-          swal("Food has been deleted!");
         } catch (error) {
           console.error(error);
           setLoading(false);
@@ -66,13 +67,12 @@ export default function AdminFoodDelete({ callFetch }) {
 
     return (
         <>
-          <div className="container">
-            <br></br>
+          <div className="container mt-4">
             <h2>Delete Food</h2>
             <div>
               <form autoComplete="off" onSubmit={handleDelete}>
                 <input type="text" className="form-control btn-margin" placeholder='ID' onChange={handleDeleteChange} required></input>
-                <button type="submit" className="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Submit</button>
+                <button type="submit" className="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Delete</button>
               </form>
             </div>
           </div>

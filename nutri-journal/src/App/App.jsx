@@ -87,8 +87,8 @@ export default function App() {
 
                 <div className={`${isNavCollapsed ? 'collapse' : ''} navbar-collapse text-center`} id="navbarsExample09">
                   <nav className="navbar-nav">
-                    <a onClick={showLoginSignUp} className="nav-link text-info">Home</a>
-                    <a onClick={showDefault} className="nav-link text-info">Login / Sign Up</a>
+                    <Link to="/"><a onClick={showLoginSignUp} className="nav-link text-info">Home</a></Link>
+                    <Link to="/"><a onClick={showDefault} className="nav-link text-info">Login / Sign Up</a></Link>
                   </nav>
                 </div>
               </nav>

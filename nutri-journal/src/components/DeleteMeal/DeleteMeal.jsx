@@ -202,7 +202,7 @@ export default function UserCalorieCheckIn(props) {
 
     return (
         <>
-        <div className='container mb-4'>
+        <div className='container mt-4'>
             <h2>Delete Meal</h2>
             <div className="mb-3">
                 <input type="text" className="form-control" placeholder="ID" name="id" value={removeID} readOnly required />

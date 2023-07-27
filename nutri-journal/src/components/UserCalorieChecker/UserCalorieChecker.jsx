@@ -129,7 +129,7 @@ export default function UserCalorieChecker(props) {
     
     return (
       <div className="container mt-4">
-        <h2>Meal Checker</h2>
+        <h2>Meals Journal</h2>
         <form autoComplete="off" onSubmit={handleSearchSubmit}>
           <div className="form-group">
             <input

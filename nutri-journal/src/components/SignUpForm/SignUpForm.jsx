@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { signUp } from '../../utilities/users-service';
+import swal from 'sweetalert';
 
 export default class SignUpForm extends Component {
     state = {
@@ -34,6 +35,7 @@ export default class SignUpForm extends Component {
       } catch {
           // An error occurred 
           this.setState({ error: 'Sign Up Failed - Try Again' });
+          swal("Sign Up Failed - Try Again");
         }
       };
 

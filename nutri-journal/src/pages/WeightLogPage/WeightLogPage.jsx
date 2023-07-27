@@ -122,48 +122,49 @@ export default function WeightLogPage(props) {
   };
 
   return (
-    <div className='container mt-4'>
-    <Tabs defaultActiveKey="Add" id="justify-tab-example" className="mb-3" justify>
-      <Tab eventKey="Add" title="Add">
-        <WeightLog elements = {props} callFetch={fetchDateByRange} />
-      </Tab>
-      <Tab eventKey="Delete" title="Delete">
-        <WeightLogDelete elements = {props} callFetch={fetchDateByRange}  />
-      </Tab>
-    </Tabs>
-    <h2>Weight Checker</h2>
-      <form autoComplete="off" onSubmit={handleSearchSubmit} className="mb-4">
-        <div className="row">
-          <div className="col-md-6">
-            <div className="form-group">
-              <label htmlFor="startDate">Start Date</label>
-              <input
-                type="date"
-                className="form-control"
-                id="startDate"
-                name="startDate"
-                value={formDateState.startDate}
-                onChange={handleDateChange}
-              />
+    <>
+      <Tabs defaultActiveKey="Add" id="justify-tab-example" className="mb-3" justify>
+        <Tab eventKey="Add" title="Add">
+          <WeightLog elements = {props} callFetch={fetchDateByRange} />
+        </Tab>
+        <Tab eventKey="Delete" title="Delete">
+          <WeightLogDelete elements = {props} callFetch={fetchDateByRange}  />
+        </Tab>
+      </Tabs>
+      <div className='container mt-4'>
+        <form autoComplete="off" onSubmit={handleSearchSubmit} className="mb-4">
+          <div className="row">
+            <div className="col-md-6">
+              <div className="form-group">
+                <label htmlFor="startDate">Start Date</label>
+                <input
+                  type="date"
+                  className="form-control"
+                  id="startDate"
+                  name="startDate"
+                  value={formDateState.startDate}
+                  onChange={handleDateChange}
+                />
+              </div>
             </div>
-          </div>
-          <div className="col-md-6">
-            <div className="form-group btn-margin">
-              <label htmlFor="endDate">End Date</label>
-              <input
-                type="date"
-                className="form-control btn-margin"
-                id="endDate"
-                name="endDate"
-                value={formDateState.endDate}
-                onChange={handleDateChange}
-              />
+            <div className="col-md-6">
+              <div className="form-group btn-margin">
+                <label htmlFor="endDate">End Date</label>
+                <input
+                  type="date"
+                  className="form-control btn-margin"
+                  id="endDate"
+                  name="endDate"
+                  value={formDateState.endDate}
+                  onChange={handleDateChange}
+                />
+              </div>
             </div>
+            {loading ? <div>Loading...</div> : renderTable()}
           </div>
-          {loading ? <div>Loading...</div> : renderTable()}
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
+    </>
   );
 }
 

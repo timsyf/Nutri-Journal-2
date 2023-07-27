@@ -20,20 +20,22 @@ export default function WeightLogDelete(props) {
         const dateExistsResponse = await fetch('/weight/log/delete?' + query.toString(), {
           method: 'DELETE',
         });
-    
+
         if (dateExistsResponse.ok) {
           const data = await dateExistsResponse.json();
           if (data.deleted) {
+            swal("Weight has been deleted!");
             console.log('Data with the specified date has been deleted from the database.');
           } else {
+            swal("Something went wrong! No weight found with the specified date in the database.");
             console.log('No data found with the specified date in the database.');
           }
         } else {
+          swal("Something went wrong! failed to check if the date exists in the database.");
           console.error('Failed to check if the date exists in the database:', dateExistsResponse.status);
         }
         setLoading(false);
         props.callFetch();
-        swal("Weight details have been deleted!");
       } catch (error) {
         console.error(error);
         setLoading(false);
@@ -64,7 +66,7 @@ export default function WeightLogDelete(props) {
 
     return (
       <>
-        <h2>Delete Weight Record</h2>
+        <h2>Delete Weight</h2>
         <form autoComplete="off" onSubmit={handleDeleteSubmit}>
           <div className="row mb-3">
             <div className="col-sm">
@@ -73,7 +75,7 @@ export default function WeightLogDelete(props) {
           </div>
           <div className="row">
             <div className="col-sm">
-              <button type="submit" className="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Submit</button>
+              <button type="submit" className="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Delete</button>
             </div>
           </div>
         </form>

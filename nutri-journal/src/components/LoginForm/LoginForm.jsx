@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import * as usersService from '../../utilities/users-service';
+import swal from 'sweetalert';
 
 export default function LoginForm({ setUser }) {
   const [credentials, setCredentials] = useState({
@@ -24,6 +25,7 @@ export default function LoginForm({ setUser }) {
       setUser(user);
     } catch {
       setError('Log In Failed - Try Again');
+      swal("Log In Failed - Try Again");
     }
   }
 
