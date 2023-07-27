@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import swal from 'sweetalert';
 
 export default function WeightLog(props) {
 
@@ -46,6 +47,8 @@ export default function WeightLog(props) {
         }
     
         setLoading(false);
+        props.callFetch();
+        swal("Weight details have been added!");
       } catch (error) {
         console.error(error);
         setLoading(false);
@@ -75,7 +78,7 @@ export default function WeightLog(props) {
     }
 
     return (
-      <div className="container mt-4">
+      <>
         <h2>Check-in</h2>
         <form autoComplete="off" onSubmit={handleSearchSubmit}>
           <div className="row mb-3">
@@ -94,6 +97,6 @@ export default function WeightLog(props) {
             </div>
           </div>
         </form>
-      </div>
+      </>
     );
   }

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import swal from 'sweetalert';
 
 export default function AdminFoodCreate({ callFetch }) {
 
@@ -63,6 +64,7 @@ export default function AdminFoodCreate({ callFetch }) {
           }
           setLoading(false);
           callFetch();
+          swal("Food has been created!");
         } catch (error) {
           console.error(error);
           setLoading(false);

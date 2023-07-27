@@ -116,7 +116,7 @@ export default function AdminPanel() {
 
   return (
     <>
-      <Tabs defaultActiveKey="Weight" id="justify-tab-example" className="mb-3" justify>
+      <Tabs defaultActiveKey="Create" id="justify-tab-example" className="mb-3" justify>
         <Tab eventKey="Create" title="Create">
           <AdminFoodCreate callFetch={fetchSearch} />
         </Tab>

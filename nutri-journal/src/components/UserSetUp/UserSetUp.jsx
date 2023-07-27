@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { UserNutrient, UserPhysique } from '../../components/Data/Data';
+import swal from 'sweetalert';
 
 export default function UserSetup(props) {
   
@@ -49,6 +50,7 @@ export default function UserSetup(props) {
         console.error('Failed to store data in the database:', response.status);
       }
       setLoading(false);
+      swal("User has been configured!");
     } catch (error) {
       console.error(error);
       setLoading(false);

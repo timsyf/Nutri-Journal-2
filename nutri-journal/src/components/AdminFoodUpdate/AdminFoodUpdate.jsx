@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { allNutrients } from '../../components/Data/Data';
+import swal from 'sweetalert';
 
 export default function AdminFoodUpdate({ callFetch }) {
 
@@ -62,6 +62,7 @@ export default function AdminFoodUpdate({ callFetch }) {
 
             setLoading(false);
             callFetch();
+            swal("Food has been updated!");
         } catch (error) {
             console.error(error);
             setLoading(false);

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import swal from 'sweetalert';
 
 export default function AdminFoodDelete({ callFetch }) {
 
@@ -44,6 +45,7 @@ export default function AdminFoodDelete({ callFetch }) {
           setLoading(false);
           callFetch();
           fetchSearchDelete();
+          swal("Food has been deleted!");
         } catch (error) {
           console.error(error);
           setLoading(false);

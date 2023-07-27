@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import swal from 'sweetalert';
 
 export default function WeightLogDelete(props) {
 
@@ -30,8 +31,9 @@ export default function WeightLogDelete(props) {
         } else {
           console.error('Failed to check if the date exists in the database:', dateExistsResponse.status);
         }
-    
         setLoading(false);
+        props.callFetch();
+        swal("Weight details have been deleted!");
       } catch (error) {
         console.error(error);
         setLoading(false);
@@ -61,7 +63,7 @@ export default function WeightLogDelete(props) {
     }
 
     return (
-      <div className="container mt-4">
+      <>
         <h2>Delete Weight Record</h2>
         <form autoComplete="off" onSubmit={handleDeleteSubmit}>
           <div className="row mb-3">
@@ -75,6 +77,6 @@ export default function WeightLogDelete(props) {
             </div>
           </div>
         </form>
-      </div>
+      </>
     );
   }
