@@ -16,11 +16,13 @@ export default function WeightLogDelete(props) {
     
         const query = new URLSearchParams({
           date: formState.date,
+          userId: formState.userId
         });
         const dateExistsResponse = await fetch('/weight/log/delete?' + query.toString(), {
           method: 'DELETE',
         });
-
+        
+        console.log(dateExistsResponse);
         if (dateExistsResponse.ok) {
           const data = await dateExistsResponse.json();
           if (data.deleted) {
