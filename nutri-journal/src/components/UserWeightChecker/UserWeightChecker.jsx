@@ -104,7 +104,15 @@ export default function UserWeightChecker(props) {
                   </tbody>
                 </table>
               </div>
-              <div>Your lowest weight is {lowestWeight} kg between {formDateState.startDate} to {formDateState.endDate}</div>
+              <div className="container">
+              <div className="row">
+                <div className="col">
+                  <div className="alert alert-info">
+                    Your lowest weight is <strong>{lowestWeight}</strong> kg between <strong>{formDateState.startDate}</strong> to <strong>{formDateState.endDate}</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
             </div>
           </div>
         </div>
