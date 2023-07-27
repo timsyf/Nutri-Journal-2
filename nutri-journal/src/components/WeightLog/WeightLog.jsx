@@ -16,18 +16,22 @@ export default function WeightLog(props) {
     
         const query = new URLSearchParams({
           date: formState.date,
+          userId: formState.userId
         });
-        const dateExistsResponse = await fetch('/weight/log/date?' + query.toString());
+        const dateAndUserExistsResponse = await fetch('/weight/log/date?' + query.toString());
     
-        if (dateExistsResponse.ok) {
-          const data = await dateExistsResponse.json(); // Ensure the response has a JSON body
-    
+        console.log(dateAndUserExistsResponse);
+        if (dateAndUserExistsResponse.ok) {
+          const data = await dateAndUserExistsResponse.json();
+          
+
           if (data.exists) {
-            swal("Something went wrong! weight with the same date already exists in the database.");
-            console.log('Data with the same date already exists in the database. You may choose to update or handle this case.');
+            swal("Something went wrong! Weight with the same date and user already exists in the database.");
+            console.log('Data with the same date and user already exists in the database. You may choose to update or handle this case.');
             setLoading(false);
             return;
           }
+    
           const response = await fetch('/weight/log', {
             method: 'POST',
             headers: {
@@ -41,12 +45,12 @@ export default function WeightLog(props) {
             swal("Weight has been stored in the database!");
             console.log('Data stored in the database:', newData);
           } else {
-            swal("Something went wrong! the weight hasn't been added.");
+            swal("Something went wrong! The weight hasn't been added.");
             console.error('Failed to store data in the database:', response.status);
           }
         } else {
-          swal("Something went wrong! failed to check if the date exists in the database.");
-          console.error('Failed to check if the date exists in the database:', dateExistsResponse.status);
+          swal("Something went wrong! Failed to check if the date and user exist in the database.");
+          console.error('Failed to check if the date and user exist in the database:', dateAndUserExistsResponse.status);
         }
     
         setLoading(false);

@@ -10,11 +10,12 @@ const create = async (req, res) => {
   }
 };
 
-const checkIfDateExists = async (req, res) => {
+const checkIfDateAndUserIdExist = async (req, res) => {
   try {
-    const { date } = req.query;
+    const { date, userId } = req.query;
 
-    const existingLog = await WeightLog.findOne({ date: new Date(date) });
+    // Assuming you have a mongoose model named WeightLog with the appropriate schema
+    const existingLog = await WeightLog.findOne({ date: new Date(date), userId: userId });
 
     if (existingLog) {
       res.status(200).json({ exists: true });
@@ -22,7 +23,7 @@ const checkIfDateExists = async (req, res) => {
       res.status(200).json({ exists: false });
     }
   } catch (error) {
-    res.status(500).json({ error: 'An error occurred while checking the date.' });
+    res.status(500).json({ error: 'An error occurred while checking the date and userId.' });
   }
 };
 
@@ -66,7 +67,7 @@ const deleteWeight = async (req, res) => {
 
 module.exports = {
   create,
-  checkIfDateExists,
+  checkIfDateAndUserIdExist,
   getByDate,
   deleteWeight,
 };
