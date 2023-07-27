@@ -20,8 +20,6 @@ Nutri Journal goes beyond being just another app by providing a responsive websi
 
 In conclusion, Nutri Journal is more than just a weight-tracking and calorie-monitoring app; it's a comprehensive, user-friendly, and responsive website that revolutionizes the way you approach nutrition. With its vast food database, and effortless weight-tracking capabilities. Nutri Journal becomes your ultimate nutritional companion on your journey to a healthier and happier life. Embrace the power of Nutri Journal today and take the first step towards a better you!
 
-<img src="https://imgur.com/rCWZJUL.png">
-
 # Technologies And Libaries Used
 - HTML
 - CSS
@@ -37,10 +35,10 @@ In conclusion, Nutri Journal is more than just a weight-tracking and calorie-mon
 
 # Wireframes
 [**Figma**](https://www.figma.com/file/bNUHoLFCBLx2o5cIbm9UE8/Nutri-Journal?type=design&node-id=0%3A1&mode=design&t=7zKBnbyc2sRpDeY3-1)<br>
-<img src="https://imgur.com/o7rUESD.png">
+<img src="https://imgur.com/1B6yu4C.png">
 
 # Task allocation example
-[**Trello**](https://trello.com/b/KhI36xOk/nsm-ga)<br>
+[**Trello**](https://trello.com/b/9vUbyMSL/nutri-journal)<br>
 <img src="https://imgur.com/8eNYRAS.png">
 
 # Live URL
