@@ -47,8 +47,26 @@ const getByDate = async (req, res) => {
   }
 };
 
+const deleteWeight = async (req, res) => {
+  try {
+    const { date } = req.query;
+
+    const existingLog = await WeightLog.findOne({ date: new Date(date) });
+
+    if (existingLog) {
+      await WeightLog.deleteOne({ date: new Date(date) });
+      res.status(200).json({ deleted: true });
+    } else {
+      res.status(200).json({ deleted: false });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while deleting the weight log.' });
+  }
+};
+
 module.exports = {
   create,
   checkIfDateExists,
   getByDate,
+  deleteWeight,
 };

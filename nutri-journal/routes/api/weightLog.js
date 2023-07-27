@@ -5,5 +5,6 @@ const weightLogCtrl = require('../../controllers/api/weightLogs')
 router.post("/", weightLogCtrl.create);
 router.get("/", weightLogCtrl.getByDate);
 router.get("/date", weightLogCtrl.checkIfDateExists);
+router.delete("/delete", weightLogCtrl.deleteWeight);
 
 module.exports = router;
