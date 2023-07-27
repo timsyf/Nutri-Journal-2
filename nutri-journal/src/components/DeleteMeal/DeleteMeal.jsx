@@ -78,6 +78,7 @@ export default function UserCalorieCheckIn(props) {
 
     const fetchSearchDatesAndUserFood = async () => {
       try {
+        setLoading(true);
         let query;
         if (selectedDate === '') {
           query = new URLSearchParams({
@@ -93,19 +94,22 @@ export default function UserCalorieCheckIn(props) {
         const response = await fetch('/meal/search/dates?' + query.toString());
         const data = await response.json();
         setUserMeal(data);
+        setLoading(false);
         
         if (data.length === 0) {
           setUserFood([]);
           return;
         }
     
+        setLoading(true);
         const userIdsString = data.map((user) => user.foodId).join(",");
         const foodResponse = await fetch(`/food/userfood?_ids=${userIdsString}`);
         const foodData = await foodResponse.json();
         setUserFood(foodData);
-        console.log(foodData);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
+        setLoading(false);
       }
     };
 
@@ -117,6 +121,33 @@ export default function UserCalorieCheckIn(props) {
       evt.preventDefault();
       remove();
     }
+
+    const handlesetSelectedDateChange = (evt) => {
+      if (evt.target.value) {
+          setSelectedDate(new Date(evt.target.value).toISOString());
+      } else {
+          setSelectedDate('');
+      }
+  
+        setFormDataChanged(true);
+        console.log(selectedDate);
+      }
+
+      useEffect(() => {
+        fetchSearchDatesAndUserFood();
+      }, []);
+
+      useEffect(() => {
+        if (formDataChanged) {
+            const debounceTimer = setTimeout(() => {
+              fetchSearchDatesAndUserFood();
+            }, 500);
+        
+            return () => {
+                clearTimeout(debounceTimer);
+            };
+        }
+    }, [selectedDate]);
 
     function getCurrentTime() {
       const currentTime = new Date();
@@ -159,9 +190,8 @@ export default function UserCalorieCheckIn(props) {
               </thead>
               <tbody>
                 {userMeal.map((um, index) => {
-                  const userFoodArray = Object.values(userFood);
-                  const matchedFood = userFoodArray.find((food) => food._id === um.foodId);
-                  {console.log(matchedFood)}
+                  const userFoodArray = Object.values(userFood)
+                  const matchedFood = userFoodArray.find((food) => food._id === um.foodId)
                   if (matchedFood) {
                     return (
                       <tr key={index}>
@@ -186,7 +216,7 @@ export default function UserCalorieCheckIn(props) {
                       </tr>
                     );
                   } else {
-                    return null; // Return null if no matchedFood is found to avoid rendering anything
+                    return null;
                   }
                 })}
               </tbody>
@@ -202,9 +232,16 @@ export default function UserCalorieCheckIn(props) {
 
     return (
         <>
+        <h2>Delete Meal</h2>
         <div className='container mt-4'>
-            <h2>Delete Meal</h2>
             <div className="mb-3">
+                <input
+                  type="date"
+                  className="form-control btn-margin"
+                  id="selectedDate"
+                  value={selectedDate.slice(0, 10)}
+                  onChange={handlesetSelectedDateChange}
+                />
                 <input type="text" className="form-control" placeholder="ID" name="id" value={removeID} readOnly required />
             </div>
             {loading ? <div>Loading...</div> : renderTable()}
