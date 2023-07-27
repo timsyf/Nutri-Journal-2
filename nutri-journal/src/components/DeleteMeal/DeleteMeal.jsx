@@ -148,30 +148,49 @@ export default function UserCalorieCheckIn(props) {
             <div className="card-header"><h5>User Meal Data</h5></div>
             <div className="card-body">
             <div className="table-responsive">
-                <table className="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                    <th>Action</th>
-                    <th>ID</th>
-                    <th>Type</th>
-                    <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {userMeal.map((um, index) => (
-                    <tr key={index}>
+            <table className="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Name</th>
+                  <th>Type</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {userMeal.map((um, index) => {
+                  const userFoodArray = Object.values(userFood);
+                  const matchedFood = userFoodArray.find((food) => food._id === um.foodId);
+                  {console.log(matchedFood)}
+                  if (matchedFood) {
+                    return (
+                      <tr key={index}>
                         <td>
-                            <button type="button" className="btn btn-primary" name={um._id} onClick={handleCopy} data-bs-toggle="tooltip" data-bs-placement="top" title="Copy to clipboard">
+                          <button
+                            type="button"
+                            className="btn btn-primary"
+                            name={um._id}
+                            onClick={handleCopy}
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            title="Copy to clipboard"
+                          >
                             +
-                            </button>
+                          </button>
                         </td>
-                        <td><Link to={"/food/detail/"+um.foodId}>View Food</Link></td>
+                        <td>
+                          <Link to={"/food/detail/" + um.foodId}>{matchedFood.name}</Link>
+                        </td>
                         <td>{um.type}</td>
                         <td>{um.date.slice(0, 10)}</td>
-                    </tr>
-                    ))}
-                </tbody>
-                </table>
+                      </tr>
+                    );
+                  } else {
+                    return null; // Return null if no matchedFood is found to avoid rendering anything
+                  }
+                })}
+              </tbody>
+            </table>
             </div>
             </div>
             </div>

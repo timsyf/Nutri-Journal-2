@@ -5,6 +5,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
 export default function HomePage(props) {
+
   return (
     <>
     <Tabs defaultActiveKey="Meals" id="justify-tab-example" className="mb-3" justify>
