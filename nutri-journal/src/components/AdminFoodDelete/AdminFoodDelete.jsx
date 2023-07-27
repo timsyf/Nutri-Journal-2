@@ -7,7 +7,7 @@ export default function AdminFoodDelete({ callFetch }) {
     const [loading, setLoading] = useState(false);
     const [removeID, setRemoveID] = useState([]);
     
-    const fetchSearch = async () => {
+    const fetchSearchDelete = async () => {
       try {
         setLoading(true);
         const query = new URLSearchParams({
@@ -24,7 +24,7 @@ export default function AdminFoodDelete({ callFetch }) {
     };
     
     useEffect(() => {
-        fetchSearch();
+      fetchSearchDelete();
     }, []);
 
     const remove = async () => {
@@ -43,7 +43,7 @@ export default function AdminFoodDelete({ callFetch }) {
           }
           setLoading(false);
           callFetch();
-          fetchSearch();
+          fetchSearchDelete();
         } catch (error) {
           console.error(error);
           setLoading(false);
@@ -53,14 +53,13 @@ export default function AdminFoodDelete({ callFetch }) {
     async function handleDelete(evt) {
         evt.preventDefault();
         remove();
+        fetchSearchDelete();
     }
 
     function handleDeleteChange(evt) {
-      const selectedOption = evt.target.options[evt.target.selectedIndex];
-      const selectedId = selectedOption.getAttribute('name');
+      const selectedId = evt.target.value;
       setRemoveID(selectedId);
-      console.log(selectedId);
-      fetchSearch();
+      fetchSearchDelete();
     }
 
     return (
@@ -68,17 +67,9 @@ export default function AdminFoodDelete({ callFetch }) {
           <div className="container">
             <br></br>
             <h2>Delete Food</h2>
-            
-            {loading ? ( <div>Loading...</div> ) : (<></>)}
-
             <div>
               <form autoComplete="off" onSubmit={handleDelete}>
-                <select className="form-control btn-margin" name="id" onChange={handleDeleteChange} required>
-                  <option>Select a food</option>
-                {food.map((food) => (
-                  <option key={food._id} name={food._id}>{food._id} - {food.name}</option>
-                ))}
-                </select>
+                <input type="text" className="form-control btn-margin" placeholder='ID' onChange={handleDeleteChange} required></input>
                 <button type="submit" className="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Submit</button>
               </form>
             </div>

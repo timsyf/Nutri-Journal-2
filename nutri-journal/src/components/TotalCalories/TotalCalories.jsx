@@ -92,9 +92,9 @@ export default function TotalCalories(props) {
       }
     
       // Calculate the total sum of calories
-      const totalCalories = userFood.reduce((sum, um) => sum + um.calorie, 0);
-      const totalProtein = userFood.reduce((sum, um) => sum + um.protein, 0);
-      const totalCarbohydrates = userFood.reduce((sum, um) => sum + um.carbohydrate, 0);
+      const totalCalories = userFood.reduce((sum, um) => sum + um.calorie, 0).toFixed(1);
+      const totalProtein = userFood.reduce((sum, um) => sum + um.protein, 0).toFixed(1);
+      const totalCarbohydrates = userFood.reduce((sum, um) => sum + um.carbohydrate, 0).toFixed(1);
     
       return (
         <div className="card">
@@ -122,9 +122,17 @@ export default function TotalCalories(props) {
                 </tbody>
               </table>
             </div>
-            <div>Total Calories Consumed: {totalCalories} kcal</div>
-            <div>Total Protein Consumed: {totalProtein} kcal</div>
-            <div>Total Carbohydrates Consumed: {totalCarbohydrates} kcal</div>
+            <div className="row">
+              <div className="col">
+                <strong>Total Calories Consumed:</strong> {totalCalories} kcal
+              </div>
+              <div className="col">
+                <strong>Total Protein Consumed:</strong> {totalProtein} kcal
+              </div>
+              <div className="col">
+                <strong>Total Carbohydrates Consumed:</strong> {totalCarbohydrates} kcal
+              </div>
+            </div>
           </div>
         </div>
       );

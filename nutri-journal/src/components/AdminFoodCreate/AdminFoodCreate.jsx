@@ -43,7 +43,7 @@ export default function AdminFoodCreate({ callFetch }) {
         calcium: '',
         iron: '',
       };
-    
+
       const insert = async () => {
         try {
           setLoading(true);

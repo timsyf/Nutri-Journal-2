@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
 
 export default function UserCalorieCheckIn(props) {
 
-  const [userFood, setUserFood] = useState({ name: '' });
-  const [userMeal, setUserMeal] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(getCurrentTime());
-  const [removeID, setRemoveID] = useState([]);
+    const [userFood, setUserFood] = useState({ name: '' });
+    const [userMeal, setUserMeal] = useState([]);
+    const [selectedDate, setSelectedDate] = useState(getCurrentTime());
 
     const { user } = props.elements;
     const [formData, setFormData] = useState({ name: '' });
@@ -21,28 +21,6 @@ export default function UserCalorieCheckIn(props) {
         date: getCurrentTime(),
     });
 
-    const remove = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(`/meal/${removeID}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-        if (response.ok) {
-          console.log('Data deleted from the database');
-        } else {
-          console.error('Failed to delete data from the database:', response.status);
-        }
-        setLoading(false);
-        console.log(response);
-      } catch (error) {
-        console.error(error);
-        setLoading(false);
-      }
-  };
-
     const insert = async () => {
         try {
           const response = await fetch('/meal', {
@@ -56,6 +34,7 @@ export default function UserCalorieCheckIn(props) {
           if (response.ok) {
             const data = await response.json();
             console.log('Data stored in the database:', data);
+            swal("Meal has been added!");
           } else {
             console.error('Failed to store data in the database:', response.status);
           }
@@ -259,7 +238,6 @@ export default function UserCalorieCheckIn(props) {
           </form>
         </div>
 
-        <h2>Food Database</h2>
         <form autoComplete="off" onSubmit={handleSearchSubmit}>
           <div className="mb-3">
             <input type="text" className="form-control" placeholder="Name" name="name" value={formData.name} onChange={handleSearchChange} />

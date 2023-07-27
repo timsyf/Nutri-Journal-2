@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
 
 export default function UserCalorieCheckIn(props) {
 
@@ -35,6 +36,8 @@ export default function UserCalorieCheckIn(props) {
           console.error('Failed to delete data from the database:', response.status);
         }
         fetchSearchDatesAndUserFood();
+        
+        swal("Meal has been deleted!");
         console.log(response);
       } catch (error) {
         console.error(error);

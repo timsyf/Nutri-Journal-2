@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import AdminFoodCreate from '../../components/AdminFoodCreate/AdminFoodCreate';
 import AdminFoodDelete from '../../components/AdminFoodDelete/AdminFoodDelete';
 import AdminFoodUpdate from '../../components/AdminFoodUpdate/AdminFoodUpdate';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 
 export default function AdminPanel() {
   
@@ -114,9 +116,18 @@ export default function AdminPanel() {
 
   return (
     <>
-      <AdminFoodCreate callFetch={fetchSearch} />
-      <AdminFoodDelete callFetch={fetchSearch} />
-      <AdminFoodUpdate callFetch={fetchSearch} />
+      <Tabs defaultActiveKey="Weight" id="justify-tab-example" className="mb-3" justify>
+        <Tab eventKey="Create" title="Create">
+          <AdminFoodCreate callFetch={fetchSearch} />
+        </Tab>
+        <Tab eventKey="Update" title="Update">
+          <AdminFoodUpdate callFetch={fetchSearch} />
+        </Tab>
+        <Tab eventKey="Delete" title="Delete">
+          <AdminFoodDelete callFetch={fetchSearch} />
+        </Tab>
+      </Tabs>
+
       <div className='container'>
         <br></br>
         <form autoComplete="off" onSubmit={handleSearchSubmit}>
@@ -127,3 +138,8 @@ export default function AdminPanel() {
     </>
   );
 }
+
+
+
+
+
