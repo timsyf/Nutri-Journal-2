@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 
 export default function UserCalorieCheckIn(props) {
 
+  const [userFood, setUserFood] = useState({ name: '' });
+  const [userMeal, setUserMeal] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(getCurrentTime());
+  const [removeID, setRemoveID] = useState([]);
+
     const { user } = props.elements;
     const [formData, setFormData] = useState({ name: '' });
     const [food, setFood] = useState([]);
@@ -16,9 +21,30 @@ export default function UserCalorieCheckIn(props) {
         date: getCurrentTime(),
     });
 
+    const remove = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`/meal/${removeID}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        if (response.ok) {
+          console.log('Data deleted from the database');
+        } else {
+          console.error('Failed to delete data from the database:', response.status);
+        }
+        setLoading(false);
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
+  };
+
     const insert = async () => {
         try {
-          setLoading(true);
           const response = await fetch('/meal', {
             method: 'POST',
             headers: {
@@ -33,10 +59,8 @@ export default function UserCalorieCheckIn(props) {
           } else {
             console.error('Failed to store data in the database:', response.status);
           }
-          setLoading(false);
         } catch (error) {
           console.error(error);
-          setLoading(false);
         }
     };
 
@@ -72,6 +96,43 @@ export default function UserCalorieCheckIn(props) {
         }
       }, [formData]);
 
+    const fetchSearchDatesAndUserFood = async () => {
+      try {
+        let query;
+        if (selectedDate === '') {
+          query = new URLSearchParams({
+            userId: user._id,
+          });
+        } else {
+          query = new URLSearchParams({
+            userId: user._id,
+            date: selectedDate,
+          });
+        }
+    
+        const response = await fetch('/meal/search/dates?' + query.toString());
+        const data = await response.json();
+        setUserMeal(data);
+        
+        if (data.length === 0) {
+          setUserFood([]);
+          return;
+        }
+    
+        const userIdsString = data.map((user) => user.foodId).join(",");
+        const foodResponse = await fetch(`/food/userfood?_ids=${userIdsString}`);
+        const foodData = await foodResponse.json();
+        setUserFood(foodData);
+        console.log(foodData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    useEffect(() => {
+      fetchSearchDatesAndUserFood();
+    }, []);
+
     const handleCopy = (evt) => {
         setFoodId(evt.target.name);
 
@@ -79,9 +140,7 @@ export default function UserCalorieCheckIn(props) {
             ...prevState,
             foodId: evt.target.name,
         }));
-
         console.log(formState);
-
       };
 
     const handleSearchSubmit = (evt) => {
@@ -98,7 +157,7 @@ export default function UserCalorieCheckIn(props) {
         const { name, value } = evt.target;
         setFormData({ ...formData, [name]: value });
         setFormDataChanged(true);
-      };
+    };
 
     const handleCheckInChange = (evt) => {
         const { name, value } = evt.target;
@@ -166,7 +225,7 @@ export default function UserCalorieCheckIn(props) {
     return (
       <>
       <div className="container mt-4">
-        <h2>Check in</h2>
+        <h2>Add Meal</h2>
         <div>
           <form autoComplete="off" onSubmit={handleCheckin}>
             <div className="mb-3">
@@ -196,10 +255,10 @@ export default function UserCalorieCheckIn(props) {
               <input type="date" className="form-control" name="date" value={formState.date} onChange={handleCheckInChange} required />
             </div>
   
-            <button type="submit" className="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Submit</button>
+            <button type="submit" className="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Add</button>
           </form>
         </div>
-  
+
         <h2>Food Database</h2>
         <form autoComplete="off" onSubmit={handleSearchSubmit}>
           <div className="mb-3">

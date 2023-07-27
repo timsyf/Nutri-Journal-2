@@ -1,7 +1,5 @@
 ### PRIORITY ###
 
-- Summary to show total calorie intake during the day selected (e.g) (calorie intake) / (calorie goal) - (calorie remaining)
-
 - Summary to show total macro nutrient intake during the day selected (e.g) (protein intake) / (protein goal) - (protein remaining)
 
 - Meal to show total calorie intake during the day selected (e.g) (calorie intake) / (calorie goal) - (calorie remaining)

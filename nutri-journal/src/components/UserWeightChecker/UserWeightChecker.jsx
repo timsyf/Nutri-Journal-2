@@ -80,8 +80,7 @@ export default function UserWeightChecker(props) {
       const lowestWeight = weightData.reduce((minWeight, w) => (w.weight < minWeight ? w.weight : minWeight), weightData[0].weight);
     
       return (
-        <div className='container mt-4'>
-          <h2>Weight Checker</h2>
+        <div className='container'>
           <div className="card">
             <div className="card-header">
               <h5>Weight Data</h5>
@@ -113,7 +112,8 @@ export default function UserWeightChecker(props) {
     };
 
     return (
-      <div className='container'>
+      <div className='container mt-4'>
+      <h2>Weight Checker</h2>
         <form autoComplete="off" onSubmit={handleSearchSubmit} className="mb-4">
           <div className="row">
             <div className="col-md-6">

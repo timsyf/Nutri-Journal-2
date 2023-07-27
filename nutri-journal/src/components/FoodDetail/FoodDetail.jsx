@@ -85,8 +85,8 @@ export default function FoodDetail() {
     };
   
     return (
-      <div>
-        <h1>{food.name}</h1>
+      <div className="container mt-4">
+        <h2>{food.name}</h2>
         {loading ? <div>Loading...</div> : renderTable()}
       </div>
     );

@@ -52,10 +52,6 @@ export default function UserCalorieChecker(props) {
       }
     };
 
-
-
-    
-
     useEffect(() => {
         fetchSearchDatesAndUserFood();
     }, []);
@@ -103,7 +99,7 @@ export default function UserCalorieChecker(props) {
       return (
         <>
           <div className="row">
-            <Swiper slidesPerView={4} spaceBetween={-20} pagination={{ clickable: true }} className="mySwiper">
+            <Swiper slidesPerView={2} spaceBetween={-20} pagination={{ clickable: true }} className="mySwiper">
               {userMeal.map((um) => {
                 const matchedFood = userFood.find((food) => food._id === um.foodId);
                 if (matchedFood) {

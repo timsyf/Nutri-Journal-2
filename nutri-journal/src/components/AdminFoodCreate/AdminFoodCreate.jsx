@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { allNutrients } from '../../components/Data/Data';
 
 export default function AdminFoodCreate({ callFetch }) {
 
@@ -126,7 +125,7 @@ export default function AdminFoodCreate({ callFetch }) {
                 <input type="text" className="form-control btn-margin" placeholder='Iron' name="iron" value={formState.iron} onChange={handleInsertChange} required></input>
               </div>
             </div>
-            <button type="submit" className="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Submit</button>
+            <button type="submit" className="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Create</button>
             <button type="button" className="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }} onClick={handleReset}>Reset</button>
           </form>
         </div>
