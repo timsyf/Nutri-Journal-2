@@ -72,33 +72,40 @@ export default function UserWeightChecker(props) {
     }
 
     const renderTable = () => {
-      if (weightData === 0) {
+      if (weightData.length === 0) {
         return <p>No weight data found.</p>;
       }
     
+      // Find the lowest weight using the reduce function
+      const lowestWeight = weightData.reduce((minWeight, w) => (w.weight < minWeight ? w.weight : minWeight), weightData[0].weight);
+    
       return (
         <div className='container mt-4'>
+          <h2>Weight Checker</h2>
           <div className="card">
             <div className="card-header">
               <h5>Weight Data</h5>
             </div>
             <div className="card-body">
-              <table className="table table-striped table-bordered">
-                <thead>
-                  <tr>
-                    <th>Weight</th>
-                    <th>Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {weightData.map((w) => (
-                    <tr key={w._id}>
-                      <td>{w.weight} kg</td>
-                      <td>{w.date.slice(0, 10)}</td>
+              <div style={{ overflow: 'auto', maxHeight: '400px' }}>
+                <table className="table table-striped table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Weight</th>
+                      <th>Date</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {weightData.map((w) => (
+                      <tr key={w._id}>
+                        <td>{w.weight} kg</td>
+                        <td>{w.date.slice(0, 10)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div>Your lowest weight is {lowestWeight} kg between {formDateState.startDate} to {formDateState.endDate}</div>
             </div>
           </div>
         </div>

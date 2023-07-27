@@ -93,7 +93,7 @@ export default function AdminFoodCreate({ callFetch }) {
 
     return (
         <>
-        <div class="container">
+        <div className="container">
           <br></br>
           <h2>Create Food</h2>
 
@@ -101,33 +101,33 @@ export default function AdminFoodCreate({ callFetch }) {
 
           <form autoComplete="off" onSubmit={handleInsert}>
 
-            <div class="row">
+            <div className="row">
               <div className='col'>
-                <input type="text" class="form-control btn-margin" placeholder='Name' name="name" value={formState.name} onChange={handleInsertChange} required></input>
-                <input type="text" class="form-control btn-margin" placeholder='Carbohydrate' value={formState.carbohydrate} name="carbohydrate"  onChange={handleInsertChange} required></input>
-                <input type="text" class="form-control btn-margin" placeholder='Fat' name="fat" value={formState.fat} onChange={handleInsertChange} required></input>
-                <input type="text" class="form-control btn-margin" placeholder='Saturated Fat' value={formState.saturated_Fat} name="saturated_Fat" onChange={handleInsertChange} required></input>
-                <input type="text" class="form-control btn-margin" placeholder='Monounsaturated Fat' value={formState.monounsaturated_Fat} name="monounsaturated_Fat" onChange={handleInsertChange} required></input>
-                <input type="text" class="form-control btn-margin" placeholder='Sodium' name="sodium" value={formState.sodium} onChange={handleInsertChange} required></input>
-                <input type="text" class="form-control btn-margin" placeholder='Fiber' name="fiber" value={formState.fiber} onChange={handleInsertChange} required></input>
-                <input type="text" class="form-control btn-margin" placeholder='Vitamin A' name="vitamin_A" value={formState.vitamin_A} onChange={handleInsertChange} required></input>
-                <input type="text" class="form-control btn-margin" placeholder='Calcium' name="calcium" value={formState.calcium} onChange={handleInsertChange} required></input>
+                <input type="text" className="form-control btn-margin" placeholder='Name' name="name" value={formState.name} onChange={handleInsertChange} required></input>
+                <input type="text" className="form-control btn-margin" placeholder='Carbohydrate' value={formState.carbohydrate} name="carbohydrate"  onChange={handleInsertChange} required></input>
+                <input type="text" className="form-control btn-margin" placeholder='Fat' name="fat" value={formState.fat} onChange={handleInsertChange} required></input>
+                <input type="text" className="form-control btn-margin" placeholder='Saturated Fat' value={formState.saturated_Fat} name="saturated_Fat" onChange={handleInsertChange} required></input>
+                <input type="text" className="form-control btn-margin" placeholder='Monounsaturated Fat' value={formState.monounsaturated_Fat} name="monounsaturated_Fat" onChange={handleInsertChange} required></input>
+                <input type="text" className="form-control btn-margin" placeholder='Sodium' name="sodium" value={formState.sodium} onChange={handleInsertChange} required></input>
+                <input type="text" className="form-control btn-margin" placeholder='Fiber' name="fiber" value={formState.fiber} onChange={handleInsertChange} required></input>
+                <input type="text" className="form-control btn-margin" placeholder='Vitamin A' name="vitamin_A" value={formState.vitamin_A} onChange={handleInsertChange} required></input>
+                <input type="text" className="form-control btn-margin" placeholder='Calcium' name="calcium" value={formState.calcium} onChange={handleInsertChange} required></input>
               </div>
 
               <div className='col'>
-                <input type="text" class="form-control btn-margin" placeholder='Calorie' name="calorie" value={formState.calorie} onChange={handleInsertChange} required></input>
-                <input type="text" class="form-control btn-margin" placeholder='Protein' name="protein" value={formState.protein} onChange={handleInsertChange} required></input>
-                <input type="text" class="form-control btn-margin" placeholder='Trans Fat' name="trans_Fat" value={formState.trans_Fat} onChange={handleInsertChange} required></input>
-                <input type="text" class="form-control btn-margin" placeholder='Polyunsaturated Fat' name="polyunsaturated_Fat" value={formState.polyunsaturated_Fat} onChange={handleInsertChange} required></input>
-                <input type="text" class="form-control btn-margin" placeholder='Cholesterol' name="cholesterol" value={formState.cholesterol} onChange={handleInsertChange} required></input>
-                <input type="text" class="form-control btn-margin" placeholder='Potassium' name="potassium" value={formState.potassium} onChange={handleInsertChange} required></input>
-                <input type="text" class="form-control btn-margin" placeholder='Sugar' name="sugar" value={formState.sugar} onChange={handleInsertChange} required></input>
-                <input type="text" class="form-control btn-margin" placeholder='Vitamin C' name="vitamin_C" value={formState.vitamin_C} onChange={handleInsertChange} required></input>
-                <input type="text" class="form-control btn-margin" placeholder='Iron' name="iron" value={formState.iron} onChange={handleInsertChange} required></input>
+                <input type="text" className="form-control btn-margin" placeholder='Calorie' name="calorie" value={formState.calorie} onChange={handleInsertChange} required></input>
+                <input type="text" className="form-control btn-margin" placeholder='Protein' name="protein" value={formState.protein} onChange={handleInsertChange} required></input>
+                <input type="text" className="form-control btn-margin" placeholder='Trans Fat' name="trans_Fat" value={formState.trans_Fat} onChange={handleInsertChange} required></input>
+                <input type="text" className="form-control btn-margin" placeholder='Polyunsaturated Fat' name="polyunsaturated_Fat" value={formState.polyunsaturated_Fat} onChange={handleInsertChange} required></input>
+                <input type="text" className="form-control btn-margin" placeholder='Cholesterol' name="cholesterol" value={formState.cholesterol} onChange={handleInsertChange} required></input>
+                <input type="text" className="form-control btn-margin" placeholder='Potassium' name="potassium" value={formState.potassium} onChange={handleInsertChange} required></input>
+                <input type="text" className="form-control btn-margin" placeholder='Sugar' name="sugar" value={formState.sugar} onChange={handleInsertChange} required></input>
+                <input type="text" className="form-control btn-margin" placeholder='Vitamin C' name="vitamin_C" value={formState.vitamin_C} onChange={handleInsertChange} required></input>
+                <input type="text" className="form-control btn-margin" placeholder='Iron' name="iron" value={formState.iron} onChange={handleInsertChange} required></input>
               </div>
             </div>
-            <button type="submit" class="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Submit</button>
-            <button type="button" class="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }} onClick={handleReset}>Reset</button>
+            <button type="submit" className="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Submit</button>
+            <button type="button" className="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }} onClick={handleReset}>Reset</button>
           </form>
         </div>
       </>

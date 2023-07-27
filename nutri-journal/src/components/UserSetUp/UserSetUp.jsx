@@ -93,46 +93,60 @@ export default function UserSetup(props) {
   }
 
   return (
-    <div>
-      <h1>User Set Up</h1>
-      {!formToggle ?
+    <div className="container mt-4">
+      <h2>User Setup</h2>
+      {!formToggle ? (
+        <form autoComplete="off" onSubmit={handlePhysiqueSubmit}>
+          {UserPhysique.map((data) => (
+            <div className="mb-3" key={data}>
+              {data === 'gender' ? (
+                <select className="form-select" name="gender" onChange={handleCreateChange} required>
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              ) : data === 'dob' ? (
+                <input className="form-control" type="date" name={data} value={formState.dob} onChange={handleCreateChange} />
+              ) : (
+                <input
+                  className="form-control"
+                  type="text"
+                  placeholder={capitalizeFirstLetter(data)}
+                  name={data}
+                  onChange={handleCreateChange}
+                  required
+                />
+              )}
+            </div>
+          ))}
+          <button type="submit" className="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Next</button>
+        </form>
+      ) : (
         <>
-          <form autoComplete="off" onSubmit={handlePhysiqueSubmit}>
-            {UserPhysique.map((data) => (
-
-              data == "gender" ?
-              <select name="gender" onChange={handleCreateChange} required>
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
-              :
-                data == "dob" ? (
-                  <input type="date" name={data} value={formState.dob} onChange={handleCreateChange} />
-                ) : (
-                  <input type='text' placeholder={capitalizeFirstLetter(data)} name={data} onChange={handleCreateChange} required></input>
-                )
-            ))}
-            <br></br>
-            <button type="submit">Submit</button>
-          </form>
-          <br></br>
-        </>
-        :
-        <>
-          <button type="button" onClick={handleBack}>Back</button>
           <form autoComplete="off" onSubmit={handleNutrientSubmit}>
-            {UserNutrient.map((data) => (
-              (data == "carbohydrate" || data == "protein" || data == "calorie") ?
-              <input type='text' placeholder={capitalizeFirstLetter(data)} name={data} onChange={handleCreateChange} required></input>
-              :
-              <></>
-            ))}
-            <br></br>
-            <button type="submit">Submit</button>
+            <div className="row">
+              {UserNutrient.map((data, index) => (
+                <div className="col-md-6 mb-3" key={data}>
+                  <input
+                    className="form-control"
+                    type="text"
+                    placeholder={capitalizeFirstLetter(data)}
+                    name={data}
+                    onChange={handleCreateChange}
+                    required
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="row">
+              <div className="col-md-12">
+              </div>
+            </div>
+            <button type="button" className="btn btn-secondary btn-lg btn-block btn-margin" onClick={handleBack} style={{ width: '100%' }}>Back</button>
+            <button type="submit" className="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Submit</button>
           </form>
         </>
-      }
+      )}
     </div>
   );
 }

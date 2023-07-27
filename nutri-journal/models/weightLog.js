@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const weightLogSchema = new Schema({
     userId: { type: Schema.Types.ObjectId, ref:"User" },
-    weight: { type: String, required: true, min: 0 },
+    weight: { type: Number, required: true, min: 0 },
     date: { type: Date, required: true, default: getCurrentTime() },
 }, {
     timestamps: true,

@@ -90,7 +90,7 @@ export default function WeightLog(props) {
           </div>
           <div className="row">
             <div className="col-sm">
-              <button type="submit" class="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Submit</button>
+              <button type="submit" className="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Submit</button>
             </div>
           </div>
         </form>

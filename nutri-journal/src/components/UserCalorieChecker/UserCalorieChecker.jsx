@@ -97,7 +97,7 @@ export default function UserCalorieChecker(props) {
 
     const renderTable = () => {
       if (userMeal.length === 0) {
-        return <p>No food items found.</p>;
+        return <p>No meal data found.</p>;
       }
     
       return (
@@ -132,12 +132,20 @@ export default function UserCalorieChecker(props) {
     };
     
     return (
-    <div>
-        <h1>Summary</h1>
+      <div className="container mt-4">
+        <h2>Meal Checker</h2>
         <form autoComplete="off" onSubmit={handleSearchSubmit}>
-          <input type="date" value={selectedDate.slice(0, 10)} onChange={handlesetSelectedDateChange} />
+          <div className="form-group">
+            <input
+              type="date"
+              className="form-control btn-margin"
+              id="selectedDate"
+              value={selectedDate.slice(0, 10)}
+              onChange={handlesetSelectedDateChange}
+            />
+          </div>
         </form>
         {loading ? <div>Loading...</div> : renderTable()}
-    </div>
+      </div>
     );
 }

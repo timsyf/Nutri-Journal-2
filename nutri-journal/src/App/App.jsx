@@ -58,18 +58,18 @@ export default function App() {
           </>
           : (
           <>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
-            <Link to="/"><a class="navbar-brand text-info font-weight-bolder">
+            <nav className="navbar navbar-expand-lg navbar-light bg-light rounded">
+            <Link to="/"><a className="navbar-brand text-info font-weight-bolder">
                 <img src={Logo} alt="Logo" width="150" className="vertical-align-middle" />
               </a></Link>
-              <button class="custom-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded={!isNavCollapsed ? true : false} aria-label="Toggle navigation" onClick={handleNavCollapse}>
-                <span class="navbar-toggler-icon"></span>
+              <button className="custom-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded={!isNavCollapsed ? true : false} aria-label="Toggle navigation" onClick={handleNavCollapse}>
+                <span className="navbar-toggler-icon"></span>
               </button>
 
-              <div class={`${isNavCollapsed ? 'collapse' : ''} navbar-collapse text-center`} id="navbarsExample09">
+              <div className={`${isNavCollapsed ? 'collapse' : ''} navbar-collapse text-center`} id="navbarsExample09">
                 <nav className="navbar-nav">
-                  <a onClick={showLoginSignUp} class="nav-link text-info">Home</a>
-                  <a onClick={showDefault} class="nav-link text-info">Login / Sign Up</a>
+                  <a onClick={showLoginSignUp} className="nav-link text-info">Home</a>
+                  <a onClick={showDefault} className="nav-link text-info">Login / Sign Up</a>
                 </nav>
               </div>
             </nav>

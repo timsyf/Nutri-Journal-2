@@ -119,7 +119,7 @@ export default function UserCalorieCheckIn(props) {
 
     const renderTable = () => {
       if (food.length === 0) {
-        return <p>No food items found.</p>;
+        return <p>No food data found.</p>;
       }
     
       return (
@@ -128,34 +128,36 @@ export default function UserCalorieCheckIn(props) {
             <h5>Food Information</h5>
           </div>
           <div className="card-body">
-            <table className="table table-striped table-bordered">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Calories</th>
-                  <th>Carbohydrate</th>
-                  <th>Protein</th>
-                </tr>
-              </thead>
-              <tbody>
-                {food.map((foodItem) => (
-                  <tr key={foodItem._id}>
-                    <td>
-                      <button type="button" class="btn btn-primary" name={foodItem._id} onClick={handleCopy} data-bs-toggle="tooltip" data-bs-placement="top" title="Copy to clipboard">
-                        +
-                      </button>
-                    </td>
-                    <td>
-                      <Link to={"/food/detail/" + foodItem._id}>{foodItem.name}</Link>
-                    </td>
-                    <td>{foodItem.calorie} kcal</td>
-                    <td>{foodItem.carbohydrate} g</td>
-                    <td>{foodItem.protein} g</td>
+            <div className="table-wrapper" style={{ overflowY: 'auto', maxHeight: '400px' }}>
+              <table className="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Calories</th>
+                    <th>Carbohydrate</th>
+                    <th>Protein</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {food.map((foodItem) => (
+                    <tr key={foodItem._id}>
+                      <td>
+                        <button type="button" className="btn btn-primary" name={foodItem._id} onClick={handleCopy} data-bs-toggle="tooltip" data-bs-placement="top" title="Copy to clipboard">
+                          +
+                        </button>
+                      </td>
+                      <td>
+                        <Link to={"/food/detail/" + foodItem._id}>{foodItem.name}</Link>
+                      </td>
+                      <td>{foodItem.calorie} kcal</td>
+                      <td>{foodItem.carbohydrate} g</td>
+                      <td>{foodItem.protein} g</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       );
@@ -194,7 +196,7 @@ export default function UserCalorieCheckIn(props) {
               <input type="date" className="form-control" name="date" value={formState.date} onChange={handleCheckInChange} required />
             </div>
   
-            <button type="submit" class="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Submit</button>
+            <button type="submit" className="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Submit</button>
           </form>
         </div>
   

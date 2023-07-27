@@ -88,14 +88,19 @@ export default function TotalCalories(props) {
 
     const renderTable = () => {
       if (userMeal.length === 0) {
-        return <p>No food items found.</p>;
+        return <p>No food data found.</p>;
       }
+    
+      // Calculate the total sum of calories
+      const totalCalories = userFood.reduce((sum, um) => sum + um.calorie, 0);
+    
       return (
-          <div className="card">
-            <div className="card-header">
-              <h5>Food Items</h5>
-            </div>
-            <div className="card-body">
+        <div className="card">
+          <div className="card-header">
+            <h5>Food Data</h5>
+          </div>
+          <div className="card-body">
+            <div className="table-container" style={{ maxHeight: "300px", overflowY: "auto" }}>
               <table className="table table-striped table-bordered">
                 <thead>
                   <tr>
@@ -103,11 +108,10 @@ export default function TotalCalories(props) {
                     <th>Calories</th>
                   </tr>
                 </thead>
-      
                 <tbody>
                   {userFood.map((um) => {
                     return (
-                      <tr key={um._id}>
+                      <tr>
                         <td>{um.name}</td>
                         <td>{um.calorie} kcal</td>
                       </tr>
@@ -116,6 +120,8 @@ export default function TotalCalories(props) {
                 </tbody>
               </table>
             </div>
+            <div>Total Calories Consumed: {totalCalories} kcal</div>
+          </div>
         </div>
       );
     };
@@ -124,7 +130,7 @@ export default function TotalCalories(props) {
       <div className="container mt-4">
         <div className="row">
           <div className="col">
-            <h1>Total Calories</h1>
+            <h2>Calories Checker</h2>
           </div>
         </div>
         <div className="row">

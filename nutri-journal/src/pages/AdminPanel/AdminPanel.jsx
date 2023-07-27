@@ -62,47 +62,55 @@ export default function AdminPanel() {
       if (food.length === 0) {
         return <p>No food items found.</p>;
       }
-
-    return (
-  <div class="card">
-    <div class="card-header">
-      <h5 class="card-title">Food Database</h5>
-    </div>
-    <div class="card-body">
-      <table class="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Calories</th>
-            <th>Carbohydrate</th>
-            <th>Protein</th>
-          </tr>
-        </thead>
-        <tbody>
-          {food.map((food) => (
-            <tr key={food._id}>
-              <td>
-                <button type="button" class="btn btn-primary" name={food._id} onClick={handleCopy} data-bs-toggle="tooltip" data-bs-placement="top" title="Copy to clipboard">
-                  Copy
-                </button>
-              </td>
-              <td>
-                <Link to={"/food/detail/" + food._id}>
-                  {food.name}
-                </Link>
-              </td>
-              <td>{food.calorie} kcal</td>
-              <td>{food.carbohydrate} g</td>
-              <td>{food.protein} g</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  </div>
-    );
-  };
+    
+      return (
+        <div className="card">
+          <div className="card-header">
+            <h5 className="card-title">Food Database</h5>
+          </div>
+          <div className="card-body">
+            <div style={{ overflowY: "auto", maxHeight: "400px" }}>
+              <table className="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Calories</th>
+                    <th>Carbohydrate</th>
+                    <th>Protein</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {food.map((food) => (
+                    <tr key={food._id}>
+                      <td>
+                        <button
+                          type="button"
+                          className="btn btn-primary"
+                          name={food._id}
+                          onClick={handleCopy}
+                          data-bs-toggle="tooltip"
+                          data-bs-placement="top"
+                          title="Copy to clipboard"
+                        >
+                          Copy
+                        </button>
+                      </td>
+                      <td>
+                        <Link to={"/food/detail/" + food._id}>{food.name}</Link>
+                      </td>
+                      <td>{food.calorie} kcal</td>
+                      <td>{food.carbohydrate} g</td>
+                      <td>{food.protein} g</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      );
+    };
 
   return (
     <>
