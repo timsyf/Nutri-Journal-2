@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { UserNutrient, UserPhysique } from '../../components/Data/Data';
 import swal from 'sweetalert';
 
@@ -57,6 +57,10 @@ export default function UserSetup(props) {
     }
 };
 
+  useEffect(() => {
+      props.elements.callFetch();
+  }, []);
+
   const handlePhysiqueSubmit = (evt) => {
     evt.preventDefault();
     setformToggle(true);
@@ -80,6 +84,8 @@ export default function UserSetup(props) {
   const handleNutrientSubmit = (evt) => {
     evt.preventDefault();
     create();
+    const updatedUser = { ...props.elements.user, isConfigured: true };
+    props.elements.setUser(updatedUser);
   }
 
   function capitalizeFirstLetter(str) {

@@ -29,7 +29,7 @@ export default function NavBar(user, setUser) {
           <Link to="/meal"><a className="nav-link text-info">Meal</a></Link>
           <Link to="/food"><a className="nav-link text-info">Food</a></Link>
           <Link to="/weight/log"><a className="nav-link text-info">Weight Log</a></Link>
-          <Link to="/user/setup"><a className="nav-link text-info">User Setup</a></Link>
+          {/*<Link to="/user/setup"><a className="nav-link text-info">User Setup</a></Link>*/}
           {user.element.isAdmin ? <Link to="/admin"><a className="nav-link text-info">Admin</a></Link> : <></>}
           <Link to="" onClick={handleLogOut}><a className="nav-link text-info" >Log Out</a></Link>
         </nav>
