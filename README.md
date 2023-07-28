@@ -57,7 +57,6 @@ In conclusion, Nutri Journal is more than just a weight-tracking and calorie-mon
 - Community and Friends can share progress to motivate each other
 - Tracking of exercises
 - Better UI/UX Design
-- 
 
 # Live URL
 [Nutri Journal](https://funny-lime-pocketbook.cyclic.app/)
