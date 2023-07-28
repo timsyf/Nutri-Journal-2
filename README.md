@@ -41,5 +41,23 @@ In conclusion, Nutri Journal is more than just a weight-tracking and calorie-mon
 [**Trello**](https://trello.com/b/9vUbyMSL/nutri-journal)<br>
 <img src="https://imgur.com/8eNYRAS.png">
 
+# Screenshots
+<img src="https://imgur.com/Elfll7R.png">
+<img src="https://imgur.com/ByZ3Vwb.png">
+<img src="https://imgur.com/NbEgCiB.png">
+<img src="https://imgur.com/c3YiHy9.png">
+<img src="https://imgur.com/kVMrBjT.png">
+<img src="https://imgur.com/Q2WRVbm.png">
+<img src="https://imgur.com/vNxGFdy.png">
+<img src="https://imgur.com/vjDg0cH.png">
+<img src="https://imgur.com/7XZoq8d.png">
+<img src="https://imgur.com/VGTyJ6P.png">
+
+# Future Enhancements
+- Community and Friends can share progress to motivate each other
+- Tracking of exercises
+- Better UI/UX Design
+- 
+
 # Live URL
 [Nutri Journal](https://funny-lime-pocketbook.cyclic.app/)
