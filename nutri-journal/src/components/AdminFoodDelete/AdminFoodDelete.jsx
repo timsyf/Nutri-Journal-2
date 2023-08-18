@@ -123,28 +123,29 @@ export default function AdminFoodDelete({ adminUpdate, setAdminUpdate }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {food.map((food) => (
-                    <tr key={food._id}>
-                      <td>
-                        <Link to={"/food/detail/" + food._id}>{food.name}</Link>
-                      </td>
-                      <td>{food.calorie} kcal</td>
-                      <td>{food.carbohydrate} g</td>
-                      <td>{food.protein} g</td>
-                      <td>
-                      <button
-                        type="button"
-                        className="btn btn-primary"
-                        name={food._id}
-                        onClick={handleDelete}
-                        data-bs-toggle="tooltip"
-                        data-bs-placement="top"
-                        title="Copy to clipboard"
-                      >
-                        Delete
-                      </button></td>
-                    </tr>
-                  ))}
+                {food.sort((a, b) => a.name.localeCompare(b.name)).map((food) => (
+  <tr key={food._id}>
+    <td>
+      <Link to={"/food/detail/" + food._id}>{food.name}</Link>
+    </td>
+    <td>{food.calorie} kcal</td>
+    <td>{food.carbohydrate} g</td>
+    <td>{food.protein} g</td>
+    <td>
+      <button
+        type="button"
+        className="btn btn-primary"
+        name={food._id}
+        onClick={handleDelete}
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="Copy to clipboard"
+      >
+        Delete
+      </button>
+    </td>
+  </tr>
+))}
                 </tbody>
               </table>
             </div>

@@ -135,7 +135,7 @@ export default function UserCalorieChecker(props) {
     <div className="container mt-4">
       <form className="btn-margin" autoComplete="off" onSubmit={handleSearchSubmit}>
         <small id="passwordHelpBlock" className="form-text text-muted">
-          Please enter the meal's date you're searching for
+          Please enter the date of the meal you're searching for
         </small>
         <input
           type="date"
