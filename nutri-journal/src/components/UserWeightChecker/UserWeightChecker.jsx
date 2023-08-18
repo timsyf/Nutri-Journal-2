@@ -73,7 +73,6 @@ export default function UserWeightChecker(props) {
       return <p>No weight data found.</p>;
     }
 
-    // Find the lowest weight using the reduce function
     const lowestWeight = weightData.reduce(
       (minWeight, w) => (w.weight < minWeight ? w.weight : minWeight),
       weightData[0].weight
@@ -81,28 +80,34 @@ export default function UserWeightChecker(props) {
 
     return (
       <>
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Weight</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {weightData.map((w) => (
-              <tr key={w._id}>
-                <td>{w.weight} kg</td>
-                <td>{w.date.slice(0, 10)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        <div className="alert alert-info">
-          Your lowest weight is <strong>{lowestWeight}</strong> kg between{" "}
-          <strong>{formDateState.startDate}</strong> to{" "}
-          <strong>{formDateState.endDate}</strong>
+        <div className="card btn-margin">
+          <div className="card-body">
+            <div style={{ overflow: "auto", maxHeight: "400px" }}>
+              <table className="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Weight</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {weightData.map((w) => (
+                    <tr key={w._id}>
+                      <td>{w.weight} kg</td>
+                      <td>{w.date.slice(0, 10)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
+
+              <div className="alert alert-info">
+                Your lowest weight is <strong>{lowestWeight}</strong> kg between{" "}
+                <strong>{formDateState.startDate}</strong> to{" "}
+                <strong>{formDateState.endDate}</strong>
+              </div>
       </>
     );
   };
@@ -110,29 +115,31 @@ export default function UserWeightChecker(props) {
   return (
     <div className="container mt-4">
       <form autoComplete="off" onSubmit={handleSearchSubmit} className="mb-4">
-      <small id="passwordHelpBlock" className="form-text text-muted">
-        Please enter the date range you're searching for
-      </small>
+        <small id="passwordHelpBlock" className="form-text text-muted">
+          Please enter the date range you're searching for
+        </small>
         <div className="row">
-            <label htmlFor="startDate">Start Date</label>
-            <input
-              type="date"
-              className="form-control"
-              id="startDate"
-              name="startDate"
-              value={formDateState.startDate}
-              onChange={handleDateChange}
-            />
-            <label htmlFor="endDate">End Date</label>
-            <input
-              type="date"
-              className="form-control"
-              id="endDate"
-              name="endDate"
-              value={formDateState.endDate}
-              onChange={handleDateChange}
-            />
+                <div className="col">
+          <label htmlFor="startDate">Start Date</label>
+          <input
+            type="date"
+            className="form-control btn-margin"
+            id="startDate"
+            name="startDate"
+            value={formDateState.startDate}
+            onChange={handleDateChange}
+          />
+          <label htmlFor="endDate">End Date</label>
+          <input
+            type="date"
+            className="form-control btn-margin"
+            id="endDate"
+            name="endDate"
+            value={formDateState.endDate}
+            onChange={handleDateChange}
+          />
           {loading ? <div>Loading...</div> : renderTable()}
+          </div>
         </div>
       </form>
     </div>

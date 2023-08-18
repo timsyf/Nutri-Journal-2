@@ -124,6 +124,9 @@ export default function AdminFoodUpdate({ adminUpdate, setAdminUpdate }) {
       {loading ? <div>Loading...</div> : <></>}
 
       <form autoComplete="off" onSubmit={handleUpdate}>
+      <small id="passwordHelpBlock" className="form-text text-muted">
+                Please select a food to update
+              </small>
         <select
           className="form-select btn-margin"
           id="dropdown"

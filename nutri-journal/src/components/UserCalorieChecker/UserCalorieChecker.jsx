@@ -1,9 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
 
 export default function UserCalorieChecker(props) {
   const { user } = props.elements;
@@ -96,51 +92,58 @@ export default function UserCalorieChecker(props) {
 
     return (
       <>
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            
-            {userMeal.map((um) => {
-              const matchedFood = userFood.find(
-                (food) => food._id === um.foodId
-              );
-              if (matchedFood) {
-                return (
-                  <tr key={um._id}>
-                    <td><Link to={"/food/detail/" + matchedFood._id}>{matchedFood.name}</Link></td>
-                    <td>{um.type}</td>
-                    <td>{um.date.slice(0, 10)}</td>
+        <div className="card">
+          <div className="card-body">
+            <div style={{ overflow: "auto", maxHeight: "400px" }}>
+              <table className="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Type</th>
                   </tr>
-                );
-              } else {
-                return null;
-              }
-            })}
-          </tbody>
-        </table>
+                </thead>
+                <tbody>
+                  {userMeal.map((um) => {
+                    const matchedFood = userFood.find(
+                      (food) => food._id === um.foodId
+                    );
+                    if (matchedFood) {
+                      return (
+                        <tr key={um._id}>
+                          <td>
+                            <Link to={"/food/detail/" + matchedFood._id}>
+                              {matchedFood.name}
+                            </Link>
+                          </td>
+                          <td>{um.type}</td>
+                        </tr>
+                      );
+                    } else {
+                      return null;
+                    }
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </>
     );
   };
 
   return (
     <div className="container mt-4">
-      <form autoComplete="off" onSubmit={handleSearchSubmit}>
-          <small id="passwordHelpBlock" className="form-text text-muted">
-            Please enter the meal's date you're searching for
-          </small>
-          <input
-            type="date"
-            className="form-control"
-            id="selectedDate"
-            value={selectedDate.slice(0, 10)}
-            onChange={handlesetSelectedDateChange}
-          />
+      <form className="btn-margin" autoComplete="off" onSubmit={handleSearchSubmit}>
+        <small id="passwordHelpBlock" className="form-text text-muted">
+          Please enter the meal's date you're searching for
+        </small>
+        <input
+          type="date"
+          className="form-control"
+          id="selectedDate"
+          value={selectedDate.slice(0, 10)}
+          onChange={handlesetSelectedDateChange}
+        />
       </form>
       {loading ? <div>Loading...</div> : renderTable()}
     </div>

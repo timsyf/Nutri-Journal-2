@@ -95,7 +95,9 @@ export default function AdminFoodCreate({ adminUpdate, setAdminUpdate }) {
           {loading ? ( <div>Loading...</div> ) : (<></>)}
 
           <form autoComplete="off" onSubmit={handleInsert}>
-
+          <small id="passwordHelpBlock" className="form-text text-muted">
+                Please key in the details of your new food
+              </small>
             <div className="row">
               <div className='col'>
                 <input type="text" className="form-control btn-margin" placeholder='Name' name="name" value={formState.name} onChange={handleInsertChange} required></input>

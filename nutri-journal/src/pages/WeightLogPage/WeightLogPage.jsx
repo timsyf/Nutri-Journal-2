@@ -83,7 +83,7 @@ export default function WeightLogPage(props) {
     const lowestWeight = weightData.reduce((minWeight, w) => (w.weight < minWeight ? w.weight : minWeight), weightData[0].weight);
     return (
       <div className='container'>
-        <div className="card">
+        <div className="card btn-margin">
           <div className="card-body">
             <div style={{ overflow: 'auto', maxHeight: '400px' }}>
               <table className="table table-striped table-bordered">
@@ -103,7 +103,8 @@ export default function WeightLogPage(props) {
                 </tbody>
               </table>
             </div>
-            <div className="container">
+            </div>
+          </div>
               <div className="row">
                 <div className="col">
                   <div className="alert alert-info">
@@ -111,10 +112,7 @@ export default function WeightLogPage(props) {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
         </div>
-      </div>
     );
   };
 
@@ -131,20 +129,18 @@ export default function WeightLogPage(props) {
       <div className='container mt-4'>
         <form autoComplete="off" onSubmit={handleSearchSubmit} className="mb-4">
           <div className="row">
-            <div className="col-md-6">
+            <div className="col">
               <div className="form-group">
                 <label htmlFor="startDate">Start Date</label>
                 <input
                   type="date"
-                  className="form-control"
+                  className="form-control btn-margin"
                   id="startDate"
                   name="startDate"
                   value={formDateState.startDate}
                   onChange={handleDateChange}
                 />
               </div>
-            </div>
-            <div className="col-md-6">
               <div className="form-group btn-margin">
                 <label htmlFor="endDate">End Date</label>
                 <input

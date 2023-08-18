@@ -103,40 +103,48 @@ export default function TotalCalories(props) {
 
     return (
       <>
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Calories</th>
-              <th>Protein</th>
-              <th>Carbohydrate</th>
-            </tr>
-          </thead>
-          <tbody>
-            {userFood.map((um) => {
-              return (
-                <tr>
-                  
-                  <td><Link to={"/food/detail/" + um._id}>{um.name}</Link></td>
-                  <td>{um.calorie} kcal</td>
-                  <td>{um.protein} g</td>
-                  <td>{um.carbohydrate} g</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-
+        <div className="card btn-margin">
+          <div className="card-body">
+            <div style={{ overflow: "auto", maxHeight: "400px" }}>
+              <table className="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Calories</th>
+                    <th>Protein</th>
+                    <th>Carbohydrate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {userFood.map((um) => {
+                    return (
+                      <tr>
+                        <td>
+                          <Link to={"/food/detail/" + um._id}>{um.name}</Link>
+                        </td>
+                        <td>{um.calorie} kcal</td>
+                        <td>{um.protein} g</td>
+                        <td>{um.carbohydrate} g</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+          <div className="alert alert-info">
         <div className="row">
-          <div className="col">
-            <strong>Total Calories Consumed:</strong> {totalCalories} kcal
-          </div>
-          <div className="col">
-            <strong>Total Protein Consumed:</strong> {totalProtein} kcal
-          </div>
-          <div className="col">
-            <strong>Total Carbohydrates Consumed:</strong> {totalCarbohydrates}{" "}
-            kcal
+            <div className="col">
+              <strong>Total Calories Consumed:</strong> {totalCalories} kcal
+            </div>
+            <div className="col">
+              <strong>Total Protein Consumed:</strong> {totalProtein} kcal
+            </div>
+            <div className="col">
+              <strong>Total Carbohydrates Consumed:</strong>{" "}
+              {totalCarbohydrates} kcal
+            </div>
           </div>
         </div>
       </>
@@ -145,20 +153,17 @@ export default function TotalCalories(props) {
 
   return (
     <div className="container mt-4">
-          <form
-            autoComplete="off"
-            onSubmit={handleSearchSubmit}
-          >
-            <small id="passwordHelpBlock" className="form-text text-muted">
-              Please enter the date you're searching for
-            </small>
-            <input
-              type="date"
-              className="form-control"
-              value={selectedDate.slice(0, 10)}
-              onChange={handlesetSelectedDateChange}
-            />
-          </form>
+      <form className="btn-margin" autoComplete="off" onSubmit={handleSearchSubmit}>
+        <small id="passwordHelpBlock" className="form-text text-muted">
+          Please enter the date you're searching for
+        </small>
+        <input
+          type="date"
+          className="form-control"
+          value={selectedDate.slice(0, 10)}
+          onChange={handlesetSelectedDateChange}
+        />
+      </form>
       <div className="row">
         <div className="col">
           {loading ? <div>Loading...</div> : renderTable()}

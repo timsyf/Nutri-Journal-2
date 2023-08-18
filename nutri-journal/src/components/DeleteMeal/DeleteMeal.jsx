@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 
-export default function UserCalorieCheckIn({elements, updated, setUpdated}) {
+export default function UserCalorieCheckIn({ elements, updated, setUpdated }) {
   const [userFood, setUserFood] = useState({ name: "" });
   const [userMeal, setUserMeal] = useState([]);
   const [selectedDate, setSelectedDate] = useState(getCurrentTime());
@@ -15,6 +15,7 @@ export default function UserCalorieCheckIn({elements, updated, setUpdated}) {
 
   const remove = async (foodId) => {
     try {
+      setLoading(true);
       const response = await fetch(`/meal/${foodId}`, {
         method: "DELETE",
         headers: {
@@ -47,10 +48,8 @@ export default function UserCalorieCheckIn({elements, updated, setUpdated}) {
       const response = await fetch("/food/search?" + query.toString());
       const data = await response.json();
       setFood(data);
-      setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
-      setLoading(false);
     }
   };
 
@@ -59,25 +58,12 @@ export default function UserCalorieCheckIn({elements, updated, setUpdated}) {
   }, []);
 
   useEffect(() => {
-    if (formDataChanged) {
-      const debounceTimer = setTimeout(() => {
-        fetchSearch();
-      }, 500);
-
-      return () => {
-        clearTimeout(debounceTimer);
-      };
-    }
-  }, [formData]);
-
-  useEffect(() => {
     fetchSearchDatesAndUserFood();
     setUpdated(false);
   }, [updated]);
 
   const fetchSearchDatesAndUserFood = async () => {
     try {
-      setLoading(true);
       let query;
       if (selectedDate === "") {
         query = new URLSearchParams({
@@ -93,14 +79,12 @@ export default function UserCalorieCheckIn({elements, updated, setUpdated}) {
       const response = await fetch("/meal/search/dates?" + query.toString());
       const data = await response.json();
       setUserMeal(data);
-      setLoading(false);
 
       if (data.length === 0) {
         setUserFood([]);
         return;
       }
 
-      setLoading(true);
       const userIdsString = data.map((user) => user.foodId).join(",");
       const foodResponse = await fetch(`/food/userfood?_ids=${userIdsString}`);
       const foodData = await foodResponse.json();
@@ -111,10 +95,6 @@ export default function UserCalorieCheckIn({elements, updated, setUpdated}) {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchSearchDatesAndUserFood();
-  }, []);
 
   const handleDelete = (evt) => {
     evt.preventDefault();
@@ -136,7 +116,7 @@ export default function UserCalorieCheckIn({elements, updated, setUpdated}) {
     if (formDataChanged) {
       const debounceTimer = setTimeout(() => {
         fetchSearchDatesAndUserFood();
-      }, 0);
+      }, 100);
 
       return () => {
         clearTimeout(debounceTimer);
@@ -161,17 +141,13 @@ export default function UserCalorieCheckIn({elements, updated, setUpdated}) {
       <>
         <form autoComplete="off" onSubmit={handleDelete}>
           <div className="card">
-            <div className="card-header">
-              <h5>User Meal Data</h5>
-            </div>
             <div className="card-body">
-              <div className="table-responsive">
+              <div style={{ overflow: "auto", maxHeight: "400px" }}>
                 <table className="table table-striped table-bordered">
                   <thead>
                     <tr>
                       <th>Name</th>
                       <th>Type</th>
-                      <th>Date</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -190,7 +166,6 @@ export default function UserCalorieCheckIn({elements, updated, setUpdated}) {
                               </Link>
                             </td>
                             <td>{um.type}</td>
-                            <td>{um.date.slice(0, 10)}</td>
                             <td>
                               <button
                                 type="button"
@@ -224,9 +199,9 @@ export default function UserCalorieCheckIn({elements, updated, setUpdated}) {
     <>
       <div className="container mt-4">
         <div className="mb-3">
-        <small id="passwordHelpBlock" className="form-text text-muted">
-                Please select a date type
-              </small>
+          <small id="passwordHelpBlock" className="form-text text-muted">
+            Please select a date type
+          </small>
           <input
             type="date"
             className="form-control btn-margin"

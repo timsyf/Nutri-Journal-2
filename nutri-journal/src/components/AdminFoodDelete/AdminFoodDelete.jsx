@@ -157,7 +157,10 @@ export default function AdminFoodDelete({ adminUpdate, setAdminUpdate }) {
         <>
           <div className='container mt-4'>
         <form autoComplete="off" onSubmit={handleSearchSubmit}>
-          <input type="text" className='form-control btn-margin' placeholder="Name" name="name" value={formData.name} onChange={handleSearchChange} />
+        <small id="passwordHelpBlock" className="form-text text-muted">
+                Please search for a food to delete
+              </small>
+          <input type="text" className='form-control btn-margin' placeholder="Search" name="name" value={formData.name} onChange={handleSearchChange} />
         </form>
         {loading ? <div>Loading...</div> : renderTable()}
       </div>

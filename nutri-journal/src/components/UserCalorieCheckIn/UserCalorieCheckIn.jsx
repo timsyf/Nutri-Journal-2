@@ -146,6 +146,9 @@ export default function UserCalorieCheckIn({elements, setUpdated}) {
             </div>
 
             <div className="mb-3">
+              <small id="passwordHelpBlock" className="form-text text-muted">
+                Please select a food
+              </small>
               <select
                 className="form-select"
                 id="dropdown"
@@ -172,6 +175,10 @@ export default function UserCalorieCheckIn({elements, setUpdated}) {
             </div>
 
             <div className="mb-3">
+              
+            <small id="passwordHelpBlock" className="form-text text-muted">
+                Please select a date
+              </small>
               <input
                 type="date"
                 className="form-control"

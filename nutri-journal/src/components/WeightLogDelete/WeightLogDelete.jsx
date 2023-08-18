@@ -80,10 +80,10 @@ export default function WeightLogDelete(props) {
   return (
     <>
       <div className="container mt-4">
-        <small id="passwordHelpBlock" className="form-text text-muted">
-          Please select a date
-        </small>
         <form autoComplete="off" onSubmit={handleDeleteSubmit}>
+        <small id="passwordHelpBlock" className="form-text text-muted">
+          Please select a date to delete your weight
+        </small>
           <div className="row mb-3">
             <div className="col-sm">
               <input

@@ -98,10 +98,10 @@ export default function WeightLog(props) {
   return (
     <>
       <div className="container mt-4">
+        <form autoComplete="off" onSubmit={handleSearchSubmit}>
         <small id="passwordHelpBlock" className="form-text text-muted">
           Please select a date
         </small>
-        <form autoComplete="off" onSubmit={handleSearchSubmit}>
           <div className="row mb-3">
             <div className="col-sm">
               <input
@@ -114,6 +114,9 @@ export default function WeightLog(props) {
               />
             </div>
           </div>
+        <small id="passwordHelpBlock" className="form-text text-muted">
+          Please key in your weight
+        </small>
           <div className="row mb-3">
             <div className="col-sm">
               <input
