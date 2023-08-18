@@ -84,9 +84,6 @@ export default function WeightLogPage(props) {
     return (
       <div className='container'>
         <div className="card">
-          <div className="card-header">
-            <h5>Weight Data</h5>
-          </div>
           <div className="card-body">
             <div style={{ overflow: 'auto', maxHeight: '400px' }}>
               <table className="table table-striped table-bordered">

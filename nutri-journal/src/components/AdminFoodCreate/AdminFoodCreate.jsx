@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import swal from 'sweetalert';
 
-export default function AdminFoodCreate({ callFetch }) {
+export default function AdminFoodCreate({ adminUpdate, setAdminUpdate }) {
 
     const [loading, setLoading] = useState(false);
     const [formState, setFormState] = useState({
@@ -65,7 +65,7 @@ export default function AdminFoodCreate({ callFetch }) {
             console.error('Failed to store data in the database:', response.status);
           }
           setLoading(false);
-          callFetch();
+          setAdminUpdate(true);
         } catch (error) {
           console.error(error);
           setLoading(false);
@@ -89,15 +89,9 @@ export default function AdminFoodCreate({ callFetch }) {
       setFormState(initialFormState);
     };
 
-    function capitalizeFirstLetter(str) {
-      return (str.charAt(0).toUpperCase() + str.slice(1)).replace("_", " ");
-    }
-
     return (
         <>
         <div className="container mt-4">
-          <h2>Create Food</h2>
-
           {loading ? ( <div>Loading...</div> ) : (<></>)}
 
           <form autoComplete="off" onSubmit={handleInsert}>

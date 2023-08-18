@@ -1,13 +1,57 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 
-export default function AdminFoodDelete({ callFetch }) {
+export default function AdminFoodDelete({ adminUpdate, setAdminUpdate }) {
 
   const [formData, setFormData] = useState({ name: '' });
   const [food, setFood] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [removeID, setRemoveID] = useState([]);
+    const [formDataChanged, setFormDataChanged] = useState(false);
+
+    const fetchSearch = async () => {
+      try {
+        setLoading(true);
+        const query = new URLSearchParams({
+          name: formData.name,
+        });
+        const response = await fetch('/food/search?' + query.toString());
+        const data = await response.json();
+        setFood(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      }
+    };
+
+    useEffect(() => {
+        fetchSearch();
+    }, []);
+
+    useEffect(() => {
+        if (formDataChanged) {
+          const debounceTimer = setTimeout(() => {
+            fetchSearch();
+          }, 500);
     
+          return () => {
+            clearTimeout(debounceTimer);
+          };
+        }
+      }, [formData]);
+    
+    const handleSearchChange = (evt) => {
+      const { name, value } = evt.target;
+      setFormData({ ...formData, [name]: value });
+      setFormDataChanged(true);
+    };
+
+    const handleSearchSubmit = (evt) => {
+      evt.preventDefault();
+      fetchSearch();
+    }
+
     const fetchSearchDelete = async () => {
       try {
         setLoading(true);
@@ -23,15 +67,11 @@ export default function AdminFoodDelete({ callFetch }) {
         setLoading(false);
       }
     };
-    
-    useEffect(() => {
-      fetchSearchDelete();
-    }, []);
 
-    const remove = async () => {
+    const remove = async (id) => {
         try {
           setLoading(true);
-          const response = await fetch(`/food/${removeID}`, {
+          const response = await fetch(`/food/${id}`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json'
@@ -45,37 +85,82 @@ export default function AdminFoodDelete({ callFetch }) {
             console.error('Failed to delete data from the database:', response.status);
           }
           setLoading(false);
-          callFetch();
           fetchSearchDelete();
+          setAdminUpdate(true);
         } catch (error) {
           console.error(error);
           setLoading(false);
         }
     };
 
+    useEffect(() => {
+      fetchSearchDelete();
+      setAdminUpdate(false);
+    }, [adminUpdate]);
+
     async function handleDelete(evt) {
         evt.preventDefault();
-        remove();
-        fetchSearchDelete();
+        remove(evt.target.name);
     }
 
-    function handleDeleteChange(evt) {
-      const selectedId = evt.target.value;
-      setRemoveID(selectedId);
-      fetchSearchDelete();
-    }
+    const renderTable = () => {
+      if (food.length === 0) {
+        return <p>No food items found.</p>;
+      }
+    
+      return (
+        <div className="card">
+          <div className="card-body">
+            <div style={{ overflowY: "auto", maxHeight: "400px" }}>
+              <table className="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Calories</th>
+                    <th>Carbohydrate</th>
+                    <th>Protein</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {food.map((food) => (
+                    <tr key={food._id}>
+                      <td>
+                        <Link to={"/food/detail/" + food._id}>{food.name}</Link>
+                      </td>
+                      <td>{food.calorie} kcal</td>
+                      <td>{food.carbohydrate} g</td>
+                      <td>{food.protein} g</td>
+                      <td>
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        name={food._id}
+                        onClick={handleDelete}
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title="Copy to clipboard"
+                      >
+                        Delete
+                      </button></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      );
+    };
 
     return (
         <>
-          <div className="container mt-4">
-            <h2>Delete Food</h2>
-            <div>
-              <form autoComplete="off" onSubmit={handleDelete}>
-                <input type="text" className="form-control btn-margin" placeholder='ID' onChange={handleDeleteChange} required></input>
-                <button type="submit" className="btn btn-primary btn-lg btn-block btn-margin" style={{ width: '100%' }}>Delete</button>
-              </form>
-            </div>
-          </div>
+          <div className='container mt-4'>
+        <form autoComplete="off" onSubmit={handleSearchSubmit}>
+          <input type="text" className='form-control btn-margin' placeholder="Name" name="name" value={formData.name} onChange={handleSearchChange} />
+        </form>
+        {loading ? <div>Loading...</div> : renderTable()}
+      </div>
         </>
     );
   }
