@@ -43,9 +43,6 @@ export default function LoginForm({ setUser }) {
         <div className="form-group">
           <label for="exampleDropdownFormPassword1">Password</label>
           <input type="password" className="form-control" id="exampleDropdownFormPassword1" name="password" value={credentials.password} placeholder="Password" onChange={handleChange} required></input>
-          <small id="passwordHelpBlock" className="form-text text-muted">
-            Your password must be 4 characters long.
-          </small>
         </div>
         <br></br>
         <button type="submit" className="btn btn-primary">Sign in</button>

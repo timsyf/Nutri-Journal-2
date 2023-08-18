@@ -1,167 +1,169 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function TotalCalories(props) {
+  const { user } = props.elements;
+  const [userFood, setUserFood] = useState({ name: "" });
+  const [userMeal, setUserMeal] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [formDataChanged, setFormDataChanged] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(getCurrentTime());
 
-    const { user } = props.elements;
-    const [userFood, setUserFood] = useState({ name: '' });
-    const [userMeal, setUserMeal] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [formDataChanged, setFormDataChanged] = useState(false);
-    const [selectedDate, setSelectedDate] = useState(getCurrentTime());
-
-    const fetchSearchDatesAndUserFood = async () => {
-      try {
-        setLoading(true);
-        let query;
-        if (selectedDate === '') {
-          query = new URLSearchParams({
-            userId: user._id,
-          });
-        } else {
-          query = new URLSearchParams({
-            userId: user._id,
-            date: selectedDate,
-          });
-        }
-    
-        const response = await fetch('/meal/search/dates?' + query.toString());
-        const data = await response.json();
-        setUserMeal(data);
-        setLoading(false);
-        
-        if (data.length === 0) {
-          setUserFood([]);
-          return;
-        }
-    
-        setLoading(true);
-        const userIdsString = data.map((user) => user.foodId).join(",");
-        const foodResponse = await fetch(`/food/userfood?_ids=${userIdsString}`);
-        const foodData = await foodResponse.json();
-        setLoading(false);
-        setUserFood(foodData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setLoading(false);
+  const fetchSearchDatesAndUserFood = async () => {
+    try {
+      setLoading(true);
+      let query;
+      if (selectedDate === "") {
+        query = new URLSearchParams({
+          userId: user._id,
+        });
+      } else {
+        query = new URLSearchParams({
+          userId: user._id,
+          date: selectedDate,
+        });
       }
-    };
 
-    useEffect(() => {
-        fetchSearchDatesAndUserFood();
-    }, []);
+      const response = await fetch("/meal/search/dates?" + query.toString());
+      const data = await response.json();
+      setUserMeal(data);
+      setLoading(false);
 
-    useEffect(() => {
-        if (formDataChanged) {
-            const debounceTimer = setTimeout(() => {
-                fetchSearchDatesAndUserFood();
-            }, 500);
-        
-            return () => {
-                clearTimeout(debounceTimer);
-            };
-        }
-    }, [selectedDate]);
+      if (data.length === 0) {
+        setUserFood([]);
+        return;
+      }
 
-    const handleSearchSubmit = (evt) => {
-      evt.preventDefault();
+      setLoading(true);
+      const userIdsString = data.map((user) => user.foodId).join(",");
+      const foodResponse = await fetch(`/food/userfood?_ids=${userIdsString}`);
+      const foodData = await foodResponse.json();
+      setLoading(false);
+      setUserFood(foodData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false);
     }
+  };
 
-    const handlesetSelectedDateChange = (evt) => {
+  useEffect(() => {
+    fetchSearchDatesAndUserFood();
+  }, []);
+
+  useEffect(() => {
+    if (formDataChanged) {
+      const debounceTimer = setTimeout(() => {
+        fetchSearchDatesAndUserFood();
+      }, 500);
+
+      return () => {
+        clearTimeout(debounceTimer);
+      };
+    }
+  }, [selectedDate]);
+
+  const handleSearchSubmit = (evt) => {
+    evt.preventDefault();
+  };
+
+  const handlesetSelectedDateChange = (evt) => {
     if (evt.target.value) {
-        setSelectedDate(new Date(evt.target.value).toISOString());
+      setSelectedDate(new Date(evt.target.value).toISOString());
     } else {
-        setSelectedDate('');
+      setSelectedDate("");
     }
 
     setFormDataChanged(true);
-      console.log(selectedDate);
+    console.log(selectedDate);
+  };
+
+  function getCurrentTime() {
+    const currentTime = new Date();
+    const year = currentTime.getFullYear().toString();
+    const month = (currentTime.getMonth() + 1).toString().padStart(2, "0");
+    const day = currentTime.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
+  const renderTable = () => {
+    if (userMeal.length === 0) {
+      return <p>No food data found.</p>;
     }
 
-    function getCurrentTime() {
-      const currentTime = new Date();
-      const year = currentTime.getFullYear().toString();
-      const month = (currentTime.getMonth() + 1).toString().padStart(2, '0');
-      const day = currentTime.getDate().toString().padStart(2, '0');
-      return `${year}-${month}-${day}`;
-    }
+    // Calculate the total sum of calories
+    const totalCalories = userFood
+      .reduce((sum, um) => sum + um.calorie, 0)
+      .toFixed(1);
+    const totalProtein = userFood
+      .reduce((sum, um) => sum + um.protein, 0)
+      .toFixed(1);
+    const totalCarbohydrates = userFood
+      .reduce((sum, um) => sum + um.carbohydrate, 0)
+      .toFixed(1);
 
-    const renderTable = () => {
-      if (userMeal.length === 0) {
-        return <p>No food data found.</p>;
-      }
-    
-      // Calculate the total sum of calories
-      const totalCalories = userFood.reduce((sum, um) => sum + um.calorie, 0).toFixed(1);
-      const totalProtein = userFood.reduce((sum, um) => sum + um.protein, 0).toFixed(1);
-      const totalCarbohydrates = userFood.reduce((sum, um) => sum + um.carbohydrate, 0).toFixed(1);
-    
-      return (
-        <div className="card">
-          <div className="card-header">
-            <h5>Food Data</h5>
-          </div>
-          <div className="card-body">
-            <div className="table-container" style={{ maxHeight: "300px", overflowY: "auto" }}>
-              <table className="table table-striped table-bordered">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Calories</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {userFood.map((um) => {
-                    return (
-                      <tr>
-                        <td>{um.name}</td>
-                        <td>{um.calorie} kcal</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-            <div className="row">
-              <div className="col">
-                <strong>Total Calories Consumed:</strong> {totalCalories} kcal
-              </div>
-              <div className="col">
-                <strong>Total Protein Consumed:</strong> {totalProtein} kcal
-              </div>
-              <div className="col">
-                <strong>Total Carbohydrates Consumed:</strong> {totalCarbohydrates} kcal
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    };
-    
     return (
-      <div className="container mt-4">
+      <>
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Calories</th>
+              <th>Protein</th>
+              <th>Carbohydrate</th>
+            </tr>
+          </thead>
+          <tbody>
+            {userFood.map((um) => {
+              return (
+                <tr>
+                  
+                  <td><Link to={"/food/detail/" + um._id}>{um.name}</Link></td>
+                  <td>{um.calorie} kcal</td>
+                  <td>{um.protein} g</td>
+                  <td>{um.carbohydrate} g</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+
         <div className="row">
           <div className="col">
-            <h2>Calories Journal</h2>
+            <strong>Total Calories Consumed:</strong> {totalCalories} kcal
+          </div>
+          <div className="col">
+            <strong>Total Protein Consumed:</strong> {totalProtein} kcal
+          </div>
+          <div className="col">
+            <strong>Total Carbohydrates Consumed:</strong> {totalCarbohydrates}{" "}
+            kcal
           </div>
         </div>
-        <div className="row">
-          <div className="col">
-            <form className="mb-3" autoComplete="off" onSubmit={handleSearchSubmit}>
-              <input
-                type="date"
-                className="form-control"
-                value={selectedDate.slice(0, 10)}
-                onChange={handlesetSelectedDateChange}
-              />
-            </form>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col">
-            {loading ? <div>Loading...</div> : renderTable()}
-          </div>
+      </>
+    );
+  };
+
+  return (
+    <div className="container mt-4">
+          <form
+            autoComplete="off"
+            onSubmit={handleSearchSubmit}
+          >
+            <small id="passwordHelpBlock" className="form-text text-muted">
+              Please enter the date you're searching for
+            </small>
+            <input
+              type="date"
+              className="form-control"
+              value={selectedDate.slice(0, 10)}
+              onChange={handlesetSelectedDateChange}
+            />
+          </form>
+      <div className="row">
+        <div className="col">
+          {loading ? <div>Loading...</div> : renderTable()}
         </div>
       </div>
-    );
+    </div>
+  );
 }

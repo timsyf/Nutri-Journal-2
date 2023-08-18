@@ -41,8 +41,7 @@ a {
 }
 
 body {
-  background-color: #DEF2F1;
-  margin-bottom: 50px;
+  background: rgb(255,255,255);
 }
 
 .btn-margin {
@@ -51,4 +50,12 @@ body {
 
 .top-margin {
   margin-top: 10px;
+}
+
+nav {
+  padding: 0 10px;
+}
+
+.navbar-nav a {
+  color: black;
 }
