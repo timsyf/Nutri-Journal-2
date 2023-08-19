@@ -33,25 +33,6 @@ export default function App() {
     setShowDefaultForm(true);
   };
 
-  const fetchOneFood = async () => {
-    try {
-      const response = await fetch(
-        "/user/setup/" + encodeURIComponent(user._id)
-      );
-      const data = await response.json();
-
-      if (data.found) {
-        console.log("User found!");
-        setUserConfigured(true);
-      } else {
-        console.log("User not found.");
-        setUserConfigured(false);
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
   return (
     <main className="App">
       {user ? (

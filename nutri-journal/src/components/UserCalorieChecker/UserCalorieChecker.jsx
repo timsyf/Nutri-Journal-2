@@ -27,14 +27,12 @@ export default function UserCalorieChecker(props) {
       const response = await fetch("/meal/search/dates?" + query.toString());
       const data = await response.json();
       setUserMeal(data);
-      setLoading(false);
 
       if (data.length === 0) {
         setUserFood([]);
         return;
       }
 
-      setLoading(true);
       const userIdsString = data.map((user) => user.foodId).join(",");
       const foodResponse = await fetch(`/food/userfood?_ids=${userIdsString}`);
       const foodData = await foodResponse.json();

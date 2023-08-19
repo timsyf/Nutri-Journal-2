@@ -54,11 +54,12 @@ export default function AdminFoodUpdate({ adminUpdate, setAdminUpdate }) {
       setLoading(true);
 
       const hasNonEmptyValue = Object.values(formState).some(
-        (value) => value !== null
+        (value) => value !== ""
       );
 
       if (!hasNonEmptyValue) {
         console.log("No changes to update.");
+        swal("No changes to update!");
         setLoading(false);
         return;
       }
