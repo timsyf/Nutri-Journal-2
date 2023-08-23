@@ -45,6 +45,7 @@ export default function WeightLog(props) {
         });
 
         setLoading(false);
+        props.callFetch();
         
         if (response.ok) {
           const newData = await response.json();
@@ -66,8 +67,6 @@ export default function WeightLog(props) {
           dateAndUserExistsResponse.status
         );
       }
-
-      props.callFetch();
     } catch (error) {
       console.error(error);
       setLoading(false);

@@ -25,6 +25,10 @@ export default function WeightLogDelete(props) {
       );
 
       console.log(dateExistsResponse);
+
+      setLoading(false);
+      props.callFetch();
+
       if (dateExistsResponse.ok) {
         const data = await dateExistsResponse.json();
         if (data.deleted) {
@@ -47,8 +51,6 @@ export default function WeightLogDelete(props) {
           dateExistsResponse.status
         );
       }
-      setLoading(false);
-      props.callFetch();
     } catch (error) {
       console.error(error);
       setLoading(false);
