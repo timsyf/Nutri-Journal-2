@@ -52,7 +52,7 @@ export default function UserWeightChecker(props) {
     if (formDataChanged) {
       const debounceTimer = setTimeout(() => {
         fetchDateByRange();
-      }, 500);
+      }, 0);
 
       return () => {
         clearTimeout(debounceTimer);
@@ -138,7 +138,7 @@ export default function UserWeightChecker(props) {
             value={formDateState.endDate}
             onChange={handleDateChange}
           />
-          {loading ? <div>Loading...</div> : renderTable()}
+          {loading ? <div className="overlay"><div className="spinner"></div></div> : renderTable()}
           </div>
         </div>
       </form>

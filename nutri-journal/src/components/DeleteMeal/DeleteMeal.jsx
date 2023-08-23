@@ -31,15 +31,15 @@ export default function UserCalorieCheckIn({ elements, updated, setUpdated }) {
         );
       }
       fetchSearchDatesAndUserFood();
-
-      swal("Meal has been deleted!");
       console.log(response);
+      swal("Meal has been deleted!");
     } catch (error) {
+      setLoading(false);
       console.error(error);
     }
   };
 
-  const fetchSearch = async () => {
+  /*const fetchSearch = async () => {
     try {
       setLoading(true);
       const query = new URLSearchParams({
@@ -48,22 +48,26 @@ export default function UserCalorieCheckIn({ elements, updated, setUpdated }) {
       const response = await fetch("/food/search?" + query.toString());
       const data = await response.json();
       setFood(data);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchSearch();
-  }, []);
+  }, []);*/
 
   useEffect(() => {
+    //fetchSearch();
     fetchSearchDatesAndUserFood();
     setUpdated(false);
   }, [updated]);
 
   const fetchSearchDatesAndUserFood = async () => {
     try {
+      setLoading(true);
       let query;
       if (selectedDate === "") {
         query = new URLSearchParams({
@@ -82,6 +86,7 @@ export default function UserCalorieCheckIn({ elements, updated, setUpdated }) {
 
       if (data.length === 0) {
         setUserFood([]);
+        setLoading(false);
         return;
       }
 
@@ -133,8 +138,8 @@ export default function UserCalorieCheckIn({ elements, updated, setUpdated }) {
   }
 
   const renderTable = () => {
-    if (food.length === 0) {
-      return <p>No food data found.</p>;
+    if (userFood.length === 0) {
+      return <p>No meal data found.</p>;
     }
 
     return (
@@ -210,7 +215,7 @@ export default function UserCalorieCheckIn({ elements, updated, setUpdated }) {
             onChange={handlesetSelectedDateChange}
           />
         </div>
-        {loading ? <div>Loading...</div> : renderTable()}
+        {loading ? <div className="overlay"><div className="spinner"></div></div> : renderTable()}
       </div>
     </>
   );

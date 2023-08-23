@@ -153,7 +153,7 @@ export default function WeightLogPage(props) {
                 />
               </div>
             </div>
-            {loading ? <div>Loading...</div> : renderTable()}
+            {loading ? <div className="overlay"><div className="spinner"></div></div> : renderTable()}
           </div>
         </form>
       </div>

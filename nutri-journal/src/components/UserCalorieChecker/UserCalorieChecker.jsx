@@ -30,14 +30,15 @@ export default function UserCalorieChecker(props) {
 
       if (data.length === 0) {
         setUserFood([]);
+        setLoading(false);
         return;
       }
 
       const userIdsString = data.map((user) => user.foodId).join(",");
       const foodResponse = await fetch(`/food/userfood?_ids=${userIdsString}`);
       const foodData = await foodResponse.json();
-      setLoading(false);
       setUserFood(foodData);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
       setLoading(false);
@@ -52,7 +53,7 @@ export default function UserCalorieChecker(props) {
     if (formDataChanged) {
       const debounceTimer = setTimeout(() => {
         fetchSearchDatesAndUserFood();
-      }, 500);
+      }, 0);
 
       return () => {
         clearTimeout(debounceTimer);
@@ -84,7 +85,7 @@ export default function UserCalorieChecker(props) {
   }
 
   const renderTable = () => {
-    if (userMeal.length === 0) {
+    if (userFood.length === 0) {
       return <p>No meal data found.</p>;
     }
 
@@ -143,7 +144,7 @@ export default function UserCalorieChecker(props) {
           onChange={handlesetSelectedDateChange}
         />
       </form>
-      {loading ? <div>Loading...</div> : renderTable()}
+      {loading ? <div className="overlay"><div className="spinner"></div></div> : renderTable()}
     </div>
   );
 }

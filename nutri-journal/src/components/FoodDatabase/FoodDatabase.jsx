@@ -116,7 +116,7 @@ export default function FoodDatabase() {
       </div>
       <div className="row">
         <div className="col">
-          {loading ? <div>Loading...</div> : renderTable()}
+        {loading ? <div className="overlay"><div className="spinner"></div></div> : renderTable()}
         </div>
       </div>
     </div>

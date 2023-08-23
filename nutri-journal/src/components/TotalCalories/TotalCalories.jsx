@@ -54,7 +54,7 @@ export default function TotalCalories(props) {
     if (formDataChanged) {
       const debounceTimer = setTimeout(() => {
         fetchSearchDatesAndUserFood();
-      }, 500);
+      }, 0);
 
       return () => {
         clearTimeout(debounceTimer);
@@ -166,7 +166,7 @@ export default function TotalCalories(props) {
       </form>
       <div className="row">
         <div className="col">
-          {loading ? <div>Loading...</div> : renderTable()}
+        {loading ? <div className="overlay"><div className="spinner"></div></div> : renderTable()}
         </div>
       </div>
     </div>

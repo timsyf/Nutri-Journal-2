@@ -44,6 +44,8 @@ export default function WeightLog(props) {
           body: JSON.stringify(formState),
         });
 
+        setLoading(false);
+        
         if (response.ok) {
           const newData = await response.json();
           swal("Weight has been stored in the database!");
@@ -65,7 +67,6 @@ export default function WeightLog(props) {
         );
       }
 
-      setLoading(false);
       props.callFetch();
     } catch (error) {
       console.error(error);

@@ -87,7 +87,7 @@ export default function FoodDetail() {
     return (
       <div className="container mt-4">
         <h2>{food.name}</h2>
-        {loading ? <div>Loading...</div> : renderTable()}
+        {loading ? <div className="overlay"><div className="spinner"></div></div> : renderTable()}
       </div>
     );
   }

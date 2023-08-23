@@ -19,6 +19,7 @@ export default function UserCalorieCheckIn({elements, setUpdated}) {
 
   const insert = async () => {
     try {
+      setLoading(true);
       const response = await fetch("/meal", {
         method: "POST",
         headers: {
@@ -30,12 +31,14 @@ export default function UserCalorieCheckIn({elements, setUpdated}) {
       if (response.ok) {
         const data = await response.json();
         console.log("Data stored in the database:", data);
-        swal("Meal has been added!");
         setUpdated(true);
       } else {
         console.error("Failed to store data in the database:", response.status);
       }
+      setLoading(false);
+      swal("Meal has been added!");
     } catch (error) {
+      setLoading(false);
       console.error(error);
     }
   };
@@ -198,6 +201,7 @@ export default function UserCalorieCheckIn({elements, setUpdated}) {
             </button>
           </form>
         </div>
+        {loading ? <div className="overlay"><div className="spinner"></div></div> : <></>}
       </div>
     </>
   );
