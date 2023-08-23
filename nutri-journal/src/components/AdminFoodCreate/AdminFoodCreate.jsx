@@ -92,7 +92,7 @@ export default function AdminFoodCreate({ adminUpdate, setAdminUpdate }) {
     return (
         <>
         <div className="container mt-4">
-          {loading ? ( <div>Loading...</div> ) : (<></>)}
+          {loading ? ( <div className="overlay"><div className="spinner"></div></div> ) : (<></>)}
 
           <form autoComplete="off" onSubmit={handleInsert}>
           <small id="passwordHelpBlock" className="form-text text-muted">
