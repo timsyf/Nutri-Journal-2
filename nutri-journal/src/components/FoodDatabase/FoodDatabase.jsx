@@ -41,7 +41,12 @@ export default function FoodDatabase() {
 
   const handleSearchChange = (evt) => {
     const { name, value } = evt.target;
-    setFormData({ ...formData, [name]: value });
+    
+    const regex = /[^a-zA-Z0-9\s]/g;
+    
+    const sanitizedValue = value.replace(regex, '');
+  
+    setFormData({ ...formData, [name]: sanitizedValue });
     setFormDataChanged(true);
   };
 
