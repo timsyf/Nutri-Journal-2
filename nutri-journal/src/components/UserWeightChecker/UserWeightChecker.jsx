@@ -77,6 +77,8 @@ export default function UserWeightChecker(props) {
       (minWeight, w) => (w.weight < minWeight ? w.weight : minWeight),
       weightData[0].weight
     );
+    
+    const sortedWeightData = weightData.sort((a, b) => new Date(a.date) - new Date(b.date));
 
     return (
       <>
@@ -91,7 +93,7 @@ export default function UserWeightChecker(props) {
                   </tr>
                 </thead>
                 <tbody>
-                  {weightData.map((w) => (
+                  {sortedWeightData.map((w) => (
                     <tr key={w._id}>
                       <td>{w.weight} kg</td>
                       <td>{w.date.slice(0, 10)}</td>
